@@ -76,7 +76,7 @@ $env:DEEPSEEK_API_KEY = [System.Net.NetworkCredential]::new('', $deepseekSecret)
 Remove-Variable deepseekSecret
 ```
 
-在下列命令中，把占位符换成你账户当前可用的模型 ID：
+运行命令时，将占位符替换为 API 账户当前可用的模型 ID：
 
 ```bash
 python -m token_budget_lab.deepseek --model YOUR_AVAILABLE_MODEL_ID --limit 4 --max-tokens 256
@@ -113,8 +113,8 @@ python -m token_budget_lab --encoding cl100k_base --output local_results/tokeniz
 
 ## 文件阅读顺序
 
-1. [学习路线](docs/LEARNING_GUIDE.md)：读哪些资料、每篇掌握什么、每天做什么。
-2. [代码讲解](docs/CODE_WALKTHROUGH.md)：从问题输入跟到结果输出。
+1. [技术背景与阅读路线](docs/LEARNING_GUIDE.md)：相关方法、论文与复现安排。
+2. [实现说明与请求处理流程](docs/CODE_WALKTHROUGH.md)：输入、缓存、筛选、生成与评测。
 3. `token_budget_lab/core.py`：分句、BM25、预算选择、缓存。
 4. `token_budget_lab/benchmark.py`：对照实验、评价指标、报告。
 5. `token_budget_lab/deepseek.py`：真实 API 实验和 usage。
