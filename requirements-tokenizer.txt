@@ -1,0 +1,2 @@
+# Optional: only needed for --encoding cl100k_base / o200k_base.
+tiktoken>=0.7,<1
