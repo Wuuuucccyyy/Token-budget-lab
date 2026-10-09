@@ -7,4 +7,6 @@ __pycache__/
 *.log
 private_data/
 local_results/
+data/raw/
+model_cache/
 .DS_Store

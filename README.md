@@ -1,74 +1,79 @@
 # Token Budget Lab
 
-本项目实现并评测两类降低模型调用开销的方法：**复用已有回答，以及按问题筛选上下文。**
+[![offline-tests](https://github.com/Wuuuucccyyy/Token-budget-lab/actions/workflows/test.yml/badge.svg)](https://github.com/Wuuuucccyyy/Token-budget-lab/actions/workflows/test.yml)
 
-不需要 GPU；离线版本不需要安装依赖。提供 DeepSeek 真实 API 实验入口。
-实现参考 GPTCache 和 LLMLingua 所涉及的问题设定，但不是论文复现，也没有证明优于这些系统。
-本文档记录当前实现、实验设置、结果及其局限；所有结论均限定于明确说明的数据和指标。
+本项目研究文档问答中的上下文筛选与回答缓存：在减少模型输入和请求次数的同时，测量证据丢失、回答质量变化与额外处理开销。实现包括 BM25 句子检索、邻域保留、精确/词面缓存，以及可恢复的 DeepSeek 实验流程。
 
-## 先运行
+当前包含 **74 条合成请求的真实 API 实验**，以及 **480 道公开数据问答、其中 100 道测试题 × 12 组配置的离线对照**。两类实验分别报告，字符节省不冒充模型 token 节省，句子检索指标不冒充大模型准确率。
 
-需要 Python 3.10 或更新版本。在项目根目录打开终端：
+## 快速运行
+
+Python 3.10+；默认路径仅依赖标准库，无需 GPU 或 API Key。
 
 ```bash
 python -m unittest discover -s tests -v
-python -m token_budget_lab
+python scripts/reproduce.py --output local_results/public-reproduce
 ```
 
-查看 [生成的实验报告](results/REPORT.md)，逐条结果在 `results/results.json`。
-默认使用 **字符数**，不是模型 token 数；离线回答器只返回相关句子，不会调用大模型。
+生成运行清单、逐请求日志、汇总、失败案例与待填写的人工复核表。需要图表时先安装 `requirements-analysis.txt`，再在复现命令末尾加 `--plots`。合成数据的原始入口仍为 `python -m token_budget_lab --output local_results/synthetic`。
 
-## 这个项目研究什么
-
-给定问题和一段材料，我们能否只发送相关内容，同时复用已回答的问题？
-
-例如材料既包含食堂位置，也包含图书馆开放时间。问题是“图书馆周日开放吗”，
-就优先保留图书馆的相关句子。再次收到同一问题时，如果材料、用户范围和模型配置没变，直接返回缓存答案。
+## 方法与处理流程
 
 ```mermaid
 flowchart LR
-    A[问题与原始材料] --> B{缓存命中?}
-    B -->|是| E[复用答案]
-    B -->|否| C[按问题给句子打分]
-    C --> D[预算内保留整句]
-    D --> F[离线检索器或 DeepSeek]
-    F --> G[保存答案和来源]
+    A[问题与原始材料] --> B{作用域内精确缓存}
+    B -->|命中| G[复用回答与来源]
+    B -->|未命中| C[上下文预算]
+    C --> D[Head / BM25 / 邻域保留]
+    D --> E[离线回答器或 DeepSeek]
+    E --> F[追加日志与质量评分]
+    E -->|完整非空回答| G
 ```
 
-| 模块 | 实现 | 需要知道的局限 |
+| 方法 | 选择依据 | 当前局限 |
 |---|---|---|
-| 上下文筛选 | BM25 句子相关性排序，在预算内保留整句 | 看词语重合，不能充分理解同义词、代词和多步推理 |
-| 精确缓存 | 问题逐字相同；范围包含原始材料、用户、模型、提示词及压缩配置 | 进程内存缓存，程序退出就清空；无法捕获外部世界变化 |
-| 近似缓存实验 | 中文字/双字片段及英文词的余弦相似度 | 是词面相似度，不是 embedding 语义缓存；可能误命中 |
-| 离线评测 | 原文证据保留、答案片段包含、错误缓存复用 | 74 条人工构造请求、20 份材料、38 个事实标签；不是独立真实数据集 |
-| DeepSeek 评测 | 真实 `usage`、输入/输出 token、服务端缓存 token、耗时 | 真实调用结果单独保存，不含密钥 |
+| Full | 保留全部上下文 | 输入较长 |
+| Head | 按原文顺序保留整句 | 容易丢失后部证据 |
+| BM25 | 根据问题与句子的词项匹配排序 | 不充分处理同义词、指代与推理 |
+| BM25 + 邻域 | 高分锚句附近的句子优先占用预算 | 可能挤掉远处证据；不保证改善 |
+| 精确缓存 | 相同问题、材料、范围与配置 | 收益取决于重复比例 |
+| 词面近似缓存 | 词项余弦相似度 | 仅在合成实验中研究，存在否定与数字误命中 |
+| LLMLingua-2 post-fit | 可选学习式压缩及外层预算裁剪 | 已提供入口，尚未运行权重推理 |
 
-## 已运行的离线实验
+半径 0 的邻域方法与 BM25 等价，半径 1、2 用于消融。所有评分标注仅在推理结束后使用。字符预算包含拼接换行，系统指令和问题保持完整。
 
-74 条请求、20 组配置，包括重复问题、改写、数字差异、否定、材料更新和多句证据。
-样例来自 20 份人工编写的虚构材料；有意安排的重复与改写用于测量缓存行为，不是独立样本。
-Python 3.11.9 下通过 20 项单元测试。GitHub Actions 配置了 3.10 / 3.11 / 3.12，远端运行状态以 Actions 页面为准。
+## 公开数据与离线结果
 
-离线字符统计在保留比例 50% 时，BM25 + 精确缓存相对完整输入：
+数据来源为 SQuAD v1.1 的公开开发集：将同篇文章的段落组合成较长材料，每篇随机抽取 10 题，共 48 篇、480 题。文章长度约 1.5 万至 8.6 万字符。按文章隔离为 280/100/100 题。来源、固定版本、改编与许可见 [数据说明](data/PUBLIC_DATA.md)。
 
-- 模拟调用数从 74 次降到 56 次。
-- 拟发送输入**字符数**减少 52.2%。
-- 全部证据保留率 90.5%；离线句子检索器的答案片段包含率 87.8%。
-- 精确缓存 18 次命中，按样例标签统计错误复用为 0。
+这是本项目的 SQuAD 文章级派生任务，不是官方榜单成绩，也不是 LongBench 复现。当前测试覆盖 12 个固定设置，不据测试结果选择最优参数。
 
-相同比例、词面相似度阈值 0.70 时，29 次命中有 8 次错误复用。
-这个例子说明不能只追求“节省最多”。上述数字依赖这套人工数据；**不是 DeepSeek 实测 token 节省或准确率**。
+| 策略（50% 字符预算） | 离线答案片段包含率 | 答案原文保留率 |
+|---|---:|---:|
+| Full | 72% | 100% |
+| Head | 36% | 63% |
+| BM25 | 72% | 95% |
+| BM25 + 邻域半径 1 | 71% | 96% |
 
-## 扩展样本的 DeepSeek 实验
+邻域方法多保留了一部分答案原文，但没有提升这轮离线回答指标。离线回答器返回相关句子，尚不能说明 DeepSeek 在这些材料上的表现。
 
-另有一次真实 API 实验：74 条请求、20 份虚构材料；主质量分析排除 18 条精确重复，按 56 个非重复问题计算，并按材料做聚类 bootstrap。BM25 对非重复问题减少 29.1% 输入 token，答案片段通过率从 87.5% 降至 78.6%。完整结果、置信区间和局限见 [DeepSeek 扩展实验报告](results/DEEPSEEK_EXPANDED_REPORT.md)。
+![公开数据离线对照](results/public/tradeoff.png)
 
-此实验是合成样例上的初步观察，不是独立真实数据集评测；报告公开汇总数据和逐题 token/评分字段，不公开逐条生成答案。离线字符实验与真实 API token 实验是不同测量，不能混为一谈。
+完整表格、EM/F1、材料簇区间及逐题数值见 [公开数据报告](results/public/REPORT.md)、[统计摘要](results/public/summary.json) 和 [失败案例](results/public/FAILURE_CASES.md)。原始回答与上下文可通过固定配置重新生成。
 
-## 用 DeepSeek 做真实实验
+## 已有 DeepSeek 实测
 
-先在 DeepSeek 平台创建 API Key。仅在本机设置 `DEEPSEEK_API_KEY`，不要写进仓库。
-PowerShell 可用遮蔽输入方式设置当前终端的环境变量，避免把密钥写进命令历史：
+2026-10-09 的实验覆盖 74 条人工构造请求、20 份材料。去除 18 条精确重复后，BM25 将 56 个问题的输入总量从 6,339 降到 4,495 token（减少 29.1%），答案片段通过率从 87.5% 降到 78.6%。输出 token 同时从 3,605 增到 4,346，因此输入节省不等于相同比例的总开销节省。
+
+计入重复请求的系统级比较中，BM25 + 精确缓存相对 Full 将调用从 74 次降到 56 次，输入 token 减少 46.4%。这个数字同时包含检索与缓存收益。
+
+![历史 DeepSeek 输入输出与质量区间](results/figures/deepseek_tradeoff.png)
+
+设置、材料簇置信区间以及一次未计量请求的限制见 [DeepSeek 报告](results/DEEPSEEK_EXPANDED_REPORT.md)。公开 CSV 可通过 `analysis.py` 重算，完整私有调用日志不进入仓库。
+
+## 新版真实实验入口
+
+在本机设置 `DEEPSEEK_API_KEY`，不把密钥写入仓库或聊天。PowerShell 可使用遮蔽输入：
 
 ```powershell
 $deepseekSecret = Read-Host 'DeepSeek API Key' -AsSecureString
@@ -76,67 +81,40 @@ $env:DEEPSEEK_API_KEY = [System.Net.NetworkCredential]::new('', $deepseekSecret)
 Remove-Variable deepseekSecret
 ```
 
-运行命令时，将占位符替换为 API 账户当前可用的模型 ID：
+将 `configs/deepseek_pilot.json` 的模型占位符改为账户可用模型 ID。先检查计划，再实际调用：
 
 ```bash
-python -m token_budget_lab.deepseek --model YOUR_AVAILABLE_MODEL_ID --limit 4 --max-tokens 256
+python -m token_budget_lab.experiment --config configs/deepseek_pilot.json --dry-run
+python -m token_budget_lab.experiment --config configs/deepseek_pilot.json --output local_results/deepseek-public
 ```
 
-此命令会真实发送数据并产生 API 费用。默认对前 4 条请求运行 5 种策略，最多 20 次调用；精确缓存命中会减少调用。
-先小样本验证，再用 `--limit 74` 运行完整请求集。模型名以 [DeepSeek 官方文档](https://api-docs.deepseek.com/en/) 和调用账户当前可用模型为准，不硬编码旧模型名。
+计划从 10 篇开发集文章各取 1 题、比较 4 种方法，最多 40 次调用。真实运行产生费用；上限约束调用次数而不是金额。默认关闭思考模式、最多输出 512 token；与历史实验设置不同。
 
-输出写入被 Git 忽略的 `local_results/时间戳/`：
+新流程保存数据/代码指纹、API 协议与思考设置、输入/输出 usage、压缩耗时、空答及截断。`--resume` 跳过已完成请求；可能已付费但状态不明的请求不会自动重发。新版公开数据 API 调用与 LLMLingua-2 权重实验尚未执行，详见 [实验协议](docs/EXPERIMENTS.md)。
 
-- `requests.jsonl`：逐请求回答、选中的原文、真实 usage、截断标记和耗时。
-- `summary.json`：各策略输入 token、输出 token、输入 token 减少比例等。
-
-统计以 API 返回的 `prompt_tokens` / `completion_tokens` 为准。服务端前缀缓存命中仍有输入 token，也可能有费用；不能把它当成本项目“完全不调用模型”的回答缓存。
-参见 [DeepSeek usage 定义](https://api-docs.deepseek.com/api/create-chat-completion/)。
-
-真实实验当前按**字符比例**选择上下文，再测量 API 的实际 token；不是 DeepSeek 精确 token 上限控制。
-结果包含提示词模板及服务商实际计数。脚本不自动重试；失败后保留已完成调用的记录并标记 `incomplete`。
-无法获知的失败请求费用不会被编造为 0。需要重新运行时使用新输出目录。
-
-`max_tokens` 较小时可能截断答案，尤其是思考模型；查看 `finish_reason` 和 `truncated_answers`。
-API 默认采样行为依模型而定，一次结果不能代表稳定效果。需要重复运行、随机化策略顺序后比较质量和延迟。
-答案片段包含率只是自动筛查，还需人工检查“开放/不开放”等相反含义。
-
-## 可选：用指定 tokenizer 统计 token
+## 本地交互演示
 
 ```bash
-python -m pip install -r requirements-tokenizer.txt
-python -m token_budget_lab --encoding cl100k_base --output local_results/tokenizer-demo
+python -m token_budget_lab.demo
 ```
 
-首次使用可能下载词表。此时报告单位变为 `tokens`，但 `cl100k_base` 不是 DeepSeek 的 tokenizer，不能用它推算 DeepSeek 账单。
-交付时由于下载网络不可用，未运行这条可选分词器路径；默认字符路径及 DeepSeek 模拟接口已测试。
+浏览器打开 `http://127.0.0.1:8765`，输入问题与材料，切换方法和保留比例，查看被选中的句子、发送内容与字符预算。页面仅运行本地压缩。
 
-## 文件阅读顺序
+## 代码与文档
 
-1. [技术背景与阅读路线](docs/LEARNING_GUIDE.md)：相关方法、论文与复现安排。
-2. [实现说明与请求处理流程](docs/CODE_WALKTHROUGH.md)：输入、缓存、筛选、生成与评测。
-3. `token_budget_lab/core.py`：分句、BM25、预算选择、缓存。
-4. `token_budget_lab/benchmark.py`：对照实验、评价指标、报告。
-5. `token_budget_lab/deepseek.py`：真实 API 实验和 usage。
-6. [研究范围与计划](docs/RESEARCH_PLAN.md)：已完成内容、局限与下一步。
+| 路径 | 职责 |
+|---|---|
+| `core.py` | 分句、BM25、邻域预算与缓存 |
+| `datasets.py` / `metrics.py` | 数据加载、参考答案与 EM/F1 |
+| `experiment.py` / `deepseek.py` | 配置化运行、日志恢复、API 协议 |
+| `analysis.py` / `failures.py` | 聚类统计、图表、失败案例与复核表 |
+| `configs/` / `scripts/` | 固定实验设置、数据重建、一键复现 |
+| `tests/` | 预算边界、隔离、划分、恢复与模拟 API 测试 |
 
-## 如何扩展
+进一步说明：[实现说明](docs/CODE_WALKTHROUGH.md) · [技术背景与阅读路线](docs/LEARNING_GUIDE.md) · [研究计划](docs/RESEARCH_PLAN.md) · [实验协议](docs/EXPERIMENTS.md)。
 
-- 用验证集选择预算和近似缓存阈值，测试集按文档隔离，避免重复资料泄漏。
-- 加入 embedding 语义缓存，并测试近似问题误命中。
-- 加入 LLMLingua-2 压缩基线；比较相同输入 token 预算下的问答质量，而不只比较相同名义压缩率。
-- 引入跨句证据、否定、数字和指代样例；记录失败案例。
-- 数据规模扩大后可换为 SQLite 缓存、TTL 和显式知识库版本；当前版本的线性遍历仅为原型实现。
+## 来源、许可与研究边界
 
-## 来源与致谢
+参考 [GPTCache](https://github.com/zilliztech/GPTCache)、[LLMLingua](https://github.com/microsoft/LLMLingua)、[Selective Context](https://aclanthology.org/2023.emnlp-main.391/) 与 [LongBench](https://github.com/THUDM/LongBench)。当前没有同条件复现 GPTCache / LLMLingua，不声称优于这些系统。
 
-代码独立实现，没有复制下列项目源码。思想与阅读参考：
-
-- [GPTCache](https://github.com/zilliztech/GPTCache)
-- [LLMLingua / LongLLMLingua / LLMLingua-2](https://github.com/microsoft/LLMLingua)
-- [rank_bm25](https://github.com/dorianbrown/rank_bm25)
-- [Selective Context 论文](https://aclanthology.org/2023.emnlp-main.391/)
-- [Prompt Compression Survey](https://aclanthology.org/2025.naacl-long.368/)
-- [LongBench](https://github.com/THUDM/LongBench)
-
-代码采用 [MIT License](LICENSE)。人工样例为项目原创的虚构校园资料。
+代码采用 [MIT](LICENSE)，合成数据为原创虚构资料；SQuAD 数据与改编按 [CC BY-SA 4.0](data/PUBLIC_DATA.md) 使用。字符数与实际模型 token、答案字符串与语义正确性、同文档问题与独立样本均分别处理。后续重点是公开数据的真实生成评测、匹配实际 token 预算、盲评与多轮运行。

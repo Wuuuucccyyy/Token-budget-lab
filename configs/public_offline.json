@@ -1,0 +1,74 @@
+{
+  "backend": "offline",
+  "data": "data/squad_article.json",
+  "split": "test",
+  "encoding": "characters",
+  "seed": 20261010,
+  "strategies": [
+    {
+      "name": "full",
+      "method": "full",
+      "ratio": 1
+    },
+    {
+      "name": "head-0.25",
+      "method": "head",
+      "ratio": 0.25
+    },
+    {
+      "name": "bm25-0.25",
+      "method": "bm25",
+      "ratio": 0.25
+    },
+    {
+      "name": "neighbor1-0.25",
+      "method": "bm25_neighbor",
+      "ratio": 0.25,
+      "radius": 1
+    },
+    {
+      "name": "head-0.5",
+      "method": "head",
+      "ratio": 0.5
+    },
+    {
+      "name": "bm25-0.5",
+      "method": "bm25",
+      "ratio": 0.5
+    },
+    {
+      "name": "neighbor1-0.5",
+      "method": "bm25_neighbor",
+      "ratio": 0.5,
+      "radius": 1
+    },
+    {
+      "name": "head-0.75",
+      "method": "head",
+      "ratio": 0.75
+    },
+    {
+      "name": "bm25-0.75",
+      "method": "bm25",
+      "ratio": 0.75
+    },
+    {
+      "name": "neighbor1-0.75",
+      "method": "bm25_neighbor",
+      "ratio": 0.75,
+      "radius": 1
+    },
+    {
+      "name": "neighbor0-0.5",
+      "method": "bm25_neighbor",
+      "ratio": 0.5,
+      "radius": 0
+    },
+    {
+      "name": "neighbor2-0.5",
+      "method": "bm25_neighbor",
+      "ratio": 0.5,
+      "radius": 2
+    }
+  ]
+}

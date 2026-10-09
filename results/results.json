@@ -2,7 +2,7 @@
   "unit": "characters",
   "encoding": "characters",
   "python": "3.11.9",
-  "dataset": "synthetic teaching examples",
+  "dataset": "synthetic QA workload",
   "backend": "offline-extractive-v1",
   "runs": [
     {
@@ -325,5 +325,6 @@
       "evidence_retention": 0.9594594594594594,
       "offline_answer_contains_gold": 0.8783783783783784
     }
-  ]
-}\n
+  ],
+  "details_note": "Compact public summary; regenerate per-request details with python -m token_budget_lab --output local_results/synthetic"
+}

@@ -1,0 +1,31 @@
+{
+  "backend": "offline",
+  "data": "data/squad_article.json",
+  "split": "dev",
+  "sampling": "document_round_robin",
+  "limit": 10,
+  "encoding": "characters",
+  "seed": 20261010,
+  "llmlingua2": {
+    "model": "microsoft/llmlingua-2-bert-base-multilingual-cased-meetingbank",
+    "revision": "REPLACE_WITH_MODEL_COMMIT_SHA",
+    "device": "cpu"
+  },
+  "strategies": [
+    {
+      "name": "full",
+      "method": "full",
+      "ratio": 1
+    },
+    {
+      "name": "bm25-0.5",
+      "method": "bm25",
+      "ratio": 0.5
+    },
+    {
+      "name": "llmlingua2-postfit-0.5",
+      "method": "llmlingua2",
+      "ratio": 0.5
+    }
+  ]
+}

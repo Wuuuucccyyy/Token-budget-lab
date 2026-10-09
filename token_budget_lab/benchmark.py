@@ -60,7 +60,7 @@ def evaluate(rows: list[dict], counter: CounterBackend, method: str, cache: str,
 def write_report(result: dict, output: Path) -> None:
     output.mkdir(parents=True, exist_ok=True)
     (output / "results.json").write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
-    lines = ["# 离线实验报告", "", "本报告由命令行运行生成。数据为人工编写的教学样例，回答器是句子检索器，不是大模型。",
+    lines = ["# 离线实验报告", "", "本报告由命令行运行生成。数据为人工构造的合成样例，回答器是句子检索器，不是大模型。",
              f"计数单位：**{result['unit']}**；编码：`{result['encoding']}`；Python：{result['python']}。",
              "输入统计包含本项目提示词模板，但不包含服务商消息封装；没有真实 API 调用、计费或延迟测量。",
              "", "| 策略 | 保留比例 | 阈值 | 模拟调用数 | 模拟输入减少 | 全部证据保留率 | 离线答案包含率 | 错误复用/命中 |",
@@ -103,7 +103,7 @@ def main() -> None:
                        [("head", "none"), ("bm25", "none"), ("bm25", "exact")])
         configs.extend(("bm25", "lexical", ratio, t) for t in args.thresholds)
     result = dict(unit=counter.unit, encoding=counter.name, python=platform.python_version(),
-                  dataset="synthetic teaching examples", backend="offline-extractive-v1",
+                  dataset="synthetic QA workload", backend="offline-extractive-v1",
                   runs=[evaluate(rows, counter, *config) for config in configs])
     write_report(result, args.output)
     print(f"{len(rows)} requests; {len(configs)} configurations; unit={counter.unit}")

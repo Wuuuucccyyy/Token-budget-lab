@@ -1,0 +1,122 @@
+{
+  "full+none": {
+    "questions": 56,
+    "prompt_tokens": 6339,
+    "completion_tokens": 3605,
+    "fragment_pass": 0.875,
+    "documents": 20,
+    "macro_mean": 0.85,
+    "ci95": [
+      0.7166666666666667,
+      0.9666666666666667
+    ],
+    "draws": 20000,
+    "seed": 20261009,
+    "paired_delta": {
+      "documents": 20,
+      "macro_mean": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "draws": 20000,
+      "seed": 20261009
+    }
+  },
+  "head+none": {
+    "questions": 56,
+    "prompt_tokens": 4435,
+    "completion_tokens": 4349,
+    "fragment_pass": 0.35714285714285715,
+    "documents": 20,
+    "macro_mean": 0.3333333333333333,
+    "ci95": [
+      0.16666666666666666,
+      0.5166666666666666
+    ],
+    "draws": 20000,
+    "seed": 20261009,
+    "paired_delta": {
+      "documents": 20,
+      "macro_mean": -0.5166666666666667,
+      "ci95": [
+        -0.7166666666666667,
+        -0.31666666666666665
+      ],
+      "draws": 20000,
+      "seed": 20261009
+    }
+  },
+  "bm25+none": {
+    "questions": 56,
+    "prompt_tokens": 4495,
+    "completion_tokens": 4346,
+    "fragment_pass": 0.7857142857142857,
+    "documents": 20,
+    "macro_mean": 0.7333333333333333,
+    "ci95": [
+      0.55,
+      0.9
+    ],
+    "draws": 20000,
+    "seed": 20261009,
+    "paired_delta": {
+      "documents": 20,
+      "macro_mean": -0.11666666666666667,
+      "ci95": [
+        -0.26666666666666666,
+        5.551115123125783e-18
+      ],
+      "draws": 20000,
+      "seed": 20261009
+    }
+  },
+  "full+exact": {
+    "questions": 56,
+    "prompt_tokens": 6339,
+    "completion_tokens": 3394,
+    "fragment_pass": 0.875,
+    "documents": 20,
+    "macro_mean": 0.85,
+    "ci95": [
+      0.7166666666666667,
+      0.9666666666666667
+    ],
+    "draws": 20000,
+    "seed": 20261009,
+    "paired_delta": {
+      "documents": 20,
+      "macro_mean": 0.0,
+      "ci95": [
+        -0.05,
+        0.05
+      ],
+      "draws": 20000,
+      "seed": 20261009
+    }
+  },
+  "bm25+exact": {
+    "questions": 56,
+    "prompt_tokens": 4495,
+    "completion_tokens": 4296,
+    "fragment_pass": 0.75,
+    "documents": 20,
+    "macro_mean": 0.7,
+    "ci95": [
+      0.5333333333333333,
+      0.85
+    ],
+    "draws": 20000,
+    "seed": 20261009,
+    "paired_delta": {
+      "documents": 20,
+      "macro_mean": -0.15,
+      "ci95": [
+        -0.3,
+        -0.01666666666666667
+      ],
+      "draws": 20000,
+      "seed": 20261009
+    }
+  }
+}

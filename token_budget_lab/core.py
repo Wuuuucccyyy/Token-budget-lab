@@ -38,7 +38,7 @@ def terms(text: str) -> list[str]:
 
 
 def sentences(text: str) -> list[str]:
-    # Educational splitter; abbreviations and tables need a better parser.
+    # Simple splitter; abbreviations and tables remain a known limitation.
     return [x.strip() for x in re.findall(r"[^。！？.!?\n]+(?:[。！？.!?]+|$)", text, re.M) if x.strip()]
 
 
@@ -59,19 +59,34 @@ def bm25_scores(query: str, texts: list[str]) -> list[float]:
 
 
 def compress(query: str, context: str, budget: int, counter: CounterBackend,
-             method: str = "bm25") -> str:
+             method: str = "bm25", radius: int = 1) -> str:
     """Keep whole sentences, within a context-only budget, in original order."""
     if budget < 0:
         raise ValueError("budget must be non-negative")
-    if method not in {"head", "bm25"}:
+    if method not in {"head", "bm25", "bm25_neighbor"}:
         raise ValueError("unknown compression method")
+    if radius < 0:
+        raise ValueError("radius must be non-negative")
     if counter.count(context) <= budget:
         return context
     parts = sentences(context)
     scores = bm25_scores(query, parts)
     order = list(range(len(parts)))
-    if method == "bm25":
+    if method in {"bm25", "bm25_neighbor"}:
         order.sort(key=lambda i: (-scores[i], i))
+    if method == "bm25_neighbor":
+        # Prioritize each anchor, then adjacent sentences. Radius zero is BM25.
+        expanded = []
+        seen = set()
+        for anchor in order:
+            neighbors = [anchor]
+            for distance in range(1, radius + 1):
+                neighbors.extend([anchor - distance, anchor + distance])
+            for index in neighbors:
+                if 0 <= index < len(parts) and index not in seen:
+                    expanded.append(index)
+                    seen.add(index)
+        order = expanded
     selected: list[int] = []
     for index in order:
         candidate = sorted(selected + [index])
@@ -152,18 +167,21 @@ class Pipeline:
     def __init__(self, counter: CounterBackend, method: str = "bm25", ratio: float = 0.5,
                  cache: str = "exact", threshold: float = 0.9,
                  answer_fn: Callable[[str, str], str] = extractive_answer,
-                 model: str = "offline-extractive-v1"):
-        if method not in {"full", "head", "bm25"}:
+                 model: str = "offline-extractive-v1", radius: int = 1):
+        if method not in {"full", "head", "bm25", "bm25_neighbor"}:
             raise ValueError("invalid method")
         if not 0 < ratio <= 1:
             raise ValueError("ratio must be in (0, 1]")
         self.counter, self.method, self.ratio = counter, method, ratio
+        if radius < 0:
+            raise ValueError("radius must be non-negative")
+        self.radius = radius
         self.cache = AnswerCache(cache, threshold)
         self.answer_fn, self.model = answer_fn, model
 
     def run(self, query: str, context: str, request_id: str = "", namespace: str = "demo",
             system: str = SYSTEM) -> dict:
-        config = json.dumps([self.method, self.ratio, self.counter.name])
+        config = json.dumps([self.method, self.ratio, self.counter.name, self.radius])
         scope = fingerprint(context, namespace, self.model, system, config)
         baseline = self.counter.count(prompt(query, context, system))
         hit = self.cache.lookup(scope, query)
@@ -173,7 +191,7 @@ class Pipeline:
                         context_units=self.counter.count(hit.source_context))
         selected = context if self.method == "full" else compress(
             query, context, math.floor(self.counter.count(context) * self.ratio),
-            self.counter, self.method)
+            self.counter, self.method, self.radius)
         answer = self.answer_fn(query, selected)
         self.cache.put(scope, CacheEntry(query, answer, selected, request_id))
         return dict(answer=answer, selected_context=selected, hit=False, cache_source=None,

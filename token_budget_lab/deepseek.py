@@ -23,13 +23,17 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 
 class DeepSeek:
-    def __init__(self, model: str, max_tokens: int = 256, timeout: float = 120):
+    def __init__(self, model: str, max_tokens: int = 256, timeout: float = 120,
+                 protocol: str = "chat", thinking: str = "default", allow_empty: bool = False):
         self.key = os.environ.get("DEEPSEEK_API_KEY")
         if not self.key:
             raise ValueError("Set DEEPSEEK_API_KEY locally; do not put it in code or chat")
         if not model.strip() or max_tokens < 1 or timeout <= 0:
             raise ValueError("model, max_tokens and timeout must be valid")
         self.model, self.max_tokens, self.timeout = model, max_tokens, timeout
+        if protocol not in {"chat", "anthropic"} or thinking not in {"default", "disabled"}:
+            raise ValueError("invalid protocol or thinking setting")
+        self.protocol, self.thinking, self.allow_empty = protocol, thinking, allow_empty
         self.opener = urllib.request.build_opener(NoRedirect())
         self.last: dict = {}
 
@@ -37,9 +41,19 @@ class DeepSeek:
         self.last = {}
         body = dict(model=self.model, messages=[{"role": "user", "content": prompt(query, context)}],
                     stream=False, max_tokens=self.max_tokens)
-        request = urllib.request.Request(ENDPOINT, data=json.dumps(body).encode("utf-8"),
-                                         headers={"Authorization": "Bearer " + self.key,
-                                                  "Content-Type": "application/json"}, method="POST")
+        endpoint = ENDPOINT
+        headers = {"Authorization": "Bearer " + self.key, "Content-Type": "application/json"}
+        if self.protocol == "anthropic":
+            endpoint = "https://api.deepseek.com/anthropic/v1/messages"
+            headers = {"x-api-key": self.key, "anthropic-version": "2023-06-01",
+                       "Content-Type": "application/json"}
+        if self.thinking == "disabled":
+            if self.protocol == "chat":
+                body["thinking"] = {"type": "disabled"}
+            else:
+                body["reasoning"] = {"effort": "none"}
+        request = urllib.request.Request(endpoint, data=json.dumps(body).encode("utf-8"),
+                                         headers=headers, method="POST")
         start = time.perf_counter()
         try:
             with self.opener.open(request, timeout=self.timeout) as response:
@@ -51,14 +65,27 @@ class DeepSeek:
             raise RuntimeError("DeepSeek network error; no automatic retry") from None
         elapsed = time.perf_counter() - start
         usage = payload.get("usage", {})
+        if self.protocol == "anthropic":
+            usage = dict(usage, prompt_tokens=usage.get("input_tokens"),
+                         completion_tokens=usage.get("output_tokens"),
+                         prompt_cache_hit_tokens=usage.get("cache_read_input_tokens", 0))
         for field in ("prompt_tokens", "completion_tokens"):
             if not isinstance(usage.get(field), int) or usage[field] < 0:
                 raise RuntimeError("Response missing valid usage; token totals unavailable")
-        choice = payload["choices"][0]
-        text = choice["message"].get("content")
+        # Preserve known billable usage even when the answer schema is malformed.
+        self.last = dict(usage=usage, api_latency_seconds=elapsed, response_model=payload.get("model"))
+        if self.protocol == "chat":
+            choice = payload["choices"][0]
+            text = choice["message"].get("content")
+            finish = choice.get("finish_reason")
+        else:
+            text = ''.join(b.get('text', '') for b in payload.get('content', []) if b.get('type') == 'text')
+            finish = payload.get('stop_reason')
         self.last = dict(usage=usage, api_latency_seconds=elapsed, response_model=payload.get("model"),
-                         finish_reason=choice.get("finish_reason"))
+                         finish_reason=finish)
         if not isinstance(text, str) or not text.strip():
+            if self.allow_empty:
+                return ""
             raise RuntimeError("No answer content; increase max_tokens or check model settings")
         return text
 

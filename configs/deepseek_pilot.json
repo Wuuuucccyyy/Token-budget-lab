@@ -1,0 +1,39 @@
+{
+  "backend": "deepseek",
+  "data": "data/squad_article.json",
+  "split": "dev",
+  "sampling": "document_round_robin",
+  "limit": 10,
+  "encoding": "characters",
+  "seed": 20261010,
+  "repeats": 1,
+  "model": "YOUR_AVAILABLE_MODEL_ID",
+  "protocol": "chat",
+  "thinking": "disabled",
+  "max_tokens": 512,
+  "max_calls": 40,
+  "timeout": 120,
+  "strategies": [
+    {
+      "name": "full",
+      "method": "full",
+      "ratio": 1
+    },
+    {
+      "name": "head-0.5",
+      "method": "head",
+      "ratio": 0.5
+    },
+    {
+      "name": "bm25-0.5",
+      "method": "bm25",
+      "ratio": 0.5
+    },
+    {
+      "name": "neighbor1-0.5",
+      "method": "bm25_neighbor",
+      "ratio": 0.5,
+      "radius": 1
+    }
+  ]
+}
