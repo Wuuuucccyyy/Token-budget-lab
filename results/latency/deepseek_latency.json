@@ -1,0 +1,137 @@
+{
+  "full+none": {
+    "requests": 74,
+    "end_to_end": {
+      "samples": 74,
+      "mean_seconds": 0.8570282864864541,
+      "p50_seconds": 0.793572750000294,
+      "p95_seconds": 1.4089032249995381
+    },
+    "cache_hit": {
+      "samples": 0,
+      "mean_seconds": null,
+      "p50_seconds": null,
+      "p95_seconds": null
+    },
+    "cache_miss": {
+      "samples": 74,
+      "mean_seconds": 0.8570282864864541,
+      "p50_seconds": 0.793572750000294,
+      "p95_seconds": 1.4089032249995381
+    },
+    "api_non_cached": {
+      "samples": 74,
+      "mean_seconds": 0.8569154662162308,
+      "p50_seconds": 0.7934719999998379,
+      "p95_seconds": 1.4087987899996262
+    }
+  },
+  "head+none": {
+    "requests": 74,
+    "end_to_end": {
+      "samples": 74,
+      "mean_seconds": 0.9098289229729523,
+      "p50_seconds": 0.8397009000000253,
+      "p95_seconds": 1.2564081500001514
+    },
+    "cache_hit": {
+      "samples": 0,
+      "mean_seconds": null,
+      "p50_seconds": null,
+      "p95_seconds": null
+    },
+    "cache_miss": {
+      "samples": 74,
+      "mean_seconds": 0.9098289229729523,
+      "p50_seconds": 0.8397009000000253,
+      "p95_seconds": 1.2564081500001514
+    },
+    "api_non_cached": {
+      "samples": 74,
+      "mean_seconds": 0.9094989472973548,
+      "p50_seconds": 0.8393575000004603,
+      "p95_seconds": 1.2560762450004852
+    }
+  },
+  "bm25+none": {
+    "requests": 74,
+    "end_to_end": {
+      "samples": 74,
+      "mean_seconds": 0.8883469459459701,
+      "p50_seconds": 0.8381602499998735,
+      "p95_seconds": 1.6254995950000182
+    },
+    "cache_hit": {
+      "samples": 0,
+      "mean_seconds": null,
+      "p50_seconds": null,
+      "p95_seconds": null
+    },
+    "cache_miss": {
+      "samples": 74,
+      "mean_seconds": 0.8883469459459701,
+      "p50_seconds": 0.8381602499998735,
+      "p95_seconds": 1.6254995950000182
+    },
+    "api_non_cached": {
+      "samples": 74,
+      "mean_seconds": 0.8880274405405052,
+      "p50_seconds": 0.8378505499995299,
+      "p95_seconds": 1.6252145900001311
+    }
+  },
+  "full+exact": {
+    "requests": 74,
+    "end_to_end": {
+      "samples": 74,
+      "mean_seconds": 0.645136368918847,
+      "p50_seconds": 0.7387743000003866,
+      "p95_seconds": 1.1685274300001307
+    },
+    "cache_hit": {
+      "samples": 18,
+      "mean_seconds": 2.8977777674299432e-05,
+      "p50_seconds": 2.7549999686016236e-05,
+      "p95_seconds": 3.766999921026581e-05
+    },
+    "cache_miss": {
+      "samples": 56,
+      "mean_seconds": 0.8524923160713668,
+      "p50_seconds": 0.8221913000002132,
+      "p95_seconds": 1.2336892250004894
+    },
+    "api_non_cached": {
+      "samples": 56,
+      "mean_seconds": 0.8523937446428492,
+      "p50_seconds": 0.8220930000002227,
+      "p95_seconds": 1.2335882249997212
+    }
+  },
+  "bm25+exact": {
+    "requests": 74,
+    "end_to_end": {
+      "samples": 74,
+      "mean_seconds": 0.6534226824324292,
+      "p50_seconds": 0.7192922500003078,
+      "p95_seconds": 1.4870341950000687
+    },
+    "cache_hit": {
+      "samples": 18,
+      "mean_seconds": 2.90833333262223e-05,
+      "p50_seconds": 2.7949999548582127e-05,
+      "p95_seconds": 3.5740000248551945e-05
+    },
+    "cache_miss": {
+      "samples": 56,
+      "mean_seconds": 0.8634420535714266,
+      "p50_seconds": 0.7774619499996334,
+      "p95_seconds": 1.5530708249998497
+    },
+    "api_non_cached": {
+      "samples": 56,
+      "mean_seconds": 0.8631367410714087,
+      "p50_seconds": 0.7771574000003056,
+      "p95_seconds": 1.5528211000000738
+    }
+  }
+}

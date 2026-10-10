@@ -33,6 +33,10 @@ def prepare(config):
         raise ValueError('strategies required')
     if config.get('repeats', 1) < 1:
         raise ValueError('repeats must be positive')
+    if config.get('quality_metric', 'exact_match') not in {'exact_match', 'f1', 'answer_contains_gold'}:
+        raise ValueError('unsupported quality metric')
+    if not 0 <= config.get('allowed_quality_drop', 0) <= 1:
+        raise ValueError('allowed quality drop must be in [0, 1]')
     names = set()
     for strategy in config['strategies']:
         if strategy['name'] in names:
@@ -113,6 +117,10 @@ def execute(config, output, client=None, resume=False):
     completed = {r['key']: r for r in records if r['event'] == 'result'}
     attempts = sum(r['event'] == 'start' for r in records)
     counter = CounterBackend(config.get('encoding', 'characters'))
+    instruction = config.get('answer_instruction', '') if config['backend'] == 'deepseek' else ''
+    def input_count(query, context):
+        content = prompt(query, context) + ('\n' + instruction if instruction else '')
+        return counter.count(content)
     llm_compressor = None
     if any(s['method'] == 'llmlingua2' for s in config['strategies']):
         from .llmlingua_adapter import LLMLingua2
@@ -120,7 +128,8 @@ def execute(config, output, client=None, resume=False):
     if config['backend'] == 'deepseek' and client is None:
         from .deepseek import DeepSeek
         client = DeepSeek(config['model'], config['max_tokens'], config.get('timeout', 120),
-                          protocol=config['protocol'], thinking=config['thinking'], allow_empty=True)
+                          protocol=config['protocol'], thinking=config['thinking'], allow_empty=True,
+                          answer_instruction=config.get('answer_instruction', ''))
     status = 'complete'
     with log_path.open('a', encoding='utf-8') as log:
         def append(record):
@@ -137,6 +146,7 @@ def execute(config, output, client=None, resume=False):
                     cache = {}
                     for row in rows:
                         key = f"{repeat}:{strategy['name']}:{row['id']}"
+                        request_start = time.perf_counter()
                         cache_key = fingerprint(row['context'], row['namespace'], config.get('model', 'offline'),
                                                 SYSTEM, stable_hash(strategy)) + stable_hash(row['query'])
                         if key in completed:
@@ -145,6 +155,7 @@ def execute(config, output, client=None, resume=False):
                                 cache[cache_key] = previous
                             continue
                         cached = cache.get(cache_key) if strategy.get('cache') == 'exact' else None
+                        cache_lookup_seconds = time.perf_counter() - request_start
                         if not cached and config['backend'] == 'deepseek' and attempts >= config['max_calls']:
                             status = 'call_limit'
                             raise StopIteration
@@ -161,13 +172,16 @@ def execute(config, output, client=None, resume=False):
                         compression_seconds = time.perf_counter() - start
                         metadata = {}
                         record_status = 'ok'
+                        journal_seconds = 0
                         if cached:
                             answer = cached['answer']
                             metadata = dict(usage={'prompt_tokens': 0, 'completion_tokens': 0}, finish_reason='cache')
                         elif config['backend'] == 'offline':
                             answer = extractive_answer(row['query'], selected)
                         else:
+                            journal_start = time.perf_counter()
                             append(dict(event='start', key=key, strategy=strategy['name'], id=row['id']))
+                            journal_seconds = time.perf_counter() - journal_start
                             attempts += 1
                             client.last = {}
                             try:
@@ -176,21 +190,25 @@ def execute(config, output, client=None, resume=False):
                             except Exception:
                                 append(dict(event='result', key=key, status='error', id=row['id'],
                                             strategy=strategy['name'], usage=client.last.get('usage'),
+                                            repeat=repeat, document_id=row.get('document_id', row['namespace']),
+                                            end_to_end_seconds=time.perf_counter()-request_start-journal_seconds,
                                             note='Request failed; billing unknown unless usage is present. No automatic retry.'))
                                 raise RuntimeError('API request failed; preserved available usage without credentials') from None
                             if not answer.strip():
                                 record_status = 'empty'
                             elif metadata.get('finish_reason') in {'length', 'max_tokens'}:
                                 record_status = 'truncated'
+                        end_to_end_seconds = time.perf_counter()-request_start-journal_seconds
                         record = dict(event='result', key=key, id=row['id'], document_id=row.get('document_id', row['namespace']),
                                       strategy=strategy['name'], repeat=repeat, status=record_status,
                                       cache_hit=bool(cached), cache_source=cached['key'] if cached else None,
                                       answer=answer, selected_context=selected,
                                       original_context_units=counter.count(row['context']), context_budget=budget,
                                       selected_context_units=counter.count(selected),
-                                      input_units=0 if cached else counter.count(prompt(row['query'], selected)),
-                                      baseline_input_units=counter.count(prompt(row['query'], row['context'])),
-                                      compression_seconds=compression_seconds, end_to_end_seconds=time.perf_counter()-start,
+                                      input_units=0 if cached else input_count(row['query'], selected),
+                                      baseline_input_units=input_count(row['query'], row['context']),
+                                      timing_scope='pipeline-v2', cache_lookup_seconds=cache_lookup_seconds,
+                                      compression_seconds=compression_seconds, end_to_end_seconds=end_to_end_seconds,
                                       **metadata, **evaluate_answer(row, answer, selected))
                         append(record)
                         completed[key] = record

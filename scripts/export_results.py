@@ -20,6 +20,7 @@ for name in ['manifest.json', 'summary.json', 'REPORT.md', 'FAILURE_CASES.md', '
 fields = ['id', 'document_id', 'strategy', 'repeat', 'status', 'original_context_units',
           'context_budget', 'selected_context_units', 'input_units', 'baseline_input_units',
           'exact_match', 'f1', 'answer_contains_gold', 'answer_span_retained']
+fields += ['timing_scope', 'cache_lookup_seconds', 'compression_seconds', 'end_to_end_seconds']
 with (args.output / 'per_question.csv').open('w', encoding='utf-8', newline='') as target:
     writer = csv.DictWriter(target, fieldnames=fields, extrasaction='ignore')
     writer.writeheader()

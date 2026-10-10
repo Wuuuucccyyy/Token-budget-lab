@@ -162,3 +162,36 @@ class ExperimentTests(unittest.TestCase):
         result=plan(config)
         self.assertEqual(result['documents'],10)
         self.assertEqual(result['planned_calls_without_failures'],40)
+
+    @patch.dict(os.environ,{'DEEPSEEK_API_KEY':'test-placeholder'})
+    def test_answer_format_instruction_is_in_actual_request(self):
+        client=DeepSeek('fake',answer_instruction='Return only the answer span.')
+        payload=dict(usage=dict(prompt_tokens=23,completion_tokens=5),
+                     choices=[dict(message=dict(content='Denver'),finish_reason='stop')])
+        with patch.object(client.opener,'open',return_value=io.BytesIO(json.dumps(payload).encode())) as opened:
+            client('q','c')
+        self.assertTrue(json.loads(opened.call_args.args[0].data)['messages'][0]['content'].endswith(client.answer_instruction))
+
+    def test_pipeline_timing_includes_lookup_and_compression_excludes_journal(self):
+        config=self.config()
+        config['limit']=1
+        config['strategies'][0].update(method='head',ratio=.5,cache='none')
+        clock=[0.0]
+        def advance(delta, result):
+            clock[0]+=delta
+            return result
+        client=self.fake()
+        def answer(q,c):
+            client.last=dict(usage=dict(prompt_tokens=50,completion_tokens=10),finish_reason='stop')
+            return advance(.7,'不开放')
+        with tempfile.TemporaryDirectory() as directory:
+            with patch('token_budget_lab.experiment.time.perf_counter',side_effect=lambda:clock[0]), \
+                 patch('token_budget_lab.experiment.fingerprint',side_effect=lambda *a:advance(.2,'scope')), \
+                 patch('token_budget_lab.experiment.compress',side_effect=lambda *a:advance(.3,'selected')), \
+                 patch('token_budget_lab.experiment.os.fsync',side_effect=lambda *a:advance(10,None)), \
+                 patch.object(type(client),'__call__',side_effect=answer):
+                execute(config,Path(directory),client)
+            record=json.loads((Path(directory)/'requests.jsonl').read_text(encoding='utf8').splitlines()[-1])
+        self.assertAlmostEqual(record['cache_lookup_seconds'],.2)
+        self.assertAlmostEqual(record['compression_seconds'],.3)
+        self.assertAlmostEqual(record['end_to_end_seconds'],1.2)

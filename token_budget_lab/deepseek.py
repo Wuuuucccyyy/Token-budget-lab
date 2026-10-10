@@ -24,7 +24,8 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 class DeepSeek:
     def __init__(self, model: str, max_tokens: int = 256, timeout: float = 120,
-                 protocol: str = "chat", thinking: str = "default", allow_empty: bool = False):
+                 protocol: str = "chat", thinking: str = "default", allow_empty: bool = False,
+                 answer_instruction: str = ""):
         self.key = os.environ.get("DEEPSEEK_API_KEY")
         if not self.key:
             raise ValueError("Set DEEPSEEK_API_KEY locally; do not put it in code or chat")
@@ -34,12 +35,16 @@ class DeepSeek:
         if protocol not in {"chat", "anthropic"} or thinking not in {"default", "disabled"}:
             raise ValueError("invalid protocol or thinking setting")
         self.protocol, self.thinking, self.allow_empty = protocol, thinking, allow_empty
+        self.answer_instruction = answer_instruction
         self.opener = urllib.request.build_opener(NoRedirect())
         self.last: dict = {}
 
     def __call__(self, query: str, context: str) -> str:
         self.last = {}
-        body = dict(model=self.model, messages=[{"role": "user", "content": prompt(query, context)}],
+        content = prompt(query, context)
+        if self.answer_instruction:
+            content += '\n' + self.answer_instruction
+        body = dict(model=self.model, messages=[{"role": "user", "content": content}],
                     stream=False, max_tokens=self.max_tokens)
         endpoint = ENDPOINT
         headers = {"Authorization": "Bearer " + self.key, "Content-Type": "application/json"}
