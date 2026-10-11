@@ -1,0 +1,18 @@
+[
+  {
+    "variant": "context_contract",
+    "baseline": "full_contract",
+    "task_quality_delta": -0.16666666666666663,
+    "total_token_reduction": 0.831399230896509,
+    "fixed_price_cost_reduction": 0.8283236240326928,
+    "p95_seconds_ratio": 1.2884007623800913
+  },
+  {
+    "variant": "context_contract",
+    "baseline": "context",
+    "task_quality_delta": 0.33333333333333337,
+    "total_token_reduction": 0.08113863982297487,
+    "fixed_price_cost_reduction": 0.05880055772663151,
+    "p95_seconds_ratio": 1.0111937178944639
+  }
+]

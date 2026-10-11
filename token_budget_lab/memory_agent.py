@@ -74,7 +74,7 @@ class DeepSeekChat:
 def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_steps=4,
               before_request=None, after_response=None, extra_tools=None, handlers=None,
               memory_tools=True, max_recovery_rounds=2, reserve_task_steps=3, after_tools=None,
-              snapshot_read_tools=None, write_guard=None):
+              snapshot_read_tools=None, write_guard=None, action_contract=None):
     """Canonical state stays full; only each transport request is compacted."""
     if max_steps < 1:
         raise ValueError('max_steps must be positive')
@@ -94,6 +94,7 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
         raise ValueError('duplicate tool registration')
     snapshot_names = set(snapshot_read_tools or [])
     schemas = {s['function']['name']: s['function'] for s in extra_tools or []}
+    actions = action_contract.start(schemas, handlers) if action_contract else None
     if any(n not in schemas or schemas[n].get('parameters', {}).get('properties') for n in snapshot_names):
         raise ValueError('snapshot_read_tools must be explicitly registered zero-argument stable reads')
     read_snapshots = {}
@@ -130,7 +131,8 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
         recovery_enabled = memory_tools and mode == 'recover' and (context_controller or prepared.mode == 'compressed')
         request_tools = copy.deepcopy(recovery_schemas if recovery_enabled else [])+copy.deepcopy(extra_tools)
         read_guard = memory_tools and mode == 'recover'
-        suppressed_reads = sorted(read_snapshots) if read_guard else []
+        suppressed_reads = sorted(n for n in read_snapshots
+            if actions is None or not actions.needs_invocation(n, {})) if read_guard else []
         if not context_controller:
             request_tools = [t for t in request_tools if t['function']['name'] not in suppressed_reads]
         if suppressed_reads and not context_controller:
@@ -144,11 +146,13 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
                 + 'This status contains no task facts.'))
             prepared.sent_units = plugin._count(prepared.messages)
             validate_messages(prepared.messages)
-        if write_guard:
+        if write_guard or actions:
             # Request-only metadata lives at the current task boundary, never
             # before the old stable prefix or inside a tool-call group.
             offset = max(i for i,m in enumerate(prepared.messages) if m['role'] == 'user')+1
-            prepared.messages.insert(offset, dict(role='system', content=write_guard.notice()))
+            notices = ([write_guard.notice()] if write_guard else []) + ([action_contract.notice()] if actions else [])
+            for notice in reversed(notices):
+                prepared.messages.insert(offset, dict(role='system', content=notice))
             prepared.sent_units = plugin._count(prepared.messages) if plugin else len(encode(prepared.messages))
             validate_messages(prepared.messages)
         log_start = time.perf_counter()
@@ -165,6 +169,8 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
             calls = message.get('tool_calls', [])
             finish = response.get('finish_reason')
             status = 'truncated' if finish == 'length' else 'tool_calls' if calls else 'ok' if message.get('content') else 'empty'
+            if status == 'ok' and actions and actions.missing():
+                status = 'action_pending'
         except Exception as exc:
             record = dict(transport.last)
             error_type, status = type(exc).__name__, 'error'
@@ -179,6 +185,7 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
                       recovery_rounds=recovery_rounds, full_history_locked=full_locked,
                       recovery_guard_reason=guard_reason,
                       suppressed_snapshot_reads=suppressed_reads,
+                      action_contract_state=actions.state() if actions else None,
                       preparation_seconds=prepared.preparation_seconds,
                       end_to_end_seconds=time.perf_counter()-start-log_seconds)
         steps.append(record)
@@ -190,11 +197,22 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
             break
         history.append(message)
         if not calls:
+            if actions and actions.missing():
+                event = dict(error='required_actions_incomplete', executed=False, **actions.state())
+                record['action_events'] = [event]
+                history.append(dict(role='system', content=actions.retry_notice()))
+                if after_tools:
+                    after_tools(dict(step=step, memory_tool_events=[], action_events=[event],
+                                     action_contract_state=actions.state(), action_receipts=[]))
+                outcome = 'action_incomplete'
+                continue
             answer, outcome = message['content'], 'ok'
             break
         tool_start = time.perf_counter()
         memory_events, recovery_called, disabled_only, blocked_read = [], False, True, False
+        action_events, action_receipts = [], []
         for call in calls:
+            invoked, checked = False, None
             try:
                 function = call['function']
                 arguments = json.loads(function['arguments'])
@@ -246,12 +264,17 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
                     memory_events.append(dict(tool=function['name'], result=value))
                 elif function['name'] in handlers and function['name'] in {t['function']['name'] for t in request_tools}:
                     disabled_only = False
+                    if actions:
+                        actions.validate(function['name'], arguments)
                     if read_guard and function['name'] not in snapshot_names:
                         # Invalidate BEFORE invocation: a handler can partially
                         # mutate state and then raise. Its old snapshot is unsafe.
                         read_snapshots.clear()
                     checked = write_guard.validate(function['name'], arguments) if write_guard else arguments
+                    invoked = True
                     value = handlers[function['name']](**checked)
+                    if actions:
+                        action_receipts.append(actions.record(function['name'], checked, value))
                     if read_guard:
                         if function['name'] in snapshot_names:
                             read_snapshots[function['name']] = copy.deepcopy(value)
@@ -263,6 +286,10 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
             except Exception as exc:
                 disabled_only = False
                 value = exc.result() if hasattr(exc, 'result') else dict(error=type(exc).__name__, note='tool failed; no facts recovered')
+                if actions and invoked:
+                    action_receipts.append(actions.record(function['name'], checked, error_type=type(exc).__name__))
+                if actions and value.get('error') == 'action_prerequisite_missing':
+                    action_events.append(dict(tool=call['function']['name'], result=value))
                 if value.get('error') == 'provenance_rejected':
                     memory_events.append(dict(tool=call['function']['name'], result=value))
                 if call.get('function', {}).get('name', '').startswith('history_') and recovery_enabled:
@@ -277,9 +304,14 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
         recovery_rounds += int(recovery_called)
         record['memory_tool_events'] = memory_events
         record['next_recovery_guard_reason'] = guard_reason
+        record['action_events'] = action_events
+        record['action_receipts'] = action_receipts
+        record['action_contract_after'] = actions.state() if actions else None
         if after_tools:
             after_tools(dict(step=step, memory_tool_events=memory_events,
-                             next_recovery_guard_reason=guard_reason))
+                             next_recovery_guard_reason=guard_reason,
+                             action_events=action_events, action_receipts=action_receipts,
+                             action_contract_state=actions.state() if actions else None))
         disabled_streak = disabled_streak+1 if disabled_only else 0
         if memory_tools and mode == 'recover' and disabled_streak >= 2:
             outcome = 'tool_stalled' if blocked_read else 'recovery_stalled'
@@ -290,6 +322,11 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
         if context_streak >= 2:
             outcome = 'context_stalled'
             break
+    if actions and actions.missing() and outcome in {'step_limit', 'action_incomplete'}:
+        outcome = 'action_incomplete'
+    elif actions and outcome == 'action_incomplete':
+        # Obligations completed after a rejected final, but no new final arrived.
+        outcome = 'step_limit'
     if plugin is not None:
         # Include final assistant/tool outputs even when no subsequent request
         # is made. Request-only controller notices never enter this archive.
@@ -301,5 +338,6 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
                 prompt_tokens=sum(u['prompt_tokens'] for u in usages),
                 completion_tokens=sum(u['completion_tokens'] for u in usages),
                 unknown_usage_requests=sum(s.get('usage') is None for s in steps),
+                action_contract=None if actions is None else dict(**actions.state(), receipts=actions.receipts),
                 end_to_end_seconds=sum(s['end_to_end_seconds'] for s in steps)+tool_seconds,
                 tool_seconds=tool_seconds)

@@ -79,7 +79,8 @@ def summarize(records,manifest):
         complete_episodes=[]
         for episode_id in manifest['episode_ids']:
             rs=[r for r in rows if r['episode_id']==episode_id]
-            if len(rs)==3: complete_episodes.append(all(r['task_success'] for r in rs))
+            if len(rs)==manifest.get('expected_episode_checkpoints',{}).get(episode_id,3):
+                complete_episodes.append(all(r['task_success'] for r in rs))
         agree=[r['format_ok'] and baseline[(r['episode_id'],r['checkpoint'])]['format_ok'] and r['answer']==baseline[(r['episode_id'],r['checkpoint'])]['answer'] for r in rows if (r['episode_id'],r['checkpoint']) in baseline]
         run=dict(mode=mode,checkpoints=len(rows),expected_checkpoints=manifest['checkpoints'],
             completed_length_conditions=len(complete_episodes),

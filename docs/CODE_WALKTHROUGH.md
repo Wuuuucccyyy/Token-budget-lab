@@ -1,5 +1,7 @@
 # 实现说明与请求处理流程
 
+v0.7 在 `action_contract.py` 声明当前任务的必需操作、参数和顺序；`memory_agent.py` 在实际业务 handler 返回后记录执行凭据，并在写入和最终答案前检查遗漏。`action_tasks.py` 将结构化用户意图与评分标签分开，`action_experiment.py` 比较 Full 与插件启用/不启用执行检查的结果。接口见 [指定操作检查](REQUIRED_ACTIONS.md)。恢复历史和执行当前工具分别审计。
+
 v0.6 在 `context_plugin.py` 中先外置大工具结果，再固定单个任务的历史视图；`provenance.py` 根据实际快照和当前任务核验声明过的写入；`cache_cost.py` 验证服务端缓存分项后重估费用。`context_experiment.py` 比较原生 Full、Full 加核验、插件及插件加核验，并单列原样请求重放的费用。接口和边界见 [上下文插件](CONTEXT_PLUGIN.md)。
 
 v0.4 的历史插件新增 `history_evidence.py`：从历史工具原文推导主体、字段与观察时间，选择完整来源轮次。`memory.py` 在任务开始前的历史范围内选择证据；本轮工具链独立保留。`memory_agent.py` 按每次请求的实际发送模式注册恢复工具，Full 请求不承担恢复工具说明。`long_context_tasks.py` 生成匹配的长度条件，`tool_experiment.py` 导出整任务成本和实际压缩子集指标。设计和运行口径见 [长历史协议](LONG_CONTEXT_EVALUATION.md)。
