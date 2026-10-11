@@ -1,0 +1,13 @@
+episode_id,mode,base_id,context_length,kind,checkpoints,expected_checkpoints,complete,episode_success,checkpoint_successes,model_requests,compressed_requests,compression_category,fallback_requests,prompt_tokens,completion_tokens,unknown_usage_requests,total_tokens,end_to_end_seconds,initial_baseline_characters,initial_sent_characters
+temporal-03-long,full,temporal-03,long,temporal,3,3,True,True,3,9,0,none,0,226289,283,0,226572,9.675572700070916,87675,87675
+tool_execution-04-long,full,tool_execution-04,long,tool_execution,3,3,True,True,3,9,0,none,0,231139,431,0,231570,9.52537580000353,89686,89686
+knowledge_update-04-long,full,knowledge_update-04,long,knowledge_update,3,3,True,True,3,7,0,none,0,175424,140,0,175564,7.627638900041347,89208,89208
+abstention-04-long,full,abstention-04,long,abstention,3,3,True,False,2,6,0,none,0,151177,180,0,151357,5.909168699930888,88016,88016
+temporal-04-long,full,temporal-04,long,temporal,3,3,True,True,3,7,0,none,0,175505,317,0,175822,7.054699999949662,87675,87675
+temporal-05-long,full,temporal-05,long,temporal,3,3,True,True,3,8,0,none,0,200860,246,0,201106,8.257121900038328,87675,87675
+temporal-03-long,recover,temporal-03,long,temporal,3,3,True,True,3,11,4,mixed,7,192813,330,0,193143,10.833665499987546,87675,3373
+tool_execution-04-long,recover,tool_execution-04,long,tool_execution,3,3,True,True,3,8,8,all,0,17897,409,0,18306,7.38711070001591,89686,3761
+knowledge_update-04-long,recover,knowledge_update-04,long,knowledge_update,3,3,True,True,3,10,8,mixed,2,68652,228,0,68880,9.295553200063296,89208,3007
+abstention-04-long,recover,abstention-04,long,abstention,3,3,True,True,3,8,6,mixed,2,69811,251,0,70062,7.307001999986824,88016,3330
+temporal-04-long,recover,temporal-04,long,temporal,3,3,True,True,3,12,6,mixed,6,172097,470,0,172567,11.028032300033374,87675,3373
+temporal-05-long,recover,temporal-05,long,temporal,3,3,True,False,1,9,2,mixed,7,362401,709,0,363110,11.711466799984919,87675,3373

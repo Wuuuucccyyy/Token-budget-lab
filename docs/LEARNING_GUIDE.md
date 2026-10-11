@@ -90,6 +90,8 @@ LongBench 展示长上下文任务的数据组织、划分和指标。复现实�
 
 历史压缩需要同时保留用户约束、工具调用关系和事实来源。现阶段采用完整原文归档与按轮恢复，避免把旧工具结果重写成系统指令；全部用户消息保留，以覆盖显式更正。该取舍易于核对，但对长用户输入和语义指代的压缩能力有限。
 
+循环控制的判断依据是恢复是否增加原文、搜索是否重复，以及读取结果在当前任务内是否仍然有效。v0.5 将恢复预算与业务步骤预算分开：恢复无进展时完整回退，为写入、检查和最终回答保留机会。稳定只读快照必须由宿主声明，写入之后重新开放读取。评测保留所有失败、恢复后的重复输入和实际压缩任务的完整费用，不能只以首次请求变短判断收益。对应实现位于 `memory.py`、`memory_agent.py`，专项回归位于 `tests/test_recovery_guard.py`。
+
 [LangChain middleware 文档](https://docs.langchain.com/oss/python/langchain/middleware/built-in) 提供模型调用前的历史处理机制，可作为框架对接参考；当前实现是独立 Python 钩子。[MCP tools 规范](https://modelcontextprotocol.io/specification/2025-11-25/server/tools) 用于工具接口设计，历史发送视图仍需宿主侧钩子控制，不能仅凭注册搜索工具获得自动压缩。
 
 [LongMemEval](https://github.com/xiaowu0162/LongMemEval) 为更新、时序与拒答评测提供参考；当前完成官方 Oracle 子集 30 题导入验证，没有运行官方生成评审。新增原创连续工具任务要求实际写文件并执行检查，已完成小规模 DeepSeek 对照；全量回退的结果不构成压缩无损证据。详细机制见 [历史插件说明](AGENT_MEMORY_PLUGIN.md) 和 [工具评测协议](AGENT_TOOL_EVALUATION.md)。

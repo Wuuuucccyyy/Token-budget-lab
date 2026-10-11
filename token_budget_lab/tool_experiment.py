@@ -25,9 +25,16 @@ def prepare(config):
         raise ValueError('invalid step/budget')
     path=ROOT/config['data']
     bundle=json.loads(path.read_text(encoding='utf-8'))
+    requested_ids = config.get('episode_ids')
+    if requested_ids is not None:
+        if not isinstance(requested_ids, list) or not requested_ids or len(set(requested_ids)) != len(requested_ids):
+            raise ValueError('unique nonempty episode_ids required')
+        eligible = {e['id'] for e in bundle['episodes'] if e['split'] == config['split']}
+        if not set(requested_ids) <= eligible:
+            raise ValueError('episode_ids must belong to the selected split')
     groups={kind:[] for kind in ('knowledge_update','temporal','abstention','tool_execution')}
     for e in bundle['episodes']:
-        if e['split']==config['split'] and (not config.get('context_lengths') or e.get('context_length','legacy') in config['context_lengths']):
+        if e['split']==config['split'] and (requested_ids is None or e['id'] in requested_ids) and (not config.get('context_lengths') or e.get('context_length','legacy') in config['context_lengths']):
             groups[e['kind']].append(e)
     rng=random.Random(config['seed'])
     episodes=[]
@@ -42,6 +49,8 @@ def prepare(config):
             if e.get('base_id',e['id']) in set(base_ids[:context_limit]): episodes.append(e)
     rng.shuffle(episodes)
     if not episodes: raise ValueError('no episodes')
+    if requested_ids is not None and {e['id'] for e in episodes} != set(requested_ids):
+        raise ValueError('episode_ids excluded by length or sampling limits')
     if config['backend']=='deepseek' and (config.get('max_calls',0)<1 or not config.get('model') or config.get('max_tokens',0)<1):
         raise ValueError('explicit paid-call/model/output limits required')
     manifest=dict(schema_version='continuous-tools-v1',config=config,data_sha256=digest(path),code_sha256=code_hash(),
@@ -241,9 +250,14 @@ def execute(config,output,transport=None):
                             if step==0: prepared.append(p)
                         def after(record):
                             append(dict(event='response',episode_id=episode['id'],mode=mode,checkpoint=number,**record))
+                        def after_tools(record):
+                            append(dict(event='recovery_guard',episode_id=episode['id'],mode=mode,checkpoint=number,**record))
                         result=run_agent(history,client,None if mode=='full' else plugin,'tools',episode['id']+':'+mode,
                             mode=mode,max_steps=config['max_steps'],before_request=before,after_response=after,
-                            extra_tools=TOOLS,handlers=sandbox.handlers(),memory_tools=mode=='recover')
+                            extra_tools=TOOLS,handlers=sandbox.handlers(),memory_tools=mode=='recover',
+                            max_recovery_rounds=config.get('max_recovery_rounds',2),
+                            reserve_task_steps=config.get('reserve_task_steps',3),after_tools=after_tools,
+                            snapshot_read_tools=config.get('snapshot_read_tools',[]))
                         # Canonical history persists across checkpoints, including mistakes.
                         original=history
                         history=result['messages']

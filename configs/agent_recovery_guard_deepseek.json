@@ -1,0 +1,10 @@
+{
+  "data": "data/agent_long_context_tasks.json", "split": "test", "backend": "deepseek",
+  "episode_ids": ["temporal-03-long", "temporal-05-long", "temporal-04-long", "knowledge_update-04-long", "abstention-04-long", "tool_execution-04-long"],
+  "context_lengths": ["long"], "modes": ["full", "recover"], "seed": 20261011,
+  "budget_characters": 9000, "recent_turns": 1, "max_steps": 6,
+  "selector": "structured", "min_reduction": 0.1,
+  "max_recovery_rounds": 2, "reserve_task_steps": 3,
+  "snapshot_read_tools": ["read_config", "read_orders", "read_report"],
+  "model": "deepseek-flash", "max_tokens": 1024, "max_calls": 180, "timeout": 120
+}

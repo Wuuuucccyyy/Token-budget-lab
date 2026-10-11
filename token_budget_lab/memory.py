@@ -134,7 +134,7 @@ class MemoryPlugin:
         self.counter = counter or CounterBackend()
         self.retrieval, self.conservative = retrieval, conservative
         self.selector, self.min_reduction = selector, min_reduction
-        self._indexes, self._requests, self._active = {}, {}, {}
+        self._indexes, self._requests, self._active, self._visible = {}, {}, {}, {}
 
     def _count(self, messages):
         return self.counter.count(encode(messages))
@@ -151,7 +151,8 @@ class MemoryPlugin:
     def search(self, scope, query, limit=5):
         if not isinstance(query, str) or not query.strip() or not isinstance(limit, int) or not 1 <= limit <= 8:
             raise ValueError('query and limit must be valid')
-        turns = [t for t in split_turns(self.archive.read(scope)) if any(m['role']=='user' for m in t['messages'])]
+        turns = [t for t in split_turns(self.archive.read(scope)) if any(m['role']=='user' for m in t['messages'])
+                 and t['id'] != self._active.get(scope)]
         index, lookup = self._index(scope, turns)
         results, seen = [], set()
         for candidate in index.search(lookup_query(query), 64):
@@ -159,8 +160,11 @@ class MemoryPlugin:
             if turn_id in seen:
                 continue
             seen.add(turn_id)
+            source = next((m.get('content') for m in lookup[turn_id]['messages']
+                           if m['role'] == 'tool' and isinstance(m.get('content'), str)), candidate['chunk'].text)
             results.append(dict(turn_id=turn_id, score=candidate['score'],
-                                preview=candidate['chunk'].text[:180], messages=len(lookup[turn_id]['messages'])))
+                                preview=source[:180], messages=len(lookup[turn_id]['messages']),
+                                already_visible=turn_id in self._visible.get(scope, set())))
             if len(results) == limit:
                 break
         return results
@@ -175,12 +179,19 @@ class MemoryPlugin:
             raise ValueError('unknown turn ID; search within the current session')
         key = scope, self._active[scope]
         request = self._requests.setdefault(key, dict(full=False, turns=set()))
-        request['full'] |= full
-        request['turns'].update(turn_ids)
+        visible = self._visible.get(scope, set())
+        newly_requested = set(turn_ids)-visible-request['turns']
+        full_progress = bool(full and not request['full'] and available-visible)
+        request['full'] |= bool(full)
+        request['turns'].update(newly_requested)
         # Return an acknowledgment; inject originals in their original roles on
         # the next request, rather than duplicating them inside a tool response.
-        return dict(restored_turn_ids=turn_ids, full_history=bool(full),
-                    status='original messages will be present on the next model call')
+        return dict(restored_turn_ids=sorted(newly_requested), full_history=bool(full),
+                    already_visible_turn_ids=sorted(set(turn_ids)&visible),
+                    already_requested_turn_ids=sorted(set(turn_ids)-visible-newly_requested),
+                    progress=bool(newly_requested or full_progress),
+                    status=('original messages will be present on the next model call' if newly_requested or full_progress
+                            else 'no new evidence; use the records already visible or already requested'))
 
     def before_model(self, tenant, session, messages, mode='recover'):
         if mode not in {'full', 'compact', 'recover'}:
@@ -200,6 +211,7 @@ class MemoryPlugin:
         evidence_plan = {}
         def result(selected, outcome, reason, omitted=None, restored=None):
             validate_messages(selected)
+            self._visible[scope] = {t['id'] for t in turns}-set(omitted or [])
             return PreparedHistory(selected, outcome, reason, baseline, self._count(selected),
                                    self.counter.unit, omitted or [], restored or [], time.perf_counter()-start,
                                    evidence_plan)
@@ -261,6 +273,8 @@ class MemoryPlugin:
         if omitted:
             notice = dict(role='user', content='[History archive notice] Older assistant/tool turns omitted: '
                           + ', '.join(omitted) + '. Original user requests and corrections remain visible. '
+                          + 'Original assistant/tool records already included in full: '
+                          + ', '.join(t['id'] for t in turns if t['id'] in keep) + '. '
                           + ('Use visible evidence directly. Only if necessary details are missing, use history_search '
                              'then history_restore, or history_restore_all. ' if mode=='recover' else
                              'Recovery is disabled for this ablation; do not guess missing facts. ')

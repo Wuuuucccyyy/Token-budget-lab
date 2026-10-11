@@ -4,7 +4,7 @@
 
 目标是在原有 agent 的模型调用前筛选历史消息，并在缺少信息时恢复原文。验收顺序是任务正确性、累计输入输出 token、端到端速度。回答与完整历史版本的一致性另行统计：两个版本答得一样，并不说明都答对了。
 
-v0.4 提供可安装的 Python 中间件、SQLite 原文归档、调用前钩子、历史恢复工具和 DeepSeek 参考 agent。新增显式事实及时间范围选择、同一任务内历史证据边界、Full 请求关闭恢复工具，以及按完整任务和实际压缩子集统计。当前仍是实验接口。早期 24 题试验总 token 仅减少 0.18%；v0.3 工具试验全部回退 Full，总 token 增加 20.2%。新版设置和结果见 [长历史协议](LONG_CONTEXT_EVALUATION.md) 与 [报告](../results/agent_long_context/REPORT.md)。
+v0.5 提供可安装的 Python 中间件、SQLite 原文归档、调用前钩子、历史恢复工具和 DeepSeek 参考 agent。在显式事实及时间范围选择的基础上，新增恢复去重、全量回退锁定、恢复轮次与业务步骤预算，以及可选的稳定只读工具控制。当前仍是实验接口。早期 24 题试验总 token 仅减少 0.18%；v0.3 工具试验全部回退 Full，总 token 增加 20.2%。长历史设置见 [协议](LONG_CONTEXT_EVALUATION.md)，循环控制结果见 [新报告](../results/recovery_guard/REPORT.md)，旧结果保留在 [v0.4 报告](../results/agent_long_context/REPORT.md)。
 
 首版的压缩方式是删除部分旧 assistant/tool 消息，不生成有损自然语言摘要。全部原始 user/system/developer 消息、最近两轮和恢复的整轮工具记录仍按原角色、原顺序发送。这样能直接保留用户要求与更正，但用户消息很长时压缩空间有限。
 
@@ -46,7 +46,9 @@ try:
         tenant="my-app-user-1",
         session="conversation-1",
         mode="recover",  # 实验模式；完整历史对照使用 full
-        max_steps=4,
+        max_steps=6,
+        max_recovery_rounds=2,
+        reserve_task_steps=3,
         extra_tools=my_tool_schemas,
         handlers=my_tool_handlers,
     )
@@ -57,7 +59,11 @@ finally:
 
 `my_tool_schemas` 是 Chat Completions function tools 列表；`my_tool_handlers` 是名称到本地可调用函数的映射。宿主负责工具权限和业务约束。恢复原文不执行历史工具，只重放已有消息记录。
 
+可通过 `snapshot_read_tools=["read_config"]` 声明无参数且在本任务内稳定的读取工具。默认为空。参考循环读过后暂时移除该工具，其他成功业务操作完成后清空读取快照并重新开放；如果模型仍请求关闭的读取，返回已有结果并计量该轮，不再次执行。具有参数、会异步变化或有副作用的工具不能这样声明。连续两轮只请求关闭的工具会以 `tool_stalled` / `recovery_stalled` 失败终止，不能当作任务成功。
+
 也可仅使用 `plugin.before_model(tenant, session, canonical_messages, mode="recover")` 接入自有调用循环。宿主只在 `prepared.mode == "compressed"` 时注册 `HISTORY_TOOLS`，Full 及全量回退请求不注册恢复工具。调用 `memory_tool` 后追加成对的 assistant/tool 消息，再次准备请求。恢复请求只对当前用户轮次生效，后续轮次重新检索。
+
+`before_model` 单独负责视图选择，不会替宿主限制循环。采用自有循环时，需要实现与 `run_agent` 相同的恢复轮次计数、发送视图状态通知、全量锁定与工具停滞处理。`after_response` 在业务工具执行前调用，用于先保存已付费 usage；`after_tools` 另行记录控制事件，避免工具执行中断导致已知用量丢失。
 
 `DeepSeekChat` 是非流式同步参考传输层，使用官方 Chat Completions 地址、关闭思考模式，不自动重试；自定义传输层返回 assistant message、usage 和 finish_reason，并以 `last` 保留已知 usage。当前没有 LangChain/MCP 自动接入，也没有与任意 agent 无缝兼容的承诺。
 
@@ -84,13 +90,17 @@ flowchart TD
 
 归档按消息位置存储原文及 SHA-256，拒绝同会话历史缩短或已有消息修改。工具消息必须有对应调用；待处理的工具调用需要全部返回后才能发起下一次模型请求。删除和恢复都以用户轮次为组，恢复到原来的角色和顺序，不把旧工具内容提升为 system 指令。
 
-`history_search(query)` 返回整轮 ID、分数和短预览；`history_restore(turn_ids)` 请求下次调用注入原始整轮；`history_restore_all()` 请求完整历史回退。模型不传入租户/会话参数，这些由宿主绑定。预览和归档通知是元数据，不能作为事实正确性的证明。
+`history_search(query)` 返回整轮 ID、分数、原始工具短预览及 `already_visible`；当前任务轮次不参与搜索。`history_restore(turn_ids)` 请求下次调用注入原始整轮，返回新增、已可见、已请求 ID 和 `progress`；重复调用不再次注入。`history_restore_all()` 请求完整历史回退。模型不传入租户/会话参数，这些由宿主绑定。预览是历史数据，状态通知仅说明可用性，二者不能作为事实正确性的证明。
+
+参考循环默认最多使用两个模型响应轮次进行恢复；一轮可以含多个函数请求，但仍受总调用步数限制。相同参数的重复搜索、未新增证据的恢复和非法恢复请求触发一次完整回退，本题后续请求保持完整历史。发生恢复后，剩余模型调用达到 `reserve_task_steps` 时停止继续恢复；默认保留 3 步，分别供业务操作、检查和最终回答使用，具体任务可能需要更多步骤。全量视图加入状态通知，明确所有原文可见及历史工具关闭。通知不写入规范历史，其输入开销仍计入实际 usage。
 
 默认 `selector="structured"` 从实际工具 JSON 中推导主体、字段及日期，支持显式截止日期、两个时间点和完整版本范围。相同日期的冲突记录一起保留。无法结构化识别时仍走词面检索或完整回退；`selector="lexical"` 可单独使用词面选择。规则不是校准后的正确概率，也不能识别所有指代、否定或跨轮依赖。
 
 ## 预算与成本
 
 默认预算 9,000 个序列化消息字符，包含选中消息和归档通知；它不是模型 token 上限，也不含 function tools 的 schema。调用总输入、工具 schema、恢复后的重复输入及输出均由 API usage 计量。
+
+该阈值作用于 `before_model` 的筛选视图。参考循环追加的可用性与步骤状态通知另计入 `sent_units` 和 API usage，可能使实际发送字符超过阈值；因此它仍是软预算，不是最终请求长度保证。
 
 预算是软上限：保护内容或恢复内容放不下时使用完整历史。若完整历史本身超过模型窗口，宿主仍需拒绝请求或采用其他策略；本插件不会通过截断必要内容强行满足限制。恢复多一次意味着又支付一次模型调用，初始历史变短不能等同于最终成本降低。
 

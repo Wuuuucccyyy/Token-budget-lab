@@ -1,0 +1,1554 @@
+{
+  "diagnostic": [
+    {
+      "base_id": "temporal-03",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-03-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 0,
+      "memory_tool_events": [
+        {
+          "tool": "history_search",
+          "result": [
+            {
+              "turn_id": "T81",
+              "score": 8.569122855966626,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-39\"",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T1",
+              "score": 8.569122855966626,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-0\",",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T101",
+              "score": 5.7170134084536866,
+              "preview": "{\"content\":\"比较两个历史时间点：截至 2026-10-04 与截至 2026-10-06，各选当时最近的 Alpha config 快照，计算后一个 timeout_ms 减前一个 timeout_ms 的差值。不得用现在的文件值代替历史快照，其他模块不参与。将差值写入当前 timeout_ms，保留 quota，实际运行 run_checks；",
+              "messages": 1,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T73",
+              "score": 4.645154369139421,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-35\"",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T25",
+              "score": 4.645154369139421,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-12\"",
+              "messages": 4,
+              "already_visible": false
+            }
+          ]
+        },
+        {
+          "tool": "history_search",
+          "result": [
+            {
+              "turn_id": "T73",
+              "score": 4.645154369139421,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-35\"",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T25",
+              "score": 4.645154369139421,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-12\"",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T53",
+              "score": 4.645154369139421,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-25\"",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T57",
+              "score": 4.645154369139421,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-27\"",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T49",
+              "score": 4.645154369139421,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-23\"",
+              "messages": 4,
+              "already_visible": false
+            }
+          ]
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "temporal-03",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-03-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 1,
+      "memory_tool_events": [
+        {
+          "tool": "history_restore_all",
+          "result": {
+            "restored_turn_ids": [],
+            "full_history": true,
+            "already_visible_turn_ids": [],
+            "already_requested_turn_ids": [],
+            "progress": true,
+            "status": "original messages will be present on the next model call"
+          }
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "temporal-03",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-03-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 2,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "full_history_fallback"
+    },
+    {
+      "base_id": "temporal-03",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-03-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 3,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "full_history_fallback"
+    },
+    {
+      "base_id": "temporal-03",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-03-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 4,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "full_history_fallback"
+    },
+    {
+      "base_id": "knowledge_update-04",
+      "kind": "knowledge_update",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "knowledge_update-04-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 1,
+      "memory_tool_events": [
+        {
+          "tool": "history_search",
+          "result": [
+            {
+              "turn_id": "T81",
+              "score": 10.053389278749489,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-39\"",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T1",
+              "score": 10.053389278749489,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-0\",",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T105",
+              "score": 9.928281065760524,
+              "preview": "{\"content\":\"撤回前一步的参数选择。使用首次读取的 Alpha config 快照中的 timeout_ms 加 5，不要使用后来的写入结果，也不要沿用其他模块的数值。写入当前配置，保留 quota，实际运行 run_checks；answer 只填新数值。\",\"role\":\"user\"}\n{\"content\":\"\",\"role\":\"assista",
+              "messages": 3,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T101",
+              "score": 6.63058376590477,
+              "preview": "{\"content\":\"需要根据历史记录完成配置更新：仅针对 Alpha 模块，从最近一次读取的 config 快照取 timeout_ms 和 quota，将两者相加作为新的 timeout_ms。其他模块和诊断日志只作为背景，不能混用。只改当前配置的 timeout_ms，保持 quota 和其他字段不变，实际运行 run_checks；最后 answe",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T73",
+              "score": 6.3893187128410025,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-35\"",
+              "messages": 4,
+              "already_visible": false
+            }
+          ]
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "knowledge_update-04",
+      "kind": "knowledge_update",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "knowledge_update-04-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 2,
+      "memory_tool_events": [
+        {
+          "tool": "history_restore",
+          "result": {
+            "restored_turn_ids": [
+              "T81"
+            ],
+            "full_history": false,
+            "already_visible_turn_ids": [],
+            "already_requested_turn_ids": [],
+            "progress": true,
+            "status": "original messages will be present on the next model call"
+          }
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "knowledge_update-04",
+      "kind": "knowledge_update",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "knowledge_update-04-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 3,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "recovery_round_budget"
+    },
+    {
+      "base_id": "knowledge_update-04",
+      "kind": "knowledge_update",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "knowledge_update-04-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 4,
+      "memory_tool_events": [
+        {
+          "tool": "history_restore",
+          "result": {
+            "error": "history_tools_disabled",
+            "progress": false,
+            "full_history_available": true,
+            "note": "Complete original history is already visible. Read those records and finish with registered business tools or the final answer."
+          }
+        }
+      ],
+      "next_recovery_guard_reason": "disabled_history_request"
+    },
+    {
+      "base_id": "knowledge_update-04",
+      "kind": "knowledge_update",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "knowledge_update-04-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 5,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "disabled_history_request"
+    },
+    {
+      "base_id": "knowledge_update-04",
+      "kind": "knowledge_update",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "knowledge_update-04-long",
+      "mode": "recover",
+      "checkpoint": 2,
+      "step": 0,
+      "memory_tool_events": [
+        {
+          "tool": "history_search",
+          "result": [
+            {
+              "turn_id": "T105",
+              "score": 10.443083107957548,
+              "preview": "{\"content\":\"撤回前一步的参数选择。使用首次读取的 Alpha config 快照中的 timeout_ms 加 5，不要使用后来的写入结果，也不要沿用其他模块的数值。写入当前配置，保留 quota，实际运行 run_checks；answer 只填新数值。\",\"role\":\"user\"}\n{\"content\":\"\",\"role\":\"assista",
+              "messages": 13,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T81",
+              "score": 9.03899826663029,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-39\"",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T1",
+              "score": 9.03899826663029,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-0\",",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T73",
+              "score": 6.016244290190654,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-35\"",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T25",
+              "score": 6.016244290190654,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-12\"",
+              "messages": 4,
+              "already_visible": false
+            }
+          ]
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "knowledge_update-04",
+      "kind": "knowledge_update",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "knowledge_update-04-long",
+      "mode": "recover",
+      "checkpoint": 2,
+      "step": 1,
+      "memory_tool_events": [
+        {
+          "tool": "history_restore",
+          "result": {
+            "restored_turn_ids": [
+              "T1"
+            ],
+            "full_history": false,
+            "already_visible_turn_ids": [],
+            "already_requested_turn_ids": [],
+            "progress": true,
+            "status": "original messages will be present on the next model call"
+          }
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "abstention-04",
+      "kind": "abstention",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "abstention-04-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 0,
+      "memory_tool_events": [
+        {
+          "tool": "history_search",
+          "result": [
+            {
+              "turn_id": "T101",
+              "score": 7.048108354436911,
+              "preview": "{\"content\":\"核对 Alpha 的 billing_email 是否有明确记录。历史包含多个模块和多次版本读取，其他模块的联系人、日志路径和名称都不能代替 Alpha 的邮箱；不允许根据命名推断。若没有明确记录，answer 填 UNKNOWN；本阶段不生成报告、不改配置，也不发送邮件。\",\"role\":\"user\"}",
+              "messages": 1,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T81",
+              "score": 3.9250912232702517,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-39\"",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T1",
+              "score": 3.9250912232702517,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-0\",",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T45",
+              "score": 2.8610024930323825,
+              "preview": "time\\\":\\\"2026-10-07T10:45:00\\\"},{\\\"bytes_processed\\\":48128,\\\"component\\\":\\\"worker-4\\\",\\\"detail\\\":\\\"Retry used the previous cursor; no customer configuration was modified.\\\",\\\"durat",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T93",
+              "score": 2.8506174805309286,
+              "preview": ",\\\"time\\\":\\\"2026-10-07T13:45:00\\\"},{\\\"bytes_processed\\\":48539,\\\"component\\\":\\\"worker-4\\\",\\\"detail\\\":\\\"Rebuilt a local search partition after the source checksum changed.\\\",\\\"durati",
+              "messages": 4,
+              "already_visible": false
+            }
+          ]
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "abstention-04",
+      "kind": "abstention",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "abstention-04-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 1,
+      "memory_tool_events": [
+        {
+          "tool": "history_restore",
+          "result": {
+            "restored_turn_ids": [
+              "T45",
+              "T93"
+            ],
+            "full_history": false,
+            "already_visible_turn_ids": [],
+            "already_requested_turn_ids": [],
+            "progress": true,
+            "status": "original messages will be present on the next model call"
+          }
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "temporal-04",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-04-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 1,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "full_history_fallback"
+    },
+    {
+      "base_id": "temporal-04",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-04-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 2,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "full_history_fallback"
+    },
+    {
+      "base_id": "temporal-04",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-04-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 0,
+      "memory_tool_events": [
+        {
+          "tool": "history_search",
+          "result": [
+            {
+              "turn_id": "T81",
+              "score": 9.794701614346398,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-39\"",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T1",
+              "score": 9.794701614346398,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-0\",",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T101",
+              "score": 7.510218223423177,
+              "preview": "null}\",\"role\":\"tool\",\"tool_call_id\":\"call_03_K59lSOKSh2oxZp1HyxLU1952\"}\n{\"content\":\"                                                                             \",\"role\":\"assistant",
+              "messages": 11,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T73",
+              "score": 5.817677455496661,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-35\"",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T25",
+              "score": 5.817677455496661,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-12\"",
+              "messages": 4,
+              "already_visible": false
+            }
+          ]
+        },
+        {
+          "tool": "history_search",
+          "result": [
+            {
+              "turn_id": "T81",
+              "score": 9.794701614346398,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-39\"",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T1",
+              "score": 9.794701614346398,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-0\",",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T101",
+              "score": 7.510218223423177,
+              "preview": "null}\",\"role\":\"tool\",\"tool_call_id\":\"call_03_K59lSOKSh2oxZp1HyxLU1952\"}\n{\"content\":\"                                                                             \",\"role\":\"assistant",
+              "messages": 11,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T73",
+              "score": 5.817677455496661,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-35\"",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T25",
+              "score": 5.817677455496661,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-12\"",
+              "messages": 4,
+              "already_visible": false
+            }
+          ]
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "temporal-04",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-04-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 1,
+      "memory_tool_events": [
+        {
+          "tool": "history_restore_all",
+          "result": {
+            "restored_turn_ids": [],
+            "full_history": true,
+            "already_visible_turn_ids": [],
+            "already_requested_turn_ids": [],
+            "progress": true,
+            "status": "original messages will be present on the next model call"
+          }
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "temporal-04",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-04-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 2,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "full_history_fallback"
+    },
+    {
+      "base_id": "temporal-04",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-04-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 3,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "full_history_fallback"
+    },
+    {
+      "base_id": "temporal-04",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-04-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 4,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "full_history_fallback"
+    },
+    {
+      "base_id": "temporal-05",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-05-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 0,
+      "memory_tool_events": [
+        {
+          "tool": "history_search",
+          "result": [
+            {
+              "turn_id": "T81",
+              "score": 8.53642449879381,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-39\"",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T1",
+              "score": 8.53642449879381,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-0\",",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T101",
+              "score": 5.7170134084536866,
+              "preview": "{\"content\":\"比较两个历史时间点：截至 2026-10-04 与截至 2026-10-06，各选当时最近的 Alpha config 快照，计算后一个 timeout_ms 减前一个 timeout_ms 的差值。不得用现在的文件值代替历史快照，其他模块不参与。将差值写入当前 timeout_ms，保留 quota，实际运行 run_checks；",
+              "messages": 1,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T73",
+              "score": 4.612456011966605,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-35\"",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T25",
+              "score": 4.612456011966605,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-12\"",
+              "messages": 4,
+              "already_visible": false
+            }
+          ]
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "temporal-05",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-05-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 1,
+      "memory_tool_events": [
+        {
+          "tool": "history_restore",
+          "result": {
+            "restored_turn_ids": [
+              "T25",
+              "T73",
+              "T93"
+            ],
+            "full_history": false,
+            "already_visible_turn_ids": [
+              "T81"
+            ],
+            "already_requested_turn_ids": [],
+            "progress": true,
+            "status": "original messages will be present on the next model call"
+          }
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "temporal-05",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-05-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 2,
+      "memory_tool_events": [
+        {
+          "tool": "history_restore",
+          "result": {
+            "error": "history_tools_disabled",
+            "progress": false,
+            "full_history_available": true,
+            "note": "Complete original history is already visible. Read those records and finish with registered business tools or the final answer."
+          }
+        }
+      ],
+      "next_recovery_guard_reason": "disabled_history_request"
+    },
+    {
+      "base_id": "temporal-05",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-05-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 3,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "disabled_history_request"
+    },
+    {
+      "base_id": "temporal-05",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-05-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 4,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "disabled_history_request"
+    },
+    {
+      "base_id": "temporal-05",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-05-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 5,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "disabled_history_request"
+    },
+    {
+      "base_id": "temporal-05",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-05-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 0,
+      "memory_tool_events": [
+        {
+          "tool": "history_search",
+          "result": [
+            {
+              "turn_id": "T101",
+              "score": 9.512968731470668,
+              "preview": "e records and finish with registered business tools or the final answer.\\\",\\\"progress\\\":false}\",\"role\":\"tool\",\"tool_call_id\":\"call_00_J7BrlIZVn8c34Dk4MtKq7812\"}\n{\"content\":\"\",\"role",
+              "messages": 14,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T81",
+              "score": 6.514862573570596,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-39\"",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T1",
+              "score": 6.514862573570596,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-0\",",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T115",
+              "score": 5.5328234364503714,
+              "preview": "{\"content\":\"恢复历史配置：截至 2026-10-06，选当时最近的 Alpha config 快照，取该快照的 timeout_ms 写入当前配置。前一步的计算与写入发生在后来，不能作为这个时间点的证据。保留 quota 并实际运行 run_checks；answer 只填数值。\",\"role\":\"user\"}",
+              "messages": 1,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T73",
+              "score": 3.510332176871759,
+              "preview": "{\"content\":\"读取并记录 read_config {} 的原始结果，供后续任务使用。\",\"role\":\"user\"}\n{\"content\":null,\"role\":\"assistant\",\"tool_calls\":[{\"function\":{\"arguments\":\"{}\",\"name\":\"read_config\"},\"id\":\"setup-35\"",
+              "messages": 4,
+              "already_visible": false
+            }
+          ]
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "temporal-05",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-05-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 1,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "full_history_fallback"
+    },
+    {
+      "base_id": "temporal-05",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-05-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 2,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "full_history_fallback"
+    }
+  ],
+  "fixed_implementation": [
+    {
+      "base_id": "temporal-03",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-03-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 0,
+      "memory_tool_events": [
+        {
+          "tool": "history_search",
+          "result": [
+            {
+              "turn_id": "T81",
+              "score": 8.92335501780986,
+              "preview": "{\"config\":{\"module\":\"Alpha\",\"observed_at\":\"2026-10-05\",\"quota\":33,\"timeout_ms\":951},\"observed_at\":\"2026-10-05\"}",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T1",
+              "score": 8.92335501780986,
+              "preview": "{\"config\":{\"module\":\"Alpha\",\"observed_at\":\"2026-10-01\",\"quota\":33,\"timeout_ms\":569},\"observed_at\":\"2026-10-01\"}",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T73",
+              "score": 4.638972404585835,
+              "preview": "{\"config\":{\"module\":\"Gamma\",\"observed_at\":\"2026-09-26\",\"quota\":56,\"timeout_ms\":1407},\"observed_at\":\"2026-09-26\"}",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T25",
+              "score": 4.638972404585835,
+              "preview": "{\"config\":{\"module\":\"Delta\",\"observed_at\":\"2026-09-15\",\"quota\":45,\"timeout_ms\":1198},\"observed_at\":\"2026-09-15\"}",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T53",
+              "score": 4.638972404585835,
+              "preview": "{\"config\":{\"module\":\"Delta\",\"observed_at\":\"2026-09-21\",\"quota\":51,\"timeout_ms\":1312},\"observed_at\":\"2026-09-21\"}",
+              "messages": 4,
+              "already_visible": false
+            }
+          ]
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "temporal-03",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-03-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 1,
+      "memory_tool_events": [
+        {
+          "tool": "history_restore_all",
+          "result": {
+            "restored_turn_ids": [],
+            "full_history": true,
+            "already_visible_turn_ids": [],
+            "already_requested_turn_ids": [],
+            "progress": true,
+            "status": "original messages will be present on the next model call"
+          }
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "temporal-03",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-03-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 2,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "full_history_fallback"
+    },
+    {
+      "base_id": "temporal-03",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-03-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 3,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "full_history_fallback"
+    },
+    {
+      "base_id": "temporal-03",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-03-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 4,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "full_history_fallback"
+    },
+    {
+      "base_id": "temporal-03",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-03-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 0,
+      "memory_tool_events": [
+        {
+          "tool": "history_search",
+          "result": [
+            {
+              "turn_id": "T101",
+              "score": 12.022436795548465,
+              "preview": "[{\"already_visible\":true,\"messages\":4,\"preview\":\"{\\\"config\\\":{\\\"module\\\":\\\"Alpha\\\",\\\"observed_at\\\":\\\"2026-10-05\\\",\\\"quota\\\":33,\\\"timeout_ms\\\":951},\\\"observed_at\\\":\\\"2026-10-05\\\"}\",",
+              "messages": 15,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T81",
+              "score": 8.764181195552709,
+              "preview": "{\"config\":{\"module\":\"Alpha\",\"observed_at\":\"2026-10-05\",\"quota\":33,\"timeout_ms\":951},\"observed_at\":\"2026-10-05\"}",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T1",
+              "score": 8.764181195552709,
+              "preview": "{\"config\":{\"module\":\"Alpha\",\"observed_at\":\"2026-10-01\",\"quota\":33,\"timeout_ms\":569},\"observed_at\":\"2026-10-01\"}",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T73",
+              "score": 5.302783722611946,
+              "preview": "{\"config\":{\"module\":\"Gamma\",\"observed_at\":\"2026-09-26\",\"quota\":56,\"timeout_ms\":1407},\"observed_at\":\"2026-09-26\"}",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T25",
+              "score": 5.302783722611946,
+              "preview": "{\"config\":{\"module\":\"Delta\",\"observed_at\":\"2026-09-15\",\"quota\":45,\"timeout_ms\":1198},\"observed_at\":\"2026-09-15\"}",
+              "messages": 4,
+              "already_visible": false
+            }
+          ]
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "temporal-03",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-03-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 1,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "full_history_fallback"
+    },
+    {
+      "base_id": "temporal-03",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-03-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 2,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "full_history_fallback"
+    },
+    {
+      "base_id": "knowledge_update-04",
+      "kind": "knowledge_update",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "knowledge_update-04-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 0,
+      "memory_tool_events": [
+        {
+          "tool": "history_search",
+          "result": [
+            {
+              "turn_id": "T101",
+              "score": 11.092767322540784,
+              "preview": "{\"config\":{\"module\":\"Alpha\",\"observed_at\":\"2026-10-05\",\"quota\":34,\"timeout_ms\":968},\"observed_at\":\"2026-10-05\"}",
+              "messages": 8,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T81",
+              "score": 10.414733225131979,
+              "preview": "{\"config\":{\"module\":\"Alpha\",\"observed_at\":\"2026-10-05\",\"quota\":34,\"timeout_ms\":968},\"observed_at\":\"2026-10-05\"}",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T1",
+              "score": 10.414733225131979,
+              "preview": "{\"config\":{\"module\":\"Alpha\",\"observed_at\":\"2026-10-01\",\"quota\":34,\"timeout_ms\":592},\"observed_at\":\"2026-10-01\"}",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T73",
+              "score": 6.478649840494934,
+              "preview": "{\"config\":{\"module\":\"Gamma\",\"observed_at\":\"2026-09-26\",\"quota\":56,\"timeout_ms\":1408},\"observed_at\":\"2026-09-26\"}",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T25",
+              "score": 6.478649840494934,
+              "preview": "{\"config\":{\"module\":\"Delta\",\"observed_at\":\"2026-09-15\",\"quota\":45,\"timeout_ms\":1199},\"observed_at\":\"2026-09-15\"}",
+              "messages": 4,
+              "already_visible": false
+            }
+          ]
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "knowledge_update-04",
+      "kind": "knowledge_update",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "knowledge_update-04-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 3,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "reserve_task_steps"
+    },
+    {
+      "base_id": "abstention-04",
+      "kind": "abstention",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "abstention-04-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 0,
+      "memory_tool_events": [
+        {
+          "tool": "history_search",
+          "result": [
+            {
+              "turn_id": "T81",
+              "score": 4.284382613224025,
+              "preview": "{\"config\":{\"module\":\"Alpha\",\"observed_at\":\"2026-10-05\",\"quota\":34,\"timeout_ms\":968},\"observed_at\":\"2026-10-05\"}",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T1",
+              "score": 4.284382613224025,
+              "preview": "{\"config\":{\"module\":\"Alpha\",\"observed_at\":\"2026-10-01\",\"quota\":34,\"timeout_ms\":592},\"observed_at\":\"2026-10-01\"}",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T45",
+              "score": 3.0346917459548055,
+              "preview": "{\"events\":[{\"bytes_processed\":1024,\"component\":\"worker-0\",\"detail\":\"Validated export schema against the recorded batch columns.\",\"duration_ms\":5,\"event\":\"scan_a-0\",\"file\":\"cache/ba",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T93",
+              "score": 3.0236565794585353,
+              "preview": "{\"events\":[{\"bytes_processed\":1435,\"component\":\"worker-0\",\"detail\":\"Flushed pending rows after a worker lease was renewed.\",\"duration_ms\":8,\"event\":\"scan_d-0\",\"file\":\"cache/batch-0",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T85",
+              "score": 3.0236565794585353,
+              "preview": "{\"events\":[{\"bytes_processed\":1161,\"component\":\"worker-0\",\"detail\":\"Rebuilt a local search partition after the source checksum changed.\",\"duration_ms\":6,\"event\":\"scan_b-0\",\"file\":\"",
+              "messages": 4,
+              "already_visible": false
+            }
+          ]
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "abstention-04",
+      "kind": "abstention",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "abstention-04-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 1,
+      "memory_tool_events": [
+        {
+          "tool": "history_search",
+          "result": [
+            {
+              "turn_id": "T81",
+              "score": 4.284382613224025,
+              "preview": "{\"config\":{\"module\":\"Alpha\",\"observed_at\":\"2026-10-05\",\"quota\":34,\"timeout_ms\":968},\"observed_at\":\"2026-10-05\"}",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T1",
+              "score": 4.284382613224025,
+              "preview": "{\"config\":{\"module\":\"Alpha\",\"observed_at\":\"2026-10-01\",\"quota\":34,\"timeout_ms\":592},\"observed_at\":\"2026-10-01\"}",
+              "messages": 4,
+              "already_visible": true
+            }
+          ]
+        },
+        {
+          "tool": "history_search",
+          "result": [
+            {
+              "turn_id": "T81",
+              "score": 11.868310659257299,
+              "preview": "{\"config\":{\"module\":\"Alpha\",\"observed_at\":\"2026-10-05\",\"quota\":34,\"timeout_ms\":968},\"observed_at\":\"2026-10-05\"}",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T1",
+              "score": 11.868310659257299,
+              "preview": "{\"config\":{\"module\":\"Alpha\",\"observed_at\":\"2026-10-01\",\"quota\":34,\"timeout_ms\":592},\"observed_at\":\"2026-10-01\"}",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T73",
+              "score": 7.583928046033274,
+              "preview": "{\"config\":{\"module\":\"Gamma\",\"observed_at\":\"2026-09-26\",\"quota\":56,\"timeout_ms\":1408},\"observed_at\":\"2026-09-26\"}",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T25",
+              "score": 7.583928046033274,
+              "preview": "{\"config\":{\"module\":\"Delta\",\"observed_at\":\"2026-09-15\",\"quota\":45,\"timeout_ms\":1199},\"observed_at\":\"2026-09-15\"}",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T53",
+              "score": 7.583928046033274,
+              "preview": "{\"config\":{\"module\":\"Delta\",\"observed_at\":\"2026-09-21\",\"quota\":51,\"timeout_ms\":1313},\"observed_at\":\"2026-09-21\"}",
+              "messages": 4,
+              "already_visible": false
+            }
+          ]
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "abstention-04",
+      "kind": "abstention",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "abstention-04-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 0,
+      "memory_tool_events": [
+        {
+          "tool": "history_restore_all",
+          "result": {
+            "restored_turn_ids": [],
+            "full_history": true,
+            "already_visible_turn_ids": [],
+            "already_requested_turn_ids": [],
+            "progress": true,
+            "status": "original messages will be present on the next model call"
+          }
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "temporal-04",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-04-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 0,
+      "memory_tool_events": [
+        {
+          "tool": "history_search",
+          "result": [
+            {
+              "turn_id": "T81",
+              "score": 8.92335501780986,
+              "preview": "{\"config\":{\"module\":\"Alpha\",\"observed_at\":\"2026-10-05\",\"quota\":34,\"timeout_ms\":968},\"observed_at\":\"2026-10-05\"}",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T1",
+              "score": 8.92335501780986,
+              "preview": "{\"config\":{\"module\":\"Alpha\",\"observed_at\":\"2026-10-01\",\"quota\":34,\"timeout_ms\":592},\"observed_at\":\"2026-10-01\"}",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T73",
+              "score": 4.638972404585835,
+              "preview": "{\"config\":{\"module\":\"Gamma\",\"observed_at\":\"2026-09-26\",\"quota\":56,\"timeout_ms\":1408},\"observed_at\":\"2026-09-26\"}",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T25",
+              "score": 4.638972404585835,
+              "preview": "{\"config\":{\"module\":\"Delta\",\"observed_at\":\"2026-09-15\",\"quota\":45,\"timeout_ms\":1199},\"observed_at\":\"2026-09-15\"}",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T53",
+              "score": 4.638972404585835,
+              "preview": "{\"config\":{\"module\":\"Delta\",\"observed_at\":\"2026-09-21\",\"quota\":51,\"timeout_ms\":1313},\"observed_at\":\"2026-09-21\"}",
+              "messages": 4,
+              "already_visible": false
+            }
+          ]
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "temporal-04",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-04-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 1,
+      "memory_tool_events": [
+        {
+          "tool": "history_restore",
+          "result": {
+            "restored_turn_ids": [
+              "T13",
+              "T17",
+              "T5",
+              "T9"
+            ],
+            "full_history": false,
+            "already_visible_turn_ids": [],
+            "already_requested_turn_ids": [],
+            "progress": true,
+            "status": "original messages will be present on the next model call"
+          }
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "temporal-04",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-04-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 2,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "recovery_round_budget"
+    },
+    {
+      "base_id": "temporal-04",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-04-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 3,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "recovery_round_budget"
+    },
+    {
+      "base_id": "temporal-04",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-04-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 0,
+      "memory_tool_events": [
+        {
+          "tool": "history_search",
+          "result": [
+            {
+              "turn_id": "T101",
+              "score": 9.226168945847245,
+              "preview": "[{\"already_visible\":true,\"messages\":4,\"preview\":\"{\\\"config\\\":{\\\"module\\\":\\\"Alpha\\\",\\\"observed_at\\\":\\\"2026-10-05\\\",\\\"quota\\\":34,\\\"timeout_ms\\\":968},\\\"observed_at\\\":\\\"2026-10-05\\\"}\",",
+              "messages": 11,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T81",
+              "score": 6.883149086394579,
+              "preview": "{\"config\":{\"module\":\"Alpha\",\"observed_at\":\"2026-10-05\",\"quota\":34,\"timeout_ms\":968},\"observed_at\":\"2026-10-05\"}",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T1",
+              "score": 6.883149086394579,
+              "preview": "{\"config\":{\"module\":\"Alpha\",\"observed_at\":\"2026-10-01\",\"quota\":34,\"timeout_ms\":592},\"observed_at\":\"2026-10-01\"}",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T73",
+              "score": 3.6197301620321527,
+              "preview": "{\"config\":{\"module\":\"Gamma\",\"observed_at\":\"2026-09-26\",\"quota\":56,\"timeout_ms\":1408},\"observed_at\":\"2026-09-26\"}",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T25",
+              "score": 3.6197301620321527,
+              "preview": "{\"config\":{\"module\":\"Delta\",\"observed_at\":\"2026-09-15\",\"quota\":45,\"timeout_ms\":1199},\"observed_at\":\"2026-09-15\"}",
+              "messages": 4,
+              "already_visible": false
+            }
+          ]
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "temporal-04",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-04-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 1,
+      "memory_tool_events": [
+        {
+          "tool": "history_restore",
+          "result": {
+            "restored_turn_ids": [
+              "T1"
+            ],
+            "full_history": false,
+            "already_visible_turn_ids": [
+              "T81"
+            ],
+            "already_requested_turn_ids": [],
+            "progress": true,
+            "status": "original messages will be present on the next model call"
+          }
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "temporal-04",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-04-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 2,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "full_history_fallback"
+    },
+    {
+      "base_id": "temporal-04",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-04-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 3,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "full_history_fallback"
+    },
+    {
+      "base_id": "temporal-05",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-05-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 0,
+      "memory_tool_events": [
+        {
+          "tool": "history_search",
+          "result": [
+            {
+              "turn_id": "T81",
+              "score": 8.92335501780986,
+              "preview": "{\"config\":{\"module\":\"Alpha\",\"observed_at\":\"2026-10-05\",\"quota\":35,\"timeout_ms\":985},\"observed_at\":\"2026-10-05\"}",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T1",
+              "score": 8.92335501780986,
+              "preview": "{\"config\":{\"module\":\"Alpha\",\"observed_at\":\"2026-10-01\",\"quota\":35,\"timeout_ms\":615},\"observed_at\":\"2026-10-01\"}",
+              "messages": 4,
+              "already_visible": true
+            },
+            {
+              "turn_id": "T73",
+              "score": 4.638972404585835,
+              "preview": "{\"config\":{\"module\":\"Gamma\",\"observed_at\":\"2026-09-26\",\"quota\":56,\"timeout_ms\":1409},\"observed_at\":\"2026-09-26\"}",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T25",
+              "score": 4.638972404585835,
+              "preview": "{\"config\":{\"module\":\"Delta\",\"observed_at\":\"2026-09-15\",\"quota\":45,\"timeout_ms\":1200},\"observed_at\":\"2026-09-15\"}",
+              "messages": 4,
+              "already_visible": false
+            },
+            {
+              "turn_id": "T53",
+              "score": 4.638972404585835,
+              "preview": "{\"config\":{\"module\":\"Delta\",\"observed_at\":\"2026-09-21\",\"quota\":51,\"timeout_ms\":1314},\"observed_at\":\"2026-09-21\"}",
+              "messages": 4,
+              "already_visible": false
+            }
+          ]
+        }
+      ],
+      "next_recovery_guard_reason": null
+    },
+    {
+      "base_id": "temporal-05",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-05-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 1,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "full_history_fallback"
+    },
+    {
+      "base_id": "temporal-05",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-05-long",
+      "mode": "recover",
+      "checkpoint": 0,
+      "step": 2,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "full_history_fallback"
+    },
+    {
+      "base_id": "temporal-05",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-05-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 1,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "full_history_fallback"
+    },
+    {
+      "base_id": "temporal-05",
+      "kind": "temporal",
+      "context_length": "long",
+      "event": "recovery_guard",
+      "episode_id": "temporal-05-long",
+      "mode": "recover",
+      "checkpoint": 1,
+      "step": 2,
+      "memory_tool_events": [],
+      "next_recovery_guard_reason": "full_history_fallback"
+    }
+  ]
+}

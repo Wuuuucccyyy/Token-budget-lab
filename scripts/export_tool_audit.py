@@ -31,6 +31,9 @@ def main():
                 base_id=r.get('base_id',r['episode_id']),context_length=r.get('context_length','legacy'),
                 baseline_characters=r.get('baseline_units'),sent_characters=r.get('sent_units'),
                 recovery_tools_enabled=r.get('recovery_tools_enabled'),
+                recovery_rounds=r.get('recovery_rounds'),full_history_locked=r.get('full_history_locked'),
+                recovery_guard_reason=r.get('recovery_guard_reason'),
+                suppressed_snapshot_reads=json.dumps(r.get('suppressed_snapshot_reads',[])),
                 evidence_plan=json.dumps(r.get('evidence_plan',{}),ensure_ascii=False,sort_keys=True),
                 api_latency_seconds=r.get('api_latency_seconds'),end_to_end_seconds=r['end_to_end_seconds'],
                 restored_turn_ids=json.dumps(r['restored_turn_ids']),tool_names=json.dumps(calls)))
