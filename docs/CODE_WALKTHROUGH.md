@@ -59,6 +59,8 @@ DeepSeek 路径通过 `answer_fn` 接入真实接口，发送筛选后的上下�
 
 ## 历史插件实现
 
+新增 `tool_tasks.py` 实现固定目录内的文件、CSV、Decimal 计算和真实 Python 检查；`assess` 在执行后联合判断答案、文件状态、必需工具和约束。`tool_experiment.py` 将一个任务的完整历史和文件状态连续传递至三个检查点，不修复前一步错误。`scripted_policy.py` 只用于离线连接检查，汇总不会把它的通过数写成模型准确率。`longmemeval_adapter.py` 导入官方题型，模型消息只保留 role/content，参考标签另存。
+
 `memory.py` 将完整消息与发送视图分开管理。`HistoryArchive.ingest` 只追加新消息，校验已有原文与 SHA；`split_turns` 按用户轮次形成整组，保留原角色和顺序。`before_model` 保留全部指令、用户消息和最近轮次，检索旧轮次原文；匹配不确定或保护内容超出软预算时回退完整历史。压缩的是旧 assistant/tool 消息，不是生成式摘要。
 
 恢复工具的租户和会话由宿主绑定。`history_restore` 返回确认信息，原文在下一次模型请求中恢复到原位置，不重新执行历史工具。恢复请求按当前用户轮次生效，下一轮重新判断。归档通知仅存在于发送视图，不回写完整历史。

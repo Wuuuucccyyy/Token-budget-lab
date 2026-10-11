@@ -2,6 +2,8 @@
 
 本文件描述原创合成数据 `toy_qa.jsonl` 和 `agent_memory.json`。480 题公开数据的来源、文档划分和 CC BY-SA 4.0 许可见 [PUBLIC_DATA.md](PUBLIC_DATA.md)。
 
+新增 `agent_tool_tasks.json` 为原创连续工具任务，按 MIT 发布，含 24 任务、72 检查点；开发/测试各 12 任务，任务初始化、评分标签与模板局限见 [工具评测说明](../docs/AGENT_TOOL_EVALUATION.md)。官方 LongMemEval cleaned 数据标注 MIT，固定来源、导入规则与 Oracle 限制也记录在该说明；原始官方数据位于忽略目录 `data/raw/`，未纳入仓库。
+
 `toy_qa.jsonl` 含 74 条人工构造的虚构校园问答请求，覆盖 20 份材料和 38 个事实标签；不来自真实学校政策。
 
 原有 34 条样例加上 10 份新写材料（40 条请求）。每份新材料包含两个事实，各安排原问题、完全重复、改写问题和询问另一事实的对照题。

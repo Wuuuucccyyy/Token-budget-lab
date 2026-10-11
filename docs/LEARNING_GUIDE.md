@@ -90,4 +90,4 @@ LongBench 展示长上下文任务的数据组织、划分和指标。复现实�
 
 [LangChain middleware 文档](https://docs.langchain.com/oss/python/langchain/middleware/built-in) 提供模型调用前的历史处理机制，可作为框架对接参考；当前实现是独立 Python 钩子。[MCP tools 规范](https://modelcontextprotocol.io/specification/2025-11-25/server/tools) 用于工具接口设计，历史发送视图仍需宿主侧钩子控制，不能仅凭注册搜索工具获得自动压缩。
 
-[LongMemEval](https://github.com/xiaowu0162/LongMemEval) 可作为后续记忆检索、更新、时序与拒答评测的参考；当前没有运行该官方评测。仓库首轮合成回归集只验证显式字段和工具原文恢复，并已记录重复恢复导致成本收益很小的真实试验。详细机制见 [历史插件说明](AGENT_MEMORY_PLUGIN.md)。
+[LongMemEval](https://github.com/xiaowu0162/LongMemEval) 为更新、时序与拒答评测提供参考；当前完成官方 Oracle 子集 30 题导入验证，没有运行官方生成评审。新增原创连续工具任务要求实际写文件并执行检查，已完成小规模 DeepSeek 对照；全量回退的结果不构成压缩无损证据。详细机制见 [历史插件说明](AGENT_MEMORY_PLUGIN.md) 和 [工具评测协议](AGENT_TOOL_EVALUATION.md)。

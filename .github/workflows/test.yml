@@ -23,5 +23,7 @@ jobs:
       - run: python -m token_budget_lab.memory_experiment --config configs/agent_memory_deepseek.json --output local_results/memory-live-plan --plan
       - run: python examples/python_memory_agent.py
       - run: python scripts/analyze_agent_memory.py --answers results/agent_memory/deepseek_pilot/final_answers.csv --output local_results/memory-format-ci
+      - run: python -m token_budget_lab.tool_experiment --config configs/agent_tools_offline.json --output local_results/tools-ci
+      - run: python -m token_budget_lab.tool_experiment --config configs/agent_tools_deepseek.json --output local_results/tools-live-plan --plan
       - run: python -m pip install --no-deps .
       - run: python -I -c "from token_budget_lab.memory import HistoryArchive, MemoryPlugin; from token_budget_lab.memory_agent import run_agent"

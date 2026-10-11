@@ -1,0 +1,37 @@
+{
+  "schema_version": "continuous-tools-v1",
+  "config": {
+    "data": "data/agent_tool_tasks.json",
+    "split": "dev",
+    "backend": "deepseek",
+    "per_kind_limit": 1,
+    "modes": [
+      "full",
+      "recover"
+    ],
+    "seed": 20261011,
+    "budget_characters": 9000,
+    "recent_turns": 2,
+    "max_steps": 6,
+    "model": "deepseek-flash",
+    "max_tokens": 1024,
+    "max_calls": 120,
+    "timeout": 120
+  },
+  "data_sha256": "593b536ebdc3b7fb06ae325b9c1d9fc535e84a30767fe596e83dbc8e993978b3",
+  "code_sha256": "68cb409c7d9fbb2beadee9f3e56ccdb5361068b05638ce14825853b258eafbdf",
+  "episode_ids": [
+    "temporal-00",
+    "abstention-02",
+    "knowledge_update-00",
+    "tool_execution-02"
+  ],
+  "checkpoints": 12,
+  "dataset_source": "original tasks inspired by LongMemEval capability taxonomy; not official benchmark",
+  "baseline": "native full history without memory tools/archive",
+  "setup": "scripted actual file reads; no setup LLM calls; checkpoints are continuous agent execution",
+  "protocol": "chat",
+  "thinking": "disabled",
+  "json_output": true,
+  "identity": "d504b6afb91e0873ffa31ce61ccf6d07425a3cb53f148f381d80b9e0ae6c1611"
+}

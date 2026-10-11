@@ -4,7 +4,7 @@
 
 目标是在原有 agent 的模型调用前筛选历史消息，并在缺少信息时恢复原文。验收顺序是任务正确性、累计输入输出 token、端到端速度。回答与完整历史版本的一致性另行统计：两个版本答得一样，并不说明都答对了。
 
-v0.2 提供可安装的 Python 中间件、SQLite 原文归档、调用前钩子、三个历史恢复工具和 DeepSeek 参考 agent。当前是实验接口；尚未达到可默认启用的质量与效率要求。24 题的真实试验计入所有恢复调用后，总 token 仅减少 0.18%，P95 延迟上升。报告见 [历史记忆实验](../results/agent_memory/REPORT.md)。
+v0.3 提供可安装的 Python 中间件、SQLite 原文归档、调用前钩子、三个历史恢复工具和 DeepSeek 参考 agent，新增原生基线与连续工具任务。当前是实验接口；尚未达到可默认启用的质量与效率要求。早期 24 题试验总 token 仅减少 0.18%；新增工具试验全部回退 Full，总 token 增加 20.2%。报告见 [历史记忆实验](../results/agent_memory/REPORT.md) 和 [连续工具实验](../results/agent_tools/REPORT.md)。
 
 首版的压缩方式是删除部分旧 assistant/tool 消息，不生成有损自然语言摘要。全部原始 user/system/developer 消息、最近两轮和恢复的整轮工具记录仍按原角色、原顺序发送。这样能直接保留用户要求与更正，但用户消息很长时压缩空间有限。
 
@@ -61,6 +61,8 @@ finally:
 
 `DeepSeekChat` 是非流式同步参考传输层，使用官方 Chat Completions 地址、关闭思考模式，不自动重试；自定义传输层返回 assistant message、usage 和 finish_reason，并以 `last` 保留已知 usage。当前没有 LangChain/MCP 自动接入，也没有与任意 agent 无缝兼容的承诺。
 
+原生基线使用 `plugin=None, mode="full", memory_tools=False`，不注册历史工具。`DeepSeekChat(..., json_output=True)` 可启用 JSON Output，但仍需校验 answer 字段。历史实验保留原设置，没有据新格式选项重写旧分数。
+
 ## 数据流
 
 ```mermaid
@@ -108,4 +110,4 @@ flowchart TD
 
 下一轮首先消除提示词格式冲突，并减少已恢复证据的重复搜索和恢复。改动固定后再做独立测试，不能以调试后的同批样本作为确认结果。随后引入原文出处明确的事实索引、混合检索与重排，保留“恢复整轮”和“完整历史回退”路径。
 
-框架对接应优先采用宿主的模型调用前钩子。LangChain 的 [middleware](https://docs.langchain.com/oss/python/langchain/middleware/built-in) 可作为后续集成点；[MCP tools](https://modelcontextprotocol.io/specification/2025-11-25/server/tools) 可提供历史检索和恢复服务，但单独的 MCP 工具不能自动改写宿主发给模型的全部历史。记忆评测可参考 [LongMemEval](https://github.com/xiaowu0162/LongMemEval)，本仓库尚未运行其官方数据。
+框架对接应优先采用宿主的模型调用前钩子。LangChain 的 [middleware](https://docs.langchain.com/oss/python/langchain/middleware/built-in) 可作为后续集成点；[MCP tools](https://modelcontextprotocol.io/specification/2025-11-25/server/tools) 可提供历史检索和恢复服务，但单独的 MCP 工具不能自动改写宿主发给模型的全部历史。记忆评测可参考 [LongMemEval](https://github.com/xiaowu0162/LongMemEval)，当前已完成 Oracle 子集导入验证，尚未运行官方生成评审；新增原创工具评测见 [协议](AGENT_TOOL_EVALUATION.md)。

@@ -1,0 +1,6 @@
+{
+  "data": "data/agent_tool_tasks.json", "split": "dev", "backend": "deepseek",
+  "per_kind_limit": 1, "modes": ["full", "recover"], "seed": 20261011,
+  "budget_characters": 9000, "recent_turns": 2, "max_steps": 6,
+  "model": "deepseek-flash", "max_tokens": 1024, "max_calls": 120, "timeout": 120
+}

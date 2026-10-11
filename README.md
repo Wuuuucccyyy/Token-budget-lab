@@ -8,7 +8,7 @@
 
 ## Python Agent 历史插件
 
-v0.2 提供模型调用前的历史筛选钩子：原始消息追加到 SQLite 归档，保留全部用户要求与更正、系统指令和最近两轮；根据当前问题恢复相关旧工具整轮，信息不确定时完整回退。宿主保留完整历史，压缩结果只用于单次请求。
+v0.3 提供模型调用前的历史筛选钩子：原始消息追加到 SQLite 归档，保留全部用户要求与更正、系统指令和最近两轮；根据当前问题恢复相关旧工具整轮，信息不确定时完整回退。宿主保留完整历史，压缩结果只用于单次请求。新增原生 agent 基线、JSON 输出选项和连续工具任务评测。
 
 ```bash
 python -m pip install .
@@ -20,6 +20,20 @@ python examples/python_memory_agent.py
 首轮 24 题真实试验中，恢复模式保留了标注来源消息，严格 JSON EM 为 70.8%，完整历史为 54.2%；这个差异受到输出格式失败影响，不能直接解释为事实质量提升。计入全部恢复调用后，总 token 仅减少 **0.18%**，P95 从 **1.029 秒**升至 **2.620 秒**。当前不支持默认启用或回答近乎无损且明显省 token 的结论。
 
 接入接口、质量目标与边界见 [插件说明](docs/AGENT_MEMORY_PLUGIN.md)；设置、原始最终回答、格式诊断和逐题数值见 [记忆实验报告](results/agent_memory/REPORT.md)。
+
+## 连续工具任务评测
+
+新增 24 个原创任务、72 个连续检查点，覆盖知识更新、时序、拒答和实际工具执行。模型需要写配置、计算旧订单金额、生成本地报告并实际运行检查；仅回答正确而未完成操作不能通过。
+
+2026-10-11 的 4 任务 × 3 检查点 × 2 条件试验完成 60 次 DeepSeek 调用。原生 Full 与恢复插件都通过 12/12 检查点，但恢复组的全部 32 次请求都回退完整历史，总 token **增加 20.2%**。这说明当前回退和恢复调用仍需改进，不能解释为压缩无损。
+
+另完成官方 LongMemEval Oracle 数据中更新、时序、拒答各 10 题的导入验证；没有官方生成成绩。原始数据固定版本和指纹，模型输入移除标签，Oracle 的预选证据性质另作标记。
+
+```bash
+python -m token_budget_lab.tool_experiment --config configs/agent_tools_offline.json --output local_results/tools-offline
+```
+
+该命令使用脚本调试策略和真实本地文件工具，不调用大模型；结果不能写成模型准确率。[评测协议](docs/AGENT_TOOL_EVALUATION.md) · [结果与工具审计](results/agent_tools/REPORT.md)。
 
 ## 快速运行
 
@@ -157,6 +171,8 @@ python -m token_budget_lab.demo
 | `evidence_budget.py` / `rag_experiment.py` | 整库段落索引、无标注预算规则、同题生成对照 |
 | `memory.py` / `memory_agent.py` | 历史归档、原角色恢复、Python agent 调用前钩子与工具循环 |
 | `memory_experiment.py` | 完整/只压缩/恢复对照、累计 usage 与格式评分 |
+| `tool_tasks.py` / `tool_experiment.py` | 连续检查点、实际文件/CSV/检查工具、状态与任务评分 |
+| `longmemeval_adapter.py` | 官方记忆数据导入、日期与标签分离、Oracle 标记 |
 | `analysis.py` / `failures.py` | 聚类统计、图表、失败案例与复核表 |
 | `configs/` / `scripts/` | 固定实验设置、数据重建、一键复现 |
 | `tests/` | 预算边界、隔离、划分、恢复与模拟 API 测试 |

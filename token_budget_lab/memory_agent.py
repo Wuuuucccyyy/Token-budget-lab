@@ -8,24 +8,29 @@ import urllib.error
 import urllib.request
 
 from .deepseek import ENDPOINT, NoRedirect, normalize_usage
-from .memory import HISTORY_TOOLS, encode, memory_tool
+from .memory import HISTORY_TOOLS, PreparedHistory, encode, memory_tool, validate_messages
 
 
 class DeepSeekChat:
-    def __init__(self, model='deepseek-flash', max_tokens=1024, timeout=120):
+    def __init__(self, model='deepseek-flash', max_tokens=1024, timeout=120, json_output=False):
         self.key = os.environ.get('DEEPSEEK_API_KEY')
         if not self.key:
             raise ValueError('set DEEPSEEK_API_KEY locally')
         if not model or max_tokens < 1 or timeout <= 0:
             raise ValueError('invalid model/output/timeout')
         self.model, self.max_tokens, self.timeout = model, max_tokens, timeout
+        self.json_output = json_output
         self.opener = urllib.request.build_opener(NoRedirect())
         self.last = {}
 
     def __call__(self, messages, tools):
         self.last = {}
-        body = dict(model=self.model, messages=messages, tools=tools,
+        body = dict(model=self.model, messages=messages,
                     thinking=dict(type='disabled'), stream=False, max_tokens=self.max_tokens)
+        if tools:
+            body['tools'] = tools
+        if self.json_output:
+            body['response_format'] = dict(type='json_object')
         request = urllib.request.Request(ENDPOINT, data=encode(body).encode(), method='POST',
             headers={'Authorization':'Bearer '+self.key, 'Content-Type':'application/json'})
         start = time.perf_counter()
@@ -50,13 +55,16 @@ class DeepSeekChat:
 
 
 def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_steps=4,
-              before_request=None, after_response=None, extra_tools=None, handlers=None):
+              before_request=None, after_response=None, extra_tools=None, handlers=None,
+              memory_tools=True):
     """Canonical state stays full; only each transport request is compacted."""
     if max_steps < 1:
         raise ValueError('max_steps must be positive')
+    if plugin is None and (mode != 'full' or memory_tools):
+        raise ValueError('native baseline requires full mode and memory_tools=False')
     history = copy.deepcopy(messages)
     steps, tool_seconds = [], 0.0
-    tools = copy.deepcopy(HISTORY_TOOLS)+(extra_tools or [])
+    tools = copy.deepcopy(HISTORY_TOOLS if memory_tools else [])+copy.deepcopy(extra_tools or [])
     handlers = handlers or {}
     names = [s['function']['name'] for s in tools]
     if len(names) != len(set(names)):
@@ -64,7 +72,13 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
     answer, outcome = '', 'step_limit'
     for step in range(max_steps):
         start = time.perf_counter()
-        prepared = plugin.before_model(tenant, session, history, mode)
+        if plugin is None:
+            validate_messages(history)
+            size = len(encode(history))
+            prepared = PreparedHistory(copy.deepcopy(history), 'full', 'native_agent_without_plugin',
+                size, size, 'characters', [], [], time.perf_counter()-start)
+        else:
+            prepared = plugin.before_model(tenant, session, history, mode)
         log_start = time.perf_counter()
         if before_request:
             before_request(step, prepared)
@@ -107,6 +121,8 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
                 if not isinstance(arguments, dict):
                     raise ValueError('tool arguments must be an object')
                 if function['name'].startswith('history_'):
+                    if not memory_tools:
+                        raise ValueError('history tools are not registered')
                     if mode == 'compact':
                         value = dict(error='recovery disabled for this ablation; do not guess missing facts')
                     else:
