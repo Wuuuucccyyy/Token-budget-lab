@@ -2,11 +2,17 @@
 
 本文沿一次问答请求说明项目的输入结构、缓存检查、上下文筛选、回答生成和结果评测。主要实现位于 `token_budget_lab/core.py`、`token_budget_lab/benchmark.py` 与 `token_budget_lab/deepseek.py`。
 
+整库检索与自适应预算扩展位于 `evidence_budget.py`、`rag_experiment.py`，其方法与限制见 [证据预算设计](EVIDENCE_BUDGET.md)。
+
 ## 输入与评测标注
 
 每条数据包含 `query`（问题）和 `context`（材料）。`evidence` 与 `expected` 是离线评测标注，仅在推理完成后用于计算指标，算法不会读取这些字段。`fact_id` 用于标记问题对应的事实，只参与错误缓存复用分析。
 
+RAG 流程使用全部文章建立 `EvidenceIndex`，推理阶段只传入问题、候选块和索引统计。`choose_budget` 的函数参数不包含正确文档或参考答案；`source_paragraph_covered` 仅在生成结束后用原文偏移评估完整来源段落的覆盖。预算规则与固定、打乱对照共用 `pack_evidence`，避免混入不同的筛选器。
+
 `data/toy_qa.jsonl` 的首条请求询问图书馆周日是否开放。它与后续问题共享同一段材料，用于区分重复请求、改写请求和对照问题。
+
+DeepSeek 的 `normalize_usage` 分别处理 Chat 和 Anthropic 字段。后者的总输入为普通输入、缓存读取、缓存写入之和；前者的 `prompt_tokens` 已是总输入。原始字段保留，以便分析阶段修正计量而不重发付费请求。
 
 ## `Pipeline.run` 与缓存作用域
 

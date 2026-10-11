@@ -25,17 +25,19 @@ API transport 耗时另外记录；当前非流式响应只测完整答案耗时
 | 74 条合成请求离线实验 | 已完成 | `results/REPORT.md` |
 | 2026-10-09 DeepSeek 合成数据实验 | 已完成，存在一次未计量请求 | `results/DEEPSEEK_EXPANDED_REPORT.md` 与公开 CSV |
 | SQuAD Article 测试集：100 题 × 12 配置 | 离线运行完成 | `results/public/` |
-| 新版 DeepSeek 公开数据试验 | 配置、计划检查及模拟接口测试完成；真实调用尚未执行 | `configs/deepseek_pilot.json` |
+| 给定正确文章的 DeepSeek 压缩试验 | 配置与模拟接口测试完成；真实调用尚未执行 | `configs/deepseek_pilot.json` |
+| 整库检索与预算对照 | 开发/测试各 100 题的离线诊断完成 | `results/adaptive_budget/dev/` 与 `test/` |
+| DeepSeek 证据预算试验 | 2026-10-11 完成 20 题 × 5 方法、100 次调用；存在截断 | `results/adaptive_budget/deepseek_pilot/` |
 | LLMLingua-2 | 可选适配器完成；权重推理尚未执行 | `configs/llmlingua2_optional.json` |
 | 人工答案评审 | 表格生成完成；尚未评分 | `failures.py` 生成的 `manual_review.csv` |
 
-本次运行环境无法通过终端访问 DeepSeek 或下载模型权重，因此不报告新增 API 或 LLMLingua-2 实测数字。
-
-上述限制描述已交付实验的运行条件；后续执行真实试验时需重新核验连接与权限，历史结果不据当前环境变化改写。
+早期版本完善时网络受到限制，未执行新增 API 调用。2026-10-11 开放联网后完成证据预算真实试验；未下载或执行 LLMLingua-2 权重。历史结果保留原运行条件。
 
 本地演示的请求处理函数已作内存传输测试；当前环境也限制 loopback 连接，尚未完成浏览器端到端验证。
 
 ## 离线一键复现
+
+新增预算消融的标准库入口为 `python scripts/reproduce_rag_budget.py --output local_results/rag-budget-reproduce`。它只运行离线诊断；`--pilot-run` 仅重算现有日志，不触发 API。完整规则与结果见 [证据预算设计](EVIDENCE_BUDGET.md) 和 [预算报告](../results/adaptive_budget/REPORT.md)。
 
 ```bash
 python -m unittest discover -s tests -v
@@ -61,6 +63,8 @@ python -m token_budget_lab.experiment --config configs/deepseek_pilot.json --out
 ```
 
 凭证只从 `DEEPSEEK_API_KEY` 环境变量读取。默认使用 Chat Completions 协议并显式关闭思考模式。`protocol=anthropic` 可切换到 DeepSeek 官方 Anthropic 兼容端点；思考开关依照 [官方参数定义](https://api-docs.deepseek.com/guides/thinking_mode/) 映射。
+
+Anthropic 返回的总输入按 `input_tokens + cache_read_input_tokens + cache_creation_input_tokens` 汇总；Chat 的 `prompt_tokens` 已包含服务端缓存命中。预算试验保留原始 usage 后重算，执行与分析代码指纹分别记录，不能把服务端缓存读取排除后称为输入 token 节省。历史合成实验记录的服务端缓存读取均为 0，现有总量不因此调整。
 
 历史实验使用 Anthropic 协议、默认思考模式、256 输出 token；新版默认设置与其不同，不能直接把两轮差异归因于压缩方法。旧 `deepseek.py` 命令保留兼容性，新实验统一使用 `experiment.py`。
 

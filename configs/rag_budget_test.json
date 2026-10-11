@@ -1,0 +1,24 @@
+{
+  "data": "data/squad_article.json",
+  "split": "test",
+  "backend": "offline",
+  "seed": 20261011,
+  "repeats": 1,
+  "chunk_chars": 1200,
+  "overlap_chars": 160,
+  "top_k": 24,
+  "baseline": "fixed_large",
+  "allowed_quality_drop": 0,
+  "policy": {
+    "small": 1800, "medium": 3600, "large": 7200,
+    "weak_coverage": 0.6, "strong_coverage": 0.8,
+    "ambiguous_gap": 0.15, "clear_gap": 0.35
+  },
+  "strategies": [
+    {"name": "fixed_small", "method": "fixed", "budget": 1800},
+    {"name": "fixed_medium", "method": "fixed", "budget": 3600},
+    {"name": "fixed_large", "method": "fixed", "budget": 7200},
+    {"name": "adaptive", "method": "adaptive"},
+    {"name": "shuffled_adaptive", "method": "shuffled"}
+  ]
+}

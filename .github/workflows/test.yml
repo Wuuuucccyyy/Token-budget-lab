@@ -17,3 +17,5 @@ jobs:
       - run: python -m token_budget_lab --output local_results
       - run: python -m token_budget_lab.experiment --config configs/deepseek_pilot.json --dry-run
       - run: python scripts/reproduce.py --output local_results/public-ci
+      - run: python scripts/reproduce_rag_budget.py --output local_results/rag-budget-ci
+      - run: python -m token_budget_lab.rag_experiment --config configs/rag_budget_deepseek_pilot.json --output local_results/rag-live-plan --plan
