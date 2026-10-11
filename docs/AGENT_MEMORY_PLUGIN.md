@@ -4,7 +4,7 @@
 
 目标是在原有 agent 的模型调用前筛选历史消息，并在缺少信息时恢复原文。验收顺序是任务正确性、累计输入输出 token、端到端速度。回答与完整历史版本的一致性另行统计：两个版本答得一样，并不说明都答对了。
 
-v0.3 提供可安装的 Python 中间件、SQLite 原文归档、调用前钩子、三个历史恢复工具和 DeepSeek 参考 agent，新增原生基线与连续工具任务。当前是实验接口；尚未达到可默认启用的质量与效率要求。早期 24 题试验总 token 仅减少 0.18%；新增工具试验全部回退 Full，总 token 增加 20.2%。报告见 [历史记忆实验](../results/agent_memory/REPORT.md) 和 [连续工具实验](../results/agent_tools/REPORT.md)。
+v0.4 提供可安装的 Python 中间件、SQLite 原文归档、调用前钩子、历史恢复工具和 DeepSeek 参考 agent。新增显式事实及时间范围选择、同一任务内历史证据边界、Full 请求关闭恢复工具，以及按完整任务和实际压缩子集统计。当前仍是实验接口。早期 24 题试验总 token 仅减少 0.18%；v0.3 工具试验全部回退 Full，总 token 增加 20.2%。新版设置和结果见 [长历史协议](LONG_CONTEXT_EVALUATION.md) 与 [报告](../results/agent_long_context/REPORT.md)。
 
 首版的压缩方式是删除部分旧 assistant/tool 消息，不生成有损自然语言摘要。全部原始 user/system/developer 消息、最近两轮和恢复的整轮工具记录仍按原角色、原顺序发送。这样能直接保留用户要求与更正，但用户消息很长时压缩空间有限。
 
@@ -57,7 +57,7 @@ finally:
 
 `my_tool_schemas` 是 Chat Completions function tools 列表；`my_tool_handlers` 是名称到本地可调用函数的映射。宿主负责工具权限和业务约束。恢复原文不执行历史工具，只重放已有消息记录。
 
-也可仅使用 `plugin.before_model(tenant, session, canonical_messages, mode="recover")` 接入自有调用循环。此时宿主需注册 `HISTORY_TOOLS`，调用 `memory_tool`，追加成对的 assistant/tool 消息，再次准备请求。恢复请求只对当前用户轮次生效，后续轮次重新检索。
+也可仅使用 `plugin.before_model(tenant, session, canonical_messages, mode="recover")` 接入自有调用循环。宿主只在 `prepared.mode == "compressed"` 时注册 `HISTORY_TOOLS`，Full 及全量回退请求不注册恢复工具。调用 `memory_tool` 后追加成对的 assistant/tool 消息，再次准备请求。恢复请求只对当前用户轮次生效，后续轮次重新检索。
 
 `DeepSeekChat` 是非流式同步参考传输层，使用官方 Chat Completions 地址、关闭思考模式，不自动重试；自定义传输层返回 assistant message、usage 和 finish_reason，并以 `last` 保留已知 usage。当前没有 LangChain/MCP 自动接入，也没有与任意 agent 无缝兼容的承诺。
 
@@ -69,11 +69,12 @@ finally:
 flowchart TD
     A[宿主完整消息历史] --> B[按租户和会话追加原文归档]
     B --> C[保留指令 用户更正 最近轮次]
-    C --> D[根据当前问题检索历史整轮]
-    D --> E{词项匹配不确定或预算不足}
+    C --> D[按主体 字段 时间范围选择原始整轮]
+    D --> E{证据需求不支持或预算不足}
     E -->|是| F[完整历史回退]
     E -->|否| G[构建一次请求的发送视图]
-    F --> H[模型调用]
+    F --> K[关闭恢复工具]
+    K --> H[模型调用]
     G --> H
     H --> I{请求恢复工具}
     I -->|是| J[绑定当前会话 搜索或恢复原文]
@@ -85,7 +86,7 @@ flowchart TD
 
 `history_search(query)` 返回整轮 ID、分数和短预览；`history_restore(turn_ids)` 请求下次调用注入原始整轮；`history_restore_all()` 请求完整历史回退。模型不传入租户/会话参数，这些由宿主绑定。预览和归档通知是元数据，不能作为事实正确性的证明。
 
-当前规则用标识符词项、BM25 排名差和词项覆盖筛选证据；汇总、比较及明显时序问题直接回退。低置信候选也回退。阈值是回归规则，不是校准后的正确概率，也不能识别所有指代、否定或跨轮依赖。
+默认 `selector="structured"` 从实际工具 JSON 中推导主体、字段及日期，支持显式截止日期、两个时间点和完整版本范围。相同日期的冲突记录一起保留。无法结构化识别时仍走词面检索或完整回退；`selector="lexical"` 可单独使用词面选择。规则不是校准后的正确概率，也不能识别所有指代、否定或跨轮依赖。
 
 ## 预算与成本
 
@@ -106,8 +107,8 @@ flowchart TD
 - SQLite 当前为单进程同步归档，不支持多写者、异步流式调用和事务性的工具执行。会话键隔离不是文件加密或外部服务的访问控制。
 - 全部用户消息受保护；没有事实摘要和自动过期管理。历史增长时归档扫描、索引重建和内存索引也会增加开销。
 - 目前主要检索显式标识符；中文指代、同义表达、隐藏依赖、用户更正的时间语义和恶意历史指令都需要专项测试。
-- 真实试验只有 4 个开发会话、24 题，题型固定，且工具日志加入了重复噪声。尚未覆盖自然流量、实际代码修改或长程执行任务。
+- 早期试验只有 4 个开发会话、24 题；新版扩展长度条件及实际工具执行，但任务仍来自合成模板。尚未覆盖生产自然流量、任意代码修改和复杂隐藏依赖。
 
-下一轮首先消除提示词格式冲突，并减少已恢复证据的重复搜索和恢复。改动固定后再做独立测试，不能以调试后的同批样本作为确认结果。随后引入原文出处明确的事实索引、混合检索与重排，保留“恢复整轮”和“完整历史回退”路径。
+已加入 JSON 输出、恢复工具动态注册和任务内证据边界。后续使用未参与诊断的自然轨迹验证质量，不能把诊断后重新执行的同批任务作为独立确认。进一步扩展指代、同义表达与依赖识别时，保留原始整轮恢复及完整历史回退。
 
 框架对接应优先采用宿主的模型调用前钩子。LangChain 的 [middleware](https://docs.langchain.com/oss/python/langchain/middleware/built-in) 可作为后续集成点；[MCP tools](https://modelcontextprotocol.io/specification/2025-11-25/server/tools) 可提供历史检索和恢复服务，但单独的 MCP 工具不能自动改写宿主发给模型的全部历史。记忆评测可参考 [LongMemEval](https://github.com/xiaowu0162/LongMemEval)，当前已完成 Oracle 子集导入验证，尚未运行官方生成评审；新增原创工具评测见 [协议](AGENT_TOOL_EVALUATION.md)。

@@ -1,0 +1,25 @@
+{
+  "runs": [
+    {
+      "label": "interrupted_diagnostic",
+      "attempts": 130,
+      "responses": 129,
+      "unknown_usage_requests": 1,
+      "known_prompt_tokens": 1443133,
+      "known_completion_tokens": 6140
+    },
+    {
+      "label": "fixed_implementation_run",
+      "attempts": 331,
+      "responses": 331,
+      "unknown_usage_requests": 0,
+      "known_prompt_tokens": 4042594,
+      "known_completion_tokens": 13914
+    }
+  ],
+  "total_attempts": 461,
+  "unknown_usage_requests": 1,
+  "known_prompt_tokens": 5485727,
+  "known_completion_tokens": 20054,
+  "interpretation": "known usage is a lower bound when requests have unknown usage; not a monetary bill"
+}

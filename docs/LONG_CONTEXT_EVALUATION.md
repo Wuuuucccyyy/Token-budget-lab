@@ -1,0 +1,55 @@
+# 长历史中的证据选择与连续任务评测
+
+本评测检验历史压缩的适用条件：历史较长、当前问题只需要其中一部分证据时，插件能否在保留任务正确性的同时减少整个任务的模型输入输出。句子长度本身不是筛选依据；不可遗漏的事实、时间范围和工具依赖决定保留内容。
+
+## 任务与长度条件
+
+`data/agent_long_context_tasks.json` 包含 24 个基础场景，每个场景生成 short / medium / long 三种历史，共 72 个长度条件任务、216 个连续检查点。三个长度条件使用相同问题、目标值和最终文件状态，差别是历史中其他模块的配置快照和不同诊断事件的数量。开发集和测试集按 `base_id` 隔离，各 12 个基础场景。
+
+历史来自脚本调用真实本地文件工具的回放，后续检查点由模型自主调用业务工具。诊断事件包含不同请求 ID、状态码、重试次数、处理字节数及操作说明；仍然属于合成历史，不代表生产 agent 自然产生的轨迹。
+
+| 类型 | 复杂任务 |
+|---|---|
+| 知识更新 | 从同一模块最近读取的快照取两个字段计算新值；下一阶段切回首次快照 |
+| 时序 | 分别选择两个截止日期前的有效快照，计算差值；下一阶段恢复指定时间点的值 |
+| 拒答 | 在多个模块和联系人干扰下判断是否缺少目标模块字段；明确补充后才写报告 |
+| 工具执行 | 使用历史订单逐项计算，写报告、检查，再更正币种并核对持久化结果 |
+
+原始用户要求与更正全部保留。长 user 消息占主导时，当前实现能删除的历史有限。这里重点检验较长工具历史，不把结果推广为任意长文本压缩能力。
+
+## 证据选择
+
+`history_evidence.py` 读取实际历史工具名称和 JSON 原文，识别显式主体、字段及 `observed_at`。问题明确指定日期时，按截止日期选择最近记录；两个截止日期保留两份来源，时间区间保留区间内记录。相同日期的冲突记录一起保留，交由模型判断，不用消息顺序强行消除冲突。
+
+选择范围止于当前用户任务开始前；本轮新增的写入与检查结果由受保护的当前工具链保留，不替换本轮原始证据。恢复的是完整原始消息轮次，不生成摘要，也不从参考答案提取数值。没有明确主体、时间表达不支持、证据格式不支持或必要内容放不进预算时完整回退。
+
+未找到结构化字段时保留相关主体的历史版本，而不让其他模块的字段替代。这个分支不能证明任意自然语言历史不存在答案。未识别的自然语言问题仍走词面检索或完整回退；当前解析器支持有限的中英文显式表达，不是通用语义理解。
+
+## 开销控制
+
+short 条件及全量回退请求不注册恢复工具。compressed 请求保留恢复能力，下一次请求若恢复为 Full，立即移除恢复工具。已有证据直接使用，工具描述不要求先恢复再回答。
+
+本轮配置保护当前整轮 `recent_turns=1`，历史视图上限为 9,000 个序列化字符，至少预计减少 10% 字符才发送压缩视图。字符阈值用于控制发送视图，不是 DeepSeek token 预算，也不是净节省保证；所有实际调用仍按 API usage 计量。
+
+## 统计口径
+
+1. 先报告全部检查点及完整任务的通过率。答案、文件状态、必需工具和约束都需要通过。
+2. `per_episode.csv` 对每个任务累计所有模型请求、输入输出 token、压缩请求、回退请求及端到端时间。
+3. `by_context` 分别报告三个长度条件，与相同长度的原生 Full 比较。
+4. `compressed_subset` 选出至少一次实际发送压缩视图的任务。报告这些任务所有检查点的通过率、其中实际压缩检查点的通过率，以及相同任务的 Full 成绩和累计成本。失败不剔除，回退和恢复调用仍计入。
+5. 同一基础场景的多个长度条件属于同一统计簇，配对区间按 `base_id` 聚类。长度条件任务数不能当作独立场景数。
+
+压缩子集是根据运行结果选择的诊断子集，不能代替总体准确率或质量等价检验。一次运行中两组全对、小样本区间退化为零，也不能证明生产场景无损。
+
+## 复现
+
+```bash
+python scripts/prepare_long_context_tasks.py
+python -m token_budget_lab.tool_experiment --config configs/agent_long_context_offline.json --output local_results/long-offline
+python -m token_budget_lab.tool_experiment --config configs/agent_long_context_deepseek.json --output local_results/long-live --plan
+# 本机设置 DEEPSEEK_API_KEY 后运行，所有恢复调用都在计量内
+python -m token_budget_lab.tool_experiment --config configs/agent_long_context_deepseek.json --output local_results/long-live --export local_results/long-export
+python scripts/export_tool_audit.py --journal local_results/long-live/requests.jsonl --output local_results/long-export
+```
+
+离线脚本策略仅验证真实文件工具与消息连接，准确率和 API token 字段为 null。真实结果、被中断的诊断调用及限制见 [实验报告](../results/agent_long_context/REPORT.md)。

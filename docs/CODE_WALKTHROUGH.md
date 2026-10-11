@@ -1,5 +1,7 @@
 # 实现说明与请求处理流程
 
+v0.4 的历史插件新增 `history_evidence.py`：从历史工具原文推导主体、字段与观察时间，选择完整来源轮次。`memory.py` 在任务开始前的历史范围内选择证据；本轮工具链独立保留。`memory_agent.py` 按每次请求的实际发送模式注册恢复工具，Full 请求不承担恢复工具说明。`long_context_tasks.py` 生成匹配的长度条件，`tool_experiment.py` 导出整任务成本和实际压缩子集指标。设计和运行口径见 [长历史协议](LONG_CONTEXT_EVALUATION.md)。
+
 本文沿一次问答请求说明项目的输入结构、缓存检查、上下文筛选、回答生成和结果评测。主要实现位于 `token_budget_lab/core.py`、`token_budget_lab/benchmark.py` 与 `token_budget_lab/deepseek.py`。
 
 整库检索与自适应预算扩展位于 `evidence_budget.py`、`rag_experiment.py`，其方法与限制见 [证据预算设计](EVIDENCE_BUDGET.md)。

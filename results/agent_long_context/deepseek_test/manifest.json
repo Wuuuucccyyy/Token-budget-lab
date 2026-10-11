@@ -1,0 +1,93 @@
+{
+  "schema_version": "continuous-tools-v1",
+  "config": {
+    "data": "data/agent_long_context_tasks.json",
+    "split": "test",
+    "backend": "deepseek",
+    "per_kind_limit": 2,
+    "context_lengths": [
+      "short",
+      "medium",
+      "long"
+    ],
+    "per_context_limit": {
+      "short": 1,
+      "medium": 2,
+      "long": 2
+    },
+    "modes": [
+      "full",
+      "recover"
+    ],
+    "seed": 20261011,
+    "budget_characters": 9000,
+    "recent_turns": 1,
+    "max_steps": 6,
+    "selector": "structured",
+    "min_reduction": 0.1,
+    "model": "deepseek-flash",
+    "max_tokens": 1024,
+    "max_calls": 350,
+    "timeout": 120
+  },
+  "data_sha256": "71c0ce09b4a4db14d4118c26272bcc28490d5b0dbef9ae5f78f1a21cf62f1cc9",
+  "code_sha256": "8eafc70abe5c7279cabaf684ef3f99b0b57e35000dd8f8c4c65f60f5d19d0bcd",
+  "episode_ids": [
+    "abstention-05-short",
+    "knowledge_update-05-long",
+    "abstention-05-long",
+    "tool_execution-04-long",
+    "temporal-03-short",
+    "tool_execution-05-long",
+    "tool_execution-05-medium",
+    "knowledge_update-05-medium",
+    "abstention-05-medium",
+    "tool_execution-05-short",
+    "temporal-03-long",
+    "knowledge_update-03-long",
+    "temporal-05-medium",
+    "temporal-05-long",
+    "abstention-03-medium",
+    "temporal-03-medium",
+    "abstention-03-long",
+    "knowledge_update-03-short",
+    "knowledge_update-03-medium",
+    "tool_execution-04-medium"
+  ],
+  "checkpoints": 60,
+  "dataset_source": "original matched context-length fixtures; not official LongMemEval; scripted setup",
+  "baseline": "native full history without memory tools/archive",
+  "setup": "scripted actual file reads; no setup LLM calls; checkpoints are continuous agent execution",
+  "protocol": "chat",
+  "thinking": "disabled",
+  "json_output": true,
+  "base_scenarios": 8,
+  "context_counts": {
+    "short": 4,
+    "long": 8,
+    "medium": 8
+  },
+  "expected_episode_checkpoints": {
+    "abstention-05-short": 3,
+    "knowledge_update-05-long": 3,
+    "abstention-05-long": 3,
+    "tool_execution-04-long": 3,
+    "temporal-03-short": 3,
+    "tool_execution-05-long": 3,
+    "tool_execution-05-medium": 3,
+    "knowledge_update-05-medium": 3,
+    "abstention-05-medium": 3,
+    "tool_execution-05-short": 3,
+    "temporal-03-long": 3,
+    "knowledge_update-03-long": 3,
+    "temporal-05-medium": 3,
+    "temporal-05-long": 3,
+    "abstention-03-medium": 3,
+    "temporal-03-medium": 3,
+    "abstention-03-long": 3,
+    "knowledge_update-03-short": 3,
+    "knowledge_update-03-medium": 3,
+    "tool_execution-04-medium": 3
+  },
+  "identity": "827f1af69c01b70df3a2ced06f3294e950011dba7e593909023a3bb02c6e2342"
+}

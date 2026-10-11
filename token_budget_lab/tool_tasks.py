@@ -132,7 +132,17 @@ class ToolSandbox:
         for j,name in enumerate(('scan_a','scan_b','scan_c','scan_d')):
             rows=[dict(event=f'{name}-{i}',component=f'worker-{i%7}',time=f'2026-10-07T{10+j:02d}:{i:02d}:00',
                        operation=['read','validate','index','flush'][i%4],duration_ms=5+3*i+j,result='ok',
-                       file=f'cache/batch-{i:02d}.json') for i in range(32)]
+                       file=f'cache/batch-{i:02d}.json') for i in range(episode.get('log_events',32))]
+            if episode.get('background_profile') == 'operational_records':
+                for i, row in enumerate(rows):
+                    row.update(request_id=f'{episode.get("base_id", episode["id"])}-{j}-{i}',
+                        observed_at=f'2026-10-07T{10+j:02d}:{i:02d}:00',
+                        status_code=[200,204,429,503][(i+j)%4],
+                        retry_count=(i+j)%3, bytes_processed=1024*(i+1)+137*j,
+                        detail=['Validated export schema against the recorded batch columns.',
+                                'Rebuilt a local search partition after the source checksum changed.',
+                                'Retry used the previous cursor; no customer configuration was modified.',
+                                'Flushed pending rows after a worker lease was renewed.'][(i+j)%4])
             self._write(name+'.json',dict(events=rows,other_module=dict(module='Beta',billing_email='beta@example.invalid')))
 
     def _write(self,name,value):
@@ -245,7 +255,8 @@ class ToolSandbox:
                 function=dict(name=name,arguments=encode(arguments)))]))
             result=self.invoke(name,arguments)
             if name in {'read_config','read_orders'}:
-                sources.append(dict(position=len(messages),tool=name,observed_at=result['observed_at']))
+                sources.append(dict(position=len(messages),tool=name,observed_at=result['observed_at'],
+                                    entity=result.get('config',{}).get('module')))
             messages.append(dict(role='tool',tool_call_id=call_id,content=encode(result)))
             messages.append(dict(role='assistant',content='原始记录读取完成。'))
         self.trace.clear()

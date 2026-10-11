@@ -28,6 +28,10 @@ def main():
             calls=[c['function']['name'] for c in r.get('message',{}).get('tool_calls',[])]
             requests.append(dict(**identity,step=r['step'],status=r['status'],history_mode=r['history_mode'],
                 history_reason=r['history_reason'],prompt_tokens=u.get('prompt_tokens'),completion_tokens=u.get('completion_tokens'),
+                base_id=r.get('base_id',r['episode_id']),context_length=r.get('context_length','legacy'),
+                baseline_characters=r.get('baseline_units'),sent_characters=r.get('sent_units'),
+                recovery_tools_enabled=r.get('recovery_tools_enabled'),
+                evidence_plan=json.dumps(r.get('evidence_plan',{}),ensure_ascii=False,sort_keys=True),
                 api_latency_seconds=r.get('api_latency_seconds'),end_to_end_seconds=r['end_to_end_seconds'],
                 restored_turn_ids=json.dumps(r['restored_turn_ids']),tool_names=json.dumps(calls)))
         elif r['event']=='business_tool':

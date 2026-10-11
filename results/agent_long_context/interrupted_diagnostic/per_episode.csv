@@ -1,0 +1,16 @@
+episode_id,mode,base_id,context_length,kind,checkpoints,expected_checkpoints,complete,episode_success,checkpoint_successes,model_requests,compressed_requests,compression_category,fallback_requests,prompt_tokens,completion_tokens,unknown_usage_requests,total_tokens,end_to_end_seconds,initial_baseline_characters,initial_sent_characters
+tool_execution-04-medium,full,tool_execution-04,medium,tool_execution,3,3,True,True,3,9,0,none,0,74431,442,0,74873,9.242739800101845,26108,26108
+temporal-05-short,full,temporal-05,short,temporal,3,3,True,False,2,9,0,none,0,15864,673,0,16537,8.891189900052268,1633,1633
+temporal-03-long,full,temporal-03,long,temporal,3,3,True,False,2,6,0,none,0,150604,155,0,150759,6.707205000013346,87675,87675
+temporal-05-medium,full,temporal-05,medium,temporal,3,3,True,True,3,8,0,none,0,62717,383,0,63100,7.4928658999851905,24959,24959
+tool_execution-04-long,full,tool_execution-04,long,tool_execution,3,3,True,True,3,9,0,none,0,231139,446,0,231585,10.708512600074755,89686,89686
+tool_execution-05-medium,full,tool_execution-05,medium,tool_execution,3,3,True,True,3,9,0,none,0,74423,430,0,74853,7.849552500149002,26108,26108
+abstention-03-long,full,abstention-03,long,abstention,3,3,True,True,3,6,0,none,0,178379,137,0,178516,5.812619299947983,88016,88016
+abstention-05-long,full,abstention-05,long,abstention,2,3,False,False,2,5,0,none,0,116840,105,1,116945,3.0348978000110947,88016,88016
+tool_execution-04-medium,recover,tool_execution-04,medium,tool_execution,3,3,True,True,3,9,9,all,0,16696,443,0,17139,8.503370399936102,26108,2859
+temporal-05-short,recover,temporal-05,short,temporal,3,3,True,True,3,11,0,none,0,18483,545,0,19028,10.301383500074735,1633,1633
+temporal-03-long,recover,temporal-03,long,temporal,3,3,True,False,1,15,7,mixed,8,223933,636,0,224569,13.482664499955717,87675,3300
+temporal-05-medium,recover,temporal-05,medium,temporal,3,3,True,False,1,9,4,mixed,5,60712,615,0,61327,9.03822540002875,24959,2472
+tool_execution-04-long,recover,tool_execution-04,long,tool_execution,3,3,True,True,3,10,8,mixed,2,68497,472,0,68969,9.930251600046176,89686,3687
+tool_execution-05-medium,recover,tool_execution-05,medium,tool_execution,3,3,True,True,3,9,9,all,0,17423,500,0,17923,7.886260300001595,26108,2859
+abstention-03-long,recover,abstention-03,long,abstention,3,3,True,True,3,6,1,mixed,5,132992,158,0,133150,5.323979699984193,88016,3257

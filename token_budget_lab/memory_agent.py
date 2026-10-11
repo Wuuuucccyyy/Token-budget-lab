@@ -79,6 +79,10 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
                 size, size, 'characters', [], [], time.perf_counter()-start)
         else:
             prepared = plugin.before_model(tenant, session, history, mode)
+        # Full-history requests already contain all archived evidence. Register
+        # recovery only on compressed requests, including after a manual restore.
+        recovery_enabled = memory_tools and prepared.mode == 'compressed' and mode == 'recover'
+        request_tools = copy.deepcopy(HISTORY_TOOLS if recovery_enabled else [])+copy.deepcopy(extra_tools or [])
         log_start = time.perf_counter()
         if before_request:
             before_request(step, prepared)
@@ -87,7 +91,7 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
         response = None
         error_type = None
         try:
-            response = transport(prepared.messages, tools)
+            response = transport(prepared.messages, request_tools)
             record = dict(response)
             message = response['message']
             calls = message.get('tool_calls', [])
@@ -101,6 +105,8 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
                       baseline_units=prepared.baseline_units, sent_units=prepared.sent_units,
                       unit=prepared.unit, omitted_turn_ids=prepared.omitted_turn_ids,
                       restored_turn_ids=prepared.restored_turn_ids,
+                      evidence_plan=prepared.evidence_plan, recovery_tools_enabled=recovery_enabled,
+                      registered_tool_names=[t['function']['name'] for t in request_tools],
                       preparation_seconds=prepared.preparation_seconds,
                       end_to_end_seconds=time.perf_counter()-start-log_seconds)
         steps.append(record)
@@ -121,7 +127,7 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
                 if not isinstance(arguments, dict):
                     raise ValueError('tool arguments must be an object')
                 if function['name'].startswith('history_'):
-                    if not memory_tools:
+                    if not recovery_enabled:
                         raise ValueError('history tools are not registered')
                     if mode == 'compact':
                         value = dict(error='recovery disabled for this ablation; do not guess missing facts')

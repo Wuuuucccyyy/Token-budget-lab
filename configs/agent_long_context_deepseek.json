@@ -1,0 +1,9 @@
+{
+  "data": "data/agent_long_context_tasks.json", "split": "test", "backend": "deepseek",
+  "per_kind_limit": 2, "context_lengths": ["short", "medium", "long"],
+  "per_context_limit": {"short": 1, "medium": 2, "long": 2},
+  "modes": ["full", "recover"], "seed": 20261011,
+  "budget_characters": 9000, "recent_turns": 1, "max_steps": 6,
+  "selector": "structured", "min_reduction": 0.1,
+  "model": "deepseek-flash", "max_tokens": 1024, "max_calls": 350, "timeout": 120
+}

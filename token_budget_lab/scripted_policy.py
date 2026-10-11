@@ -55,12 +55,22 @@ class ScriptedPolicy:
             return answer('PASS' if checks[-1]['passed'] else 'FAIL') if checks else missing()
         if 'timeout_ms' in query:
             snapshots=[r for r in records if 'observed_at' in r and r.get('config',{}).get('module')=='Alpha']
-            date=re.search(r'截至 (\d{4}-\d{2}-\d{2})',query)
-            if date: snapshots=[r for r in snapshots if r['observed_at']<=date.group(1)]
+            dates=re.findall(r'截至 (\d{4}-\d{2}-\d{2})',query)
+            original_snapshots=snapshots
+            if dates: snapshots=[r for r in snapshots if r['observed_at']<=dates[0]]
             if not snapshots: return missing()
             snapshots.sort(key=lambda r:r['observed_at'])
             selected=snapshots[0] if '首次' in query else snapshots[-1]
             value=selected['config']['timeout_ms']+(5 if '加 5' in query else 0)
+            if len(dates)==2 and '差值' in query:
+                at_dates=[]
+                for cutoff in dates:
+                    eligible=sorted([r for r in original_snapshots if r['observed_at']<=cutoff],key=lambda r:r['observed_at'])
+                    if not eligible: return missing()
+                    at_dates.append(eligible[-1]['config']['timeout_ms'])
+                value=at_dates[1]-at_dates[0]
+            elif '相加' in query and 'quota' in query:
+                value+=selected['config']['quota']
             if not any(r.get('written') and 'config' in r for r in current):
                 return call('write_config',timeout_ms=value)
             return finish_after_checks(value)
