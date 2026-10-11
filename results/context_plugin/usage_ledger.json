@@ -1,0 +1,21 @@
+{
+  "primary_attempts": 302,
+  "primary_unknown_usage": 0,
+  "network_diagnostic": {
+    "attempts": 1,
+    "unknown_usage": 1,
+    "interpretation": "network-restricted launch; no response usage; not silently counted as free"
+  },
+  "total_attempts": 303,
+  "known_usage_repricing": {
+    "cache_hit_tokens": 4375424,
+    "cache_miss_tokens": 864949,
+    "completion_tokens_with_cache_partition": 13846,
+    "cache_partition_invalid_or_missing_requests": 0,
+    "cache_hit_fraction": 0.8349451460802504,
+    "estimated_usd": 0.151176222,
+    "pricing": "fixed-rate repricing of reported usage; not an invoice"
+  },
+  "total_research_invoice": null,
+  "invoice_interpretation": "not queried; preceding unknown usage retained"
+}

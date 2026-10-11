@@ -1,0 +1,11 @@
+{
+  "data": "data/context_plugin_tasks.json",
+  "arms": ["full", "full_guarded", "context", "context_guarded"],
+  "seed": 20261012, "max_steps": 6, "max_calls": 608,
+  "budget_characters": 9000, "offload_threshold": 1800,
+  "offload_tools": ["read_log"],
+  "snapshot_read_tools": ["read_config", "read_orders", "read_report"],
+  "warm_probe": true,
+  "model": "deepseek-flash", "max_tokens": 1024, "timeout": 120,
+  "usd_per_million": {"hit": 0.003, "miss": 0.15, "output": 0.6}
+}

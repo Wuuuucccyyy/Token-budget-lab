@@ -120,6 +120,7 @@ class PreparedHistory:
     restored_turn_ids: list
     preparation_seconds: float
     evidence_plan: dict = field(default_factory=dict)
+    context_metadata: dict = field(default_factory=dict)
 
 
 class MemoryPlugin:

@@ -8,7 +8,7 @@ import urllib.error
 import urllib.request
 
 from .deepseek import ENDPOINT, NoRedirect, normalize_usage
-from .memory import HISTORY_TOOLS, PreparedHistory, encode, memory_tool, validate_messages
+from .memory import HISTORY_TOOLS, PreparedHistory, encode, memory_tool, scope_key, validate_messages
 
 
 FULL_HISTORY_NOTICE = (
@@ -74,7 +74,7 @@ class DeepSeekChat:
 def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_steps=4,
               before_request=None, after_response=None, extra_tools=None, handlers=None,
               memory_tools=True, max_recovery_rounds=2, reserve_task_steps=3, after_tools=None,
-              snapshot_read_tools=None):
+              snapshot_read_tools=None, write_guard=None):
     """Canonical state stays full; only each transport request is compacted."""
     if max_steps < 1:
         raise ValueError('max_steps must be positive')
@@ -84,7 +84,10 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
         raise ValueError('native baseline requires full mode and memory_tools=False')
     history = copy.deepcopy(messages)
     steps, tool_seconds = [], 0.0
-    tools = copy.deepcopy(HISTORY_TOOLS if memory_tools else [])+copy.deepcopy(extra_tools or [])
+    context_controller = bool(plugin is not None and hasattr(plugin, 'context_tools'))
+    extra_tools = write_guard.tools(extra_tools or []) if write_guard else copy.deepcopy(extra_tools or [])
+    recovery_schemas = plugin.context_tools if context_controller else HISTORY_TOOLS
+    tools = copy.deepcopy(recovery_schemas if memory_tools else [])+copy.deepcopy(extra_tools)
     handlers = handlers or {}
     names = [s['function']['name'] for s in tools]
     if len(names) != len(set(names)):
@@ -95,8 +98,8 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
         raise ValueError('snapshot_read_tools must be explicitly registered zero-argument stable reads')
     read_snapshots = {}
     answer, outcome = '', 'step_limit'
-    recovery_rounds, disabled_streak = 0, 0
-    seen_searches = set()
+    recovery_rounds, disabled_streak, context_streak = 0, 0, 0
+    seen_searches, seen_context = set(), set()
     full_locked, saw_compression, guard_reason = False, False, None
     for step in range(max_steps):
         start = time.perf_counter()
@@ -107,7 +110,7 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
                 size, size, 'characters', [], [], time.perf_counter()-start)
         else:
             prepared = plugin.before_model(tenant, session, history, 'full' if full_locked else mode)
-        if memory_tools and mode == 'recover':
+        if memory_tools and mode == 'recover' and not context_controller:
             if prepared.mode == 'compressed':
                 saw_compression = True
                 if recovery_rounds >= max_recovery_rounds or (recovery_rounds and max_steps-step <= reserve_task_steps):
@@ -122,12 +125,15 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
                 full_history_notice(prepared, plugin)
         # Full-history requests already contain all archived evidence. Register
         # recovery only on compressed requests, including after a manual restore.
-        recovery_enabled = memory_tools and prepared.mode == 'compressed' and mode == 'recover'
-        request_tools = copy.deepcopy(HISTORY_TOOLS if recovery_enabled else [])+copy.deepcopy(extra_tools or [])
+        # The context tools also read small/older sources on a full shaped view.
+        # Keep their schemas stable for a whole task, including after offload.
+        recovery_enabled = memory_tools and mode == 'recover' and (context_controller or prepared.mode == 'compressed')
+        request_tools = copy.deepcopy(recovery_schemas if recovery_enabled else [])+copy.deepcopy(extra_tools)
         read_guard = memory_tools and mode == 'recover'
         suppressed_reads = sorted(read_snapshots) if read_guard else []
-        request_tools = [t for t in request_tools if t['function']['name'] not in suppressed_reads]
-        if suppressed_reads:
+        if not context_controller:
+            request_tools = [t for t in request_tools if t['function']['name'] not in suppressed_reads]
+        if suppressed_reads and not context_controller:
             offset = next((i for i, m in enumerate(prepared.messages)
                            if m['role'] not in {'system', 'developer'}), len(prepared.messages))
             prepared.messages.insert(offset, dict(role='system', content=
@@ -137,6 +143,13 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
                 + 'Use the prior results, finish required business actions and checks, then return the final answer. '
                 + 'This status contains no task facts.'))
             prepared.sent_units = plugin._count(prepared.messages)
+            validate_messages(prepared.messages)
+        if write_guard:
+            # Request-only metadata lives at the current task boundary, never
+            # before the old stable prefix or inside a tool-call group.
+            offset = max(i for i,m in enumerate(prepared.messages) if m['role'] == 'user')+1
+            prepared.messages.insert(offset, dict(role='system', content=write_guard.notice()))
+            prepared.sent_units = plugin._count(prepared.messages) if plugin else len(encode(prepared.messages))
             validate_messages(prepared.messages)
         log_start = time.perf_counter()
         if before_request:
@@ -161,6 +174,7 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
                       unit=prepared.unit, omitted_turn_ids=prepared.omitted_turn_ids,
                       restored_turn_ids=prepared.restored_turn_ids,
                       evidence_plan=prepared.evidence_plan, recovery_tools_enabled=recovery_enabled,
+                      context_metadata=prepared.context_metadata,
                       registered_tool_names=[t['function']['name'] for t in request_tools],
                       recovery_rounds=recovery_rounds, full_history_locked=full_locked,
                       recovery_guard_reason=guard_reason,
@@ -186,7 +200,22 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
                 arguments = json.loads(function['arguments'])
                 if not isinstance(arguments, dict):
                     raise ValueError('tool arguments must be an object')
-                if function['name'].startswith('history_'):
+                if context_controller and function['name'].startswith('context_'):
+                    recovery_called, disabled_only = True, False
+                    signature = encode([function['name'], arguments])
+                    if not recovery_enabled:
+                        value = dict(error='context_tools_disabled', progress=False)
+                    elif signature in seen_context:
+                        value = dict(error='duplicate_context_request', progress=False,
+                                     note='Identical evidence already returned; use it or request a different source/page.')
+                    elif recovery_rounds >= max_recovery_rounds:
+                        value = dict(error='context_round_budget', progress=False,
+                                     note='Finish with evidence already visible; no raw full-log fallback is performed.')
+                    else:
+                        value = plugin.invoke_context(tenant, session, function['name'], arguments)
+                        seen_context.add(signature)
+                    memory_events.append(dict(tool=function['name'], result=value))
+                elif function['name'].startswith('history_'):
                     if not recovery_enabled:
                         value = dict(error='history_tools_disabled', progress=False,
                             full_history_available=prepared.mode != 'compressed',
@@ -217,23 +246,31 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
                     memory_events.append(dict(tool=function['name'], result=value))
                 elif function['name'] in handlers and function['name'] in {t['function']['name'] for t in request_tools}:
                     disabled_only = False
-                    value = handlers[function['name']](**arguments)
+                    if read_guard and function['name'] not in snapshot_names:
+                        # Invalidate BEFORE invocation: a handler can partially
+                        # mutate state and then raise. Its old snapshot is unsafe.
+                        read_snapshots.clear()
+                    checked = write_guard.validate(function['name'], arguments) if write_guard else arguments
+                    value = handlers[function['name']](**checked)
                     if read_guard:
                         if function['name'] in snapshot_names:
                             read_snapshots[function['name']] = copy.deepcopy(value)
                         else:
-                            # Any other successful business action invalidates
-                            # cached reads, even when it may only run checks.
                             read_snapshots.clear()
                 else:
                     disabled_only = False
                     raise ValueError('unregistered tool')
             except Exception as exc:
                 disabled_only = False
-                value = dict(error=type(exc).__name__, note='tool failed; no facts recovered')
+                value = exc.result() if hasattr(exc, 'result') else dict(error=type(exc).__name__, note='tool failed; no facts recovered')
+                if value.get('error') == 'provenance_rejected':
+                    memory_events.append(dict(tool=call['function']['name'], result=value))
                 if call.get('function', {}).get('name', '').startswith('history_') and recovery_enabled:
                     recovery_called = True
                     full_locked, guard_reason = True, 'invalid_recovery_request'
+                    memory_events.append(dict(tool=call['function']['name'], result=value))
+                elif context_controller and call.get('function', {}).get('name', '').startswith('context_'):
+                    recovery_called = True
                     memory_events.append(dict(tool=call['function']['name'], result=value))
             history.append(dict(role='tool', tool_call_id=call['id'], content=encode(value)))
         tool_seconds += time.perf_counter()-tool_start
@@ -247,9 +284,19 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
         if memory_tools and mode == 'recover' and disabled_streak >= 2:
             outcome = 'tool_stalled' if blocked_read else 'recovery_stalled'
             break
+        context_only = context_controller and all(c['function']['name'].startswith('context_') for c in calls)
+        no_progress = context_only and memory_events and all(e['result'].get('error') or e['result'].get('results') == [] for e in memory_events)
+        context_streak = context_streak+1 if no_progress else 0
+        if context_streak >= 2:
+            outcome = 'context_stalled'
+            break
+    if plugin is not None:
+        # Include final assistant/tool outputs even when no subsequent request
+        # is made. Request-only controller notices never enter this archive.
+        plugin.archive.ingest(scope_key(tenant, session), history)
     usages = [s['usage'] for s in steps if s.get('usage') is not None]
     return dict(answer=answer, status=outcome, messages=history, steps=steps,
-                api_calls=len(steps), recovery_tool_calls=sum(c.get('function',{}).get('name','').startswith('history_')
+                api_calls=len(steps), recovery_tool_calls=sum(c.get('function',{}).get('name','').startswith(('history_','context_'))
                     for s in steps for c in s.get('message',{}).get('tool_calls',[])),
                 prompt_tokens=sum(u['prompt_tokens'] for u in usages),
                 completion_tokens=sum(u['completion_tokens'] for u in usages),

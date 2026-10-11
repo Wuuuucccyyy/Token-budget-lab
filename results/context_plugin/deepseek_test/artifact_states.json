@@ -1,0 +1,1527 @@
+[
+  {
+    "episode_id": "context-knowledge_update-01",
+    "checkpoint": 0,
+    "mode": "context",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 42,
+        "timeout_ms": 1343
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-01",
+    "checkpoint": 1,
+    "mode": "context",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 42,
+        "timeout_ms": 231
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-01",
+    "checkpoint": 2,
+    "mode": "context",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 42,
+        "timeout_ms": 231
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-01",
+    "checkpoint": 0,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 42,
+        "timeout_ms": 1343
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-01",
+    "checkpoint": 1,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 42,
+        "timeout_ms": 231
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-01",
+    "checkpoint": 2,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 42,
+        "timeout_ms": 231
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-01",
+    "checkpoint": 0,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 42,
+        "timeout_ms": 1343
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-01",
+    "checkpoint": 1,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 42,
+        "timeout_ms": 231
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-01",
+    "checkpoint": 2,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 42,
+        "timeout_ms": 231
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-01",
+    "checkpoint": 0,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 42,
+        "timeout_ms": 1343
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-01",
+    "checkpoint": 1,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 42,
+        "timeout_ms": 231
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-01",
+    "checkpoint": 2,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 42,
+        "timeout_ms": 231
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-01",
+    "checkpoint": 0,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 53,
+        "timeout_ms": 1178
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-01",
+    "checkpoint": 1,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 53,
+        "timeout_ms": 1414
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-01",
+    "checkpoint": 2,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 53,
+        "timeout_ms": 1414
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-01",
+    "checkpoint": 0,
+    "mode": "context",
+    "task_success": false,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 53,
+        "timeout_ms": 1178
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-01",
+    "checkpoint": 1,
+    "mode": "context",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 53,
+        "timeout_ms": 1414
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-01",
+    "checkpoint": 2,
+    "mode": "context",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 53,
+        "timeout_ms": 1414
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-01",
+    "checkpoint": 0,
+    "mode": "full",
+    "task_success": false,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 53,
+        "timeout_ms": 1178
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-01",
+    "checkpoint": 1,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 53,
+        "timeout_ms": 1414
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-01",
+    "checkpoint": 2,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 53,
+        "timeout_ms": 1414
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-01",
+    "checkpoint": 0,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 53,
+        "timeout_ms": 1178
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-01",
+    "checkpoint": 1,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 53,
+        "timeout_ms": 1414
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-01",
+    "checkpoint": 2,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 53,
+        "timeout_ms": 1414
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-00",
+    "checkpoint": 0,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 57,
+        "timeout_ms": 1202
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-00",
+    "checkpoint": 1,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 57,
+        "timeout_ms": 1690
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-00",
+    "checkpoint": 2,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 57,
+        "timeout_ms": 1690
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-00",
+    "checkpoint": 0,
+    "mode": "full_guarded",
+    "task_success": false,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 57,
+        "timeout_ms": 1690
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-00",
+    "checkpoint": 1,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 57,
+        "timeout_ms": 1690
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-00",
+    "checkpoint": 2,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 57,
+        "timeout_ms": 1690
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-00",
+    "checkpoint": 0,
+    "mode": "context",
+    "task_success": false,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 57,
+        "timeout_ms": 1690
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-00",
+    "checkpoint": 1,
+    "mode": "context",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 57,
+        "timeout_ms": 1690
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-00",
+    "checkpoint": 2,
+    "mode": "context",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 57,
+        "timeout_ms": 1690
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-00",
+    "checkpoint": 0,
+    "mode": "full",
+    "task_success": false,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 57,
+        "timeout_ms": 1202
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-00",
+    "checkpoint": 1,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 57,
+        "timeout_ms": 1690
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-temporal-00",
+    "checkpoint": 2,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 57,
+        "timeout_ms": 1690
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-abstention-00",
+    "checkpoint": 0,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1388
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-abstention-00",
+    "checkpoint": 1,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1388
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-abstention-00",
+    "checkpoint": 2,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1388
+      },
+      "report": {
+        "recipient": "context-alpha-0@example.invalid"
+      }
+    }
+  },
+  {
+    "episode_id": "context-abstention-00",
+    "checkpoint": 0,
+    "mode": "context",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1388
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-abstention-00",
+    "checkpoint": 1,
+    "mode": "context",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1388
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-abstention-00",
+    "checkpoint": 2,
+    "mode": "context",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1388
+      },
+      "report": {
+        "recipient": "context-alpha-0@example.invalid"
+      }
+    }
+  },
+  {
+    "episode_id": "context-abstention-00",
+    "checkpoint": 0,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1388
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-abstention-00",
+    "checkpoint": 1,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1388
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-abstention-00",
+    "checkpoint": 2,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1388
+      },
+      "report": {
+        "recipient": "context-alpha-0@example.invalid"
+      }
+    }
+  },
+  {
+    "episode_id": "context-abstention-00",
+    "checkpoint": 0,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1388
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-abstention-00",
+    "checkpoint": 1,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1388
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-abstention-00",
+    "checkpoint": 2,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1388
+      },
+      "report": {
+        "recipient": "context-alpha-0@example.invalid"
+      }
+    }
+  },
+  {
+    "episode_id": "context-abstention-01",
+    "checkpoint": 0,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1587
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-abstention-01",
+    "checkpoint": 1,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1587
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-abstention-01",
+    "checkpoint": 2,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1587
+      },
+      "report": {
+        "recipient": "context-alpha-1@example.invalid"
+      }
+    }
+  },
+  {
+    "episode_id": "context-abstention-01",
+    "checkpoint": 0,
+    "mode": "context",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1587
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-abstention-01",
+    "checkpoint": 1,
+    "mode": "context",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1587
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-abstention-01",
+    "checkpoint": 2,
+    "mode": "context",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1587
+      },
+      "report": {
+        "recipient": "context-alpha-1@example.invalid"
+      }
+    }
+  },
+  {
+    "episode_id": "context-abstention-01",
+    "checkpoint": 0,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1587
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-abstention-01",
+    "checkpoint": 1,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1587
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-abstention-01",
+    "checkpoint": 2,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1587
+      },
+      "report": {
+        "recipient": "context-alpha-1@example.invalid"
+      }
+    }
+  },
+  {
+    "episode_id": "context-abstention-01",
+    "checkpoint": 0,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1587
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-abstention-01",
+    "checkpoint": 1,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1587
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-abstention-01",
+    "checkpoint": 2,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 48,
+        "timeout_ms": 1587
+      },
+      "report": {
+        "recipient": "context-alpha-1@example.invalid"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-01",
+    "checkpoint": 0,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 44,
+        "timeout_ms": 1524
+      },
+      "report": {
+        "currency": "USD",
+        "total": "204.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-01",
+    "checkpoint": 1,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 44,
+        "timeout_ms": 1524
+      },
+      "report": {
+        "currency": "CNY",
+        "total": "204.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-01",
+    "checkpoint": 2,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 44,
+        "timeout_ms": 1524
+      },
+      "report": {
+        "currency": "CNY",
+        "total": "204.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-01",
+    "checkpoint": 0,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 44,
+        "timeout_ms": 1524
+      },
+      "report": {
+        "currency": "USD",
+        "total": "204.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-01",
+    "checkpoint": 1,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 44,
+        "timeout_ms": 1524
+      },
+      "report": {
+        "currency": "CNY",
+        "total": "204.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-01",
+    "checkpoint": 2,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 44,
+        "timeout_ms": 1524
+      },
+      "report": {
+        "currency": "CNY",
+        "total": "204.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-01",
+    "checkpoint": 0,
+    "mode": "context",
+    "task_success": false,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 44,
+        "timeout_ms": 1524
+      },
+      "report": {
+        "currency": "USD",
+        "total": "204.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-01",
+    "checkpoint": 1,
+    "mode": "context",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 44,
+        "timeout_ms": 1524
+      },
+      "report": {
+        "currency": "CNY",
+        "total": "204.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-01",
+    "checkpoint": 2,
+    "mode": "context",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 44,
+        "timeout_ms": 1524
+      },
+      "report": {
+        "currency": "CNY",
+        "total": "204.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-01",
+    "checkpoint": 0,
+    "mode": "context_guarded",
+    "task_success": false,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 44,
+        "timeout_ms": 1524
+      },
+      "report": {
+        "currency": "USD",
+        "total": "204.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-01",
+    "checkpoint": 1,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 44,
+        "timeout_ms": 1524
+      },
+      "report": {
+        "currency": "CNY",
+        "total": "204.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-01",
+    "checkpoint": 2,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 44,
+        "timeout_ms": 1524
+      },
+      "report": {
+        "currency": "CNY",
+        "total": "204.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-00",
+    "checkpoint": 0,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 66,
+        "timeout_ms": 1371
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-00",
+    "checkpoint": 1,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 66,
+        "timeout_ms": 414
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-00",
+    "checkpoint": 2,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 66,
+        "timeout_ms": 414
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-00",
+    "checkpoint": 0,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 66,
+        "timeout_ms": 1371
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-00",
+    "checkpoint": 1,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 66,
+        "timeout_ms": 414
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-00",
+    "checkpoint": 2,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 66,
+        "timeout_ms": 414
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-00",
+    "checkpoint": 0,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 66,
+        "timeout_ms": 1371
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-00",
+    "checkpoint": 1,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 66,
+        "timeout_ms": 414
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-00",
+    "checkpoint": 2,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 66,
+        "timeout_ms": 414
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-00",
+    "checkpoint": 0,
+    "mode": "context",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 66,
+        "timeout_ms": 1371
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-00",
+    "checkpoint": 1,
+    "mode": "context",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 66,
+        "timeout_ms": 414
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-knowledge_update-00",
+    "checkpoint": 2,
+    "mode": "context",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-11",
+        "quota": 66,
+        "timeout_ms": 414
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-00",
+    "checkpoint": 0,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 58,
+        "timeout_ms": 1611
+      },
+      "report": {
+        "currency": "USD",
+        "total": "503.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-00",
+    "checkpoint": 1,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 58,
+        "timeout_ms": 1611
+      },
+      "report": {
+        "currency": "CNY",
+        "total": "503.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-00",
+    "checkpoint": 2,
+    "mode": "context_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 58,
+        "timeout_ms": 1611
+      },
+      "report": {
+        "currency": "CNY",
+        "total": "503.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-00",
+    "checkpoint": 0,
+    "mode": "context",
+    "task_success": false,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 58,
+        "timeout_ms": 1611
+      },
+      "report": null
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-00",
+    "checkpoint": 1,
+    "mode": "context",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 58,
+        "timeout_ms": 1611
+      },
+      "report": {
+        "currency": "CNY",
+        "total": "503.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-00",
+    "checkpoint": 2,
+    "mode": "context",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 58,
+        "timeout_ms": 1611
+      },
+      "report": {
+        "currency": "CNY",
+        "total": "503.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-00",
+    "checkpoint": 0,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 58,
+        "timeout_ms": 1611
+      },
+      "report": {
+        "currency": "USD",
+        "total": "503.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-00",
+    "checkpoint": 1,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 58,
+        "timeout_ms": 1611
+      },
+      "report": {
+        "currency": "CNY",
+        "total": "503.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-00",
+    "checkpoint": 2,
+    "mode": "full_guarded",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 58,
+        "timeout_ms": 1611
+      },
+      "report": {
+        "currency": "CNY",
+        "total": "503.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-00",
+    "checkpoint": 0,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 58,
+        "timeout_ms": 1611
+      },
+      "report": {
+        "currency": "USD",
+        "total": "503.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-00",
+    "checkpoint": 1,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 58,
+        "timeout_ms": 1611
+      },
+      "report": {
+        "currency": "CNY",
+        "total": "503.00"
+      }
+    }
+  },
+  {
+    "episode_id": "context-tool_execution-00",
+    "checkpoint": 2,
+    "mode": "full",
+    "task_success": true,
+    "observed_state": {
+      "config": {
+        "module": "Alpha",
+        "observed_at": "2026-10-05",
+        "quota": 58,
+        "timeout_ms": 1611
+      },
+      "report": {
+        "currency": "CNY",
+        "total": "503.00"
+      }
+    }
+  }
+]

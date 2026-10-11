@@ -103,7 +103,7 @@ def summarize(records,manifest):
             source_messages_retained=mean([r['source_messages_retained'] for r in rows]),
             model_calls=0 if offline else len(starts),scripted_policy_steps=len(starts) if offline else 0,
             business_tool_calls=sum(r['business_tool_calls'] for r in rows),
-            recovery_tool_calls=sum(c['function']['name'].startswith('history_') for r in responses for c in r.get('message',{}).get('tool_calls',[])),
+            recovery_tool_calls=sum(c['function']['name'].startswith(('history_','context_')) for r in responses for c in r.get('message',{}).get('tool_calls',[])),
             prompt_tokens=None if offline else sum(u['prompt_tokens'] for u in usage),
             completion_tokens=None if offline else sum(u['completion_tokens'] for u in usage),
             unknown_usage_requests=0 if offline else len(starts)-len(usage),latency=latency_stats(rows),

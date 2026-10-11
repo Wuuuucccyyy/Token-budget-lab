@@ -1,0 +1,10 @@
+{
+  "counts": {
+    "full": 0,
+    "full_guarded": 0,
+    "context": 46,
+    "context_guarded": 23
+  },
+  "source": "all paid response tool_calls",
+  "correction": "original summary counter omitted context_*; aggregation fixed after run; API trajectories unchanged"
+}

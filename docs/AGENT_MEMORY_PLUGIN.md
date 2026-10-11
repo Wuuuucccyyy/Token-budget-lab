@@ -2,6 +2,8 @@
 
 ## 目标与当前状态
 
+v0.6 新增独立的 `ContextPlugin` 实验接口：工具结果外置、单任务内稳定视图，以及可选的历史写入来源核验。安装方式相同；新增接口与四组实验协议见 [上下文插件](CONTEXT_PLUGIN.md)。下文保留 `MemoryPlugin` 的整轮恢复接入方式，用于复现旧实验。
+
 目标是在原有 agent 的模型调用前筛选历史消息，并在缺少信息时恢复原文。验收顺序是任务正确性、累计输入输出 token、端到端速度。回答与完整历史版本的一致性另行统计：两个版本答得一样，并不说明都答对了。
 
 v0.5 提供可安装的 Python 中间件、SQLite 原文归档、调用前钩子、历史恢复工具和 DeepSeek 参考 agent。在显式事实及时间范围选择的基础上，新增恢复去重、全量回退锁定、恢复轮次与业务步骤预算，以及可选的稳定只读工具控制。当前仍是实验接口。早期 24 题试验总 token 仅减少 0.18%；v0.3 工具试验全部回退 Full，总 token 增加 20.2%。长历史设置见 [协议](LONG_CONTEXT_EVALUATION.md)，循环控制结果见 [新报告](../results/recovery_guard/REPORT.md)，旧结果保留在 [v0.4 报告](../results/agent_long_context/REPORT.md)。
@@ -59,7 +61,7 @@ finally:
 
 `my_tool_schemas` 是 Chat Completions function tools 列表；`my_tool_handlers` 是名称到本地可调用函数的映射。宿主负责工具权限和业务约束。恢复原文不执行历史工具，只重放已有消息记录。
 
-可通过 `snapshot_read_tools=["read_config"]` 声明无参数且在本任务内稳定的读取工具。默认为空。参考循环读过后暂时移除该工具，其他成功业务操作完成后清空读取快照并重新开放；如果模型仍请求关闭的读取，返回已有结果并计量该轮，不再次执行。具有参数、会异步变化或有副作用的工具不能这样声明。连续两轮只请求关闭的工具会以 `tool_stalled` / `recovery_stalled` 失败终止，不能当作任务成功。
+可通过 `snapshot_read_tools=["read_config"]` 声明无参数且在本任务内稳定的读取工具。默认为空。旧整轮恢复接口读过后暂时移除该工具；其他业务操作在调用前清空读取快照并重新开放，避免部分修改后抛错导致旧结果继续使用。模型仍请求关闭的读取时返回已有结果并计量该轮，不再次执行。具有参数、会异步变化或有副作用的工具不能这样声明。连续两轮只请求关闭的工具会以 `tool_stalled` / `recovery_stalled` 失败终止，不能当作任务成功。新 `ContextPlugin` 保持工具定义稳定，在执行阶段返回已有读取结果。
 
 也可仅使用 `plugin.before_model(tenant, session, canonical_messages, mode="recover")` 接入自有调用循环。宿主只在 `prepared.mode == "compressed"` 时注册 `HISTORY_TOOLS`，Full 及全量回退请求不注册恢复工具。调用 `memory_tool` 后追加成对的 assistant/tool 消息，再次准备请求。恢复请求只对当前用户轮次生效，后续轮次重新检索。
 
