@@ -83,3 +83,11 @@ LongBench 展示长上下文任务的数据组织、划分和指标。复现实�
 5. 哪些输入会导致失败，能否构造并复现对应案例？
 
 这些维度用于界定方法适用范围，并将文献中的动机转化为可检验的实验假设。
+
+## Agent 记忆的设计依据
+
+历史压缩需要同时保留用户约束、工具调用关系和事实来源。现阶段采用完整原文归档与按轮恢复，避免把旧工具结果重写成系统指令；全部用户消息保留，以覆盖显式更正。该取舍易于核对，但对长用户输入和语义指代的压缩能力有限。
+
+[LangChain middleware 文档](https://docs.langchain.com/oss/python/langchain/middleware/built-in) 提供模型调用前的历史处理机制，可作为框架对接参考；当前实现是独立 Python 钩子。[MCP tools 规范](https://modelcontextprotocol.io/specification/2025-11-25/server/tools) 用于工具接口设计，历史发送视图仍需宿主侧钩子控制，不能仅凭注册搜索工具获得自动压缩。
+
+[LongMemEval](https://github.com/xiaowu0162/LongMemEval) 可作为后续记忆检索、更新、时序与拒答评测的参考；当前没有运行该官方评测。仓库首轮合成回归集只验证显式字段和工具原文恢复，并已记录重复恢复导致成本收益很小的真实试验。详细机制见 [历史插件说明](AGENT_MEMORY_PLUGIN.md)。

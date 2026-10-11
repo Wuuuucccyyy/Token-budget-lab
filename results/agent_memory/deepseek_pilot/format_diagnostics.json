@@ -1,0 +1,38 @@
+{
+  "status": "post_hoc_format_diagnostic_not_primary_or_semantic_certification",
+  "runs": [
+    {
+      "mode": "full",
+      "questions": 24,
+      "strict_json": 14,
+      "bare_or_string": 10,
+      "needs_review": 0,
+      "literal_correct": 23,
+      "literal_incorrect": 1,
+      "comparable_with_full": 24,
+      "literal_same_as_full": 24
+    },
+    {
+      "mode": "compact",
+      "questions": 24,
+      "strict_json": 24,
+      "bare_or_string": 0,
+      "needs_review": 0,
+      "literal_correct": 12,
+      "literal_incorrect": 12,
+      "comparable_with_full": 24,
+      "literal_same_as_full": 12
+    },
+    {
+      "mode": "recover",
+      "questions": 24,
+      "strict_json": 17,
+      "bare_or_string": 5,
+      "needs_review": 2,
+      "literal_correct": 22,
+      "literal_incorrect": 0,
+      "comparable_with_full": 22,
+      "literal_same_as_full": 21
+    }
+  ]
+}

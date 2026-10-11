@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "token-budget-lab"
+version = "0.2.0"
+description = "Reversible history compression and retrieval middleware for Python agents"
+requires-python = ">=3.10"
+authors = [{name = "Wuuuucccyyy"}]
+license = {text = "MIT"}
+dependencies = []
+
+[tool.setuptools.packages.find]
+include = ["token_budget_lab*"]
+
+[project.optional-dependencies]
+analysis = ["matplotlib>=3.8,<4"]
+tokenizer = ["tiktoken>=0.8,<1"]

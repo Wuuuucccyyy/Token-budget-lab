@@ -1,0 +1,57 @@
+{
+  "schema_version": "agent-memory-v1",
+  "config": {
+    "data": "data/agent_memory.json",
+    "split": "dev",
+    "backend": "deepseek",
+    "session_limit": 4,
+    "modes": [
+      "full",
+      "compact",
+      "recover"
+    ],
+    "seed": 20261011,
+    "budget_characters": 9000,
+    "recent_turns": 2,
+    "model": "deepseek-flash",
+    "max_tokens": 512,
+    "max_steps": 3,
+    "max_calls": 216,
+    "timeout": 120
+  },
+  "data_sha256": "13a149963b522761a7c81aec2248d3f8f6c4abc518f1a7fc182c9f5d76844142",
+  "code_sha256": "6fbca361fca4f650366891a96cf86a9a8ffe7848b533806e2e2e61dab1172de3",
+  "question_ids": [
+    "agent-03-old_tool_fact",
+    "agent-08-old_tool_fact",
+    "agent-01-old_tool_fact",
+    "agent-04-old_tool_fact",
+    "agent-03-user_update",
+    "agent-08-user_update",
+    "agent-01-user_update",
+    "agent-04-user_update",
+    "agent-03-cross_turn_sum",
+    "agent-08-cross_turn_sum",
+    "agent-01-cross_turn_sum",
+    "agent-04-cross_turn_sum",
+    "agent-03-unknown",
+    "agent-08-unknown",
+    "agent-01-unknown",
+    "agent-04-unknown",
+    "agent-03-negation_constraint",
+    "agent-08-negation_constraint",
+    "agent-01-negation_constraint",
+    "agent-04-negation_constraint",
+    "agent-03-comparison",
+    "agent-08-comparison",
+    "agent-01-comparison",
+    "agent-04-comparison"
+  ],
+  "session_ids": [
+    "agent-session-03",
+    "agent-session-08",
+    "agent-session-01",
+    "agent-session-04"
+  ],
+  "identity": "ee05a22fb039d56f3d34d94ea36e5c30572e9de8a87db6486f9e7b6485d79430"
+}

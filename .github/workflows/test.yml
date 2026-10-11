@@ -19,3 +19,9 @@ jobs:
       - run: python scripts/reproduce.py --output local_results/public-ci
       - run: python scripts/reproduce_rag_budget.py --output local_results/rag-budget-ci
       - run: python -m token_budget_lab.rag_experiment --config configs/rag_budget_deepseek_pilot.json --output local_results/rag-live-plan --plan
+      - run: python -m token_budget_lab.memory_experiment --config configs/agent_memory_offline.json --output local_results/memory-ci
+      - run: python -m token_budget_lab.memory_experiment --config configs/agent_memory_deepseek.json --output local_results/memory-live-plan --plan
+      - run: python examples/python_memory_agent.py
+      - run: python scripts/analyze_agent_memory.py --answers results/agent_memory/deepseek_pilot/final_answers.csv --output local_results/memory-format-ci
+      - run: python -m pip install --no-deps .
+      - run: python -I -c "from token_budget_lab.memory import HistoryArchive, MemoryPlugin; from token_budget_lab.memory_agent import run_agent"

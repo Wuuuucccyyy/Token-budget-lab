@@ -2,9 +2,24 @@
 
 [![offline-tests](https://github.com/Wuuuucccyyy/Token-budget-lab/actions/workflows/test.yml/badge.svg)](https://github.com/Wuuuucccyyy/Token-budget-lab/actions/workflows/test.yml)
 
-本项目以文档问答的任务准确率为首要目标，评估上下文筛选与回答缓存能否在满足质量要求的前提下降低 token 消耗，并改善端到端速度。实现包括 BM25 句子检索、邻域保留、精确/词面缓存、整库段落检索与自适应证据预算，以及可恢复的 DeepSeek 实验流程。
+本项目以任务准确率为首要目标，评估上下文筛选、回答缓存与 agent 历史恢复能否在满足质量要求的前提下降低 token 消耗，并改善端到端速度。实现包括 BM25 句子检索、邻域保留、精确/词面缓存、整库段落检索、自适应证据预算，以及可安装的 Python 历史中间件。
 
-当前包含 **74 条合成请求的真实 API 实验**、**480 道公开数据问答及离线对照**，新增 **20 道公开题 × 5 种证据预算的真实 DeepSeek 试验**。不同任务分别报告，字符节省不冒充模型 token 节省，检索指标不冒充大模型准确率。
+当前包含 **74 条合成请求的真实 API 实验**、**480 道公开数据问答及离线对照**、**20 道公开题 × 5 种证据预算的真实 DeepSeek 试验**，以及 **24 道历史记忆题 × 3 种模式、100 次真实调用**。不同任务分别报告，字符节省不冒充模型 token 节省，检索指标不冒充大模型准确率。
+
+## Python Agent 历史插件
+
+v0.2 提供模型调用前的历史筛选钩子：原始消息追加到 SQLite 归档，保留全部用户要求与更正、系统指令和最近两轮；根据当前问题恢复相关旧工具整轮，信息不确定时完整回退。宿主保留完整历史，压缩结果只用于单次请求。
+
+```bash
+python -m pip install .
+python examples/python_memory_agent.py
+```
+
+示例默认离线，不请求模型。设置本机 `DEEPSEEK_API_KEY` 后可用 `--live --mode full` 或 `--live --mode recover` 做接入检查。核心安装仅依赖标准库；尚未发布到 PyPI，也尚未提供 MCP 或 LangChain 自动接入。
+
+首轮 24 题真实试验中，恢复模式保留了标注来源消息，严格 JSON EM 为 70.8%，完整历史为 54.2%；这个差异受到输出格式失败影响，不能直接解释为事实质量提升。计入全部恢复调用后，总 token 仅减少 **0.18%**，P95 从 **1.029 秒**升至 **2.620 秒**。当前不支持默认启用或回答近乎无损且明显省 token 的结论。
+
+接入接口、质量目标与边界见 [插件说明](docs/AGENT_MEMORY_PLUGIN.md)；设置、原始最终回答、格式诊断和逐题数值见 [记忆实验报告](results/agent_memory/REPORT.md)。
 
 ## 快速运行
 
@@ -140,11 +155,13 @@ python -m token_budget_lab.demo
 | `datasets.py` / `metrics.py` | 数据加载、参考答案与 EM/F1 |
 | `experiment.py` / `deepseek.py` | 配置化运行、日志恢复、API 协议 |
 | `evidence_budget.py` / `rag_experiment.py` | 整库段落索引、无标注预算规则、同题生成对照 |
+| `memory.py` / `memory_agent.py` | 历史归档、原角色恢复、Python agent 调用前钩子与工具循环 |
+| `memory_experiment.py` | 完整/只压缩/恢复对照、累计 usage 与格式评分 |
 | `analysis.py` / `failures.py` | 聚类统计、图表、失败案例与复核表 |
 | `configs/` / `scripts/` | 固定实验设置、数据重建、一键复现 |
 | `tests/` | 预算边界、隔离、划分、恢复与模拟 API 测试 |
 
-进一步说明：[实现说明](docs/CODE_WALKTHROUGH.md) · [技术背景与阅读路线](docs/LEARNING_GUIDE.md) · [研究计划](docs/RESEARCH_PLAN.md) · [实验协议](docs/EXPERIMENTS.md)。
+进一步说明：[历史插件](docs/AGENT_MEMORY_PLUGIN.md) · [实现说明](docs/CODE_WALKTHROUGH.md) · [技术背景与阅读路线](docs/LEARNING_GUIDE.md) · [研究计划](docs/RESEARCH_PLAN.md) · [实验协议](docs/EXPERIMENTS.md)。
 
 ## 来源、许可与研究边界
 

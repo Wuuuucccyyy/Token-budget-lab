@@ -1,0 +1,5 @@
+{
+  "data": "data/agent_memory.json", "split": "test", "backend": "offline",
+  "modes": ["full", "compact", "recover"], "seed": 20261011,
+  "budget_characters": 9000, "recent_turns": 2
+}
