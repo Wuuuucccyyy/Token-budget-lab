@@ -1,4 +1,4 @@
-"""Original memory-task fixtures and real file/CSV/subprocess tools."""
+"""Local evaluation sandbox with actual file/CSV/subprocess handlers."""
 from __future__ import annotations
 import copy
 import csv
@@ -74,47 +74,6 @@ def money(items):
             raise ValueError('invalid quantity/price')
         result+=quantity*price
     return format(result.quantize(Decimal('.01')),'f')
-
-
-def build_tasks():
-    episodes=[]
-    for kind in ('knowledge_update','temporal','abstention','tool_execution'):
-        for n in range(6):
-            first=500+23*n
-            latest=900+17*n
-            items=[dict(quantity=1+(i+n)%4,price=format(Decimal(125+7*i+3*n)/100,'.2f')) for i in range(14)]
-            base=dict(module='Alpha',timeout_ms=first,quota=30+n,observed_at='2026-10-01')
-            setup=[dict(tool='read_config',arguments={})]
-            if kind=='tool_execution':
-                setup += [dict(tool='read_orders',arguments={}),dict(change='orders',items=[dict(quantity=1,price='99.00')])]
-            setup += [dict(change='config',timeout_ms=latest,observed_at='2026-10-05'),dict(tool='read_config',arguments={})]
-            setup += [dict(tool='read_log',arguments=dict(name=name)) for name in ('scan_a','scan_b','scan_c','scan_d')]
-            if kind=='knowledge_update':
-                checkpoints=[
-                    dict(query='把最近一次读取的 Alpha config 快照中 timeout_ms 写入当前配置，保持 quota 不变，实际运行检查；answer 只填该数值。',answer=str(latest),timeout_ms=latest,required=['write_config','run_checks']),
-                    dict(query='撤回上一步：改成首次读取的 Alpha config 快照中 timeout_ms 加 5，保持 quota 不变并运行检查；answer 只填新数值。',answer=str(first+5),timeout_ms=first+5,required=['write_config','run_checks']),
-                    dict(query='汇报最近一次 run_checks 的结果，answer 填 PASS 或 FAIL；不修改任何文件。',answer='PASS',timeout_ms=first+5,required=[],no_writes=True)]
-            elif kind=='temporal':
-                checkpoints=[
-                    dict(query='截至 2026-10-04，当时最近的 Alpha config 快照中 timeout_ms 是多少？将那个值写入配置并检查；answer 只填数值。',answer=str(first),timeout_ms=first,required=['write_config','run_checks']),
-                    dict(query='现在改用截至 2026-10-06 最近的历史 Alpha config 快照中 timeout_ms，写入配置并检查；answer 只填数值。',answer=str(latest),timeout_ms=latest,required=['write_config','run_checks']),
-                    dict(query='汇报最近一次 run_checks 的结果，answer 填 PASS 或 FAIL；不修改任何文件。',answer='PASS',timeout_ms=latest,required=[],no_writes=True)]
-            elif kind=='abstention':
-                email=f'alpha{n}@example.invalid'
-                checkpoints=[
-                    dict(query='Alpha 的 billing_email 是什么？没有明确记录时 answer 填 UNKNOWN，不生成报告，不改配置，Beta 的联系人不能替代。',answer='UNKNOWN',timeout_ms=latest,required=[],no_writes=True),
-                    dict(query='能否根据 Alpha 的模块名称推断 billing_email？没有明确记录仍答 UNKNOWN，不生成报告或修改配置。',answer='UNKNOWN',timeout_ms=latest,required=[],no_writes=True),
-                    dict(query=f'现在明确补充并授权：Alpha 的 billing_email={email}。把它作为 recipient 写入本地 report.json，再执行检查；answer 填该邮箱。不发送邮件。',answer=email,timeout_ms=latest,report=dict(recipient=email),required=['write_report','run_checks'])]
-            else:
-                total=money(items)
-                checkpoints=[
-                    dict(query='按最初读取的 orders CSV 记录计算 quantity×price 合计，实际调用 calculate_total，写入本地 report.json，currency 用 USD，再运行检查；answer 填两位小数金额。当前 CSV 已变更，不能用新订单替代旧记录。',answer=total,timeout_ms=latest,report=dict(total=total,currency='USD'),required=['calculate_total','write_report','run_checks']),
-                    dict(query='更正：report.json 的 currency 改为 CNY，total 保持刚才已写入的值。更新本地报告并运行检查，answer 仍填两位小数金额。',answer=total,timeout_ms=latest,report=dict(total=total,currency='CNY'),required=['write_report','run_checks']),
-                    dict(query='汇报 report.json 中的 total，answer 填两位小数金额；不修改文件。',answer=total,timeout_ms=latest,report=dict(total=total,currency='CNY'),required=[],no_writes=True)]
-            episodes.append(dict(id=f'{kind}-{n:02d}',kind=kind,split='dev' if n<3 else 'test',
-                initial_config=base,initial_orders=items,setup=setup,checkpoints=checkpoints))
-    return dict(schema_version='tool-memory-v1',source='original tasks inspired by LongMemEval capability taxonomy; not official benchmark',
-                seed=20261011,episodes=episodes)
 
 
 class ToolSandbox:

@@ -9,7 +9,7 @@ from token_budget_lab.memory import HistoryArchive, encode, scope_key, validate_
 from token_budget_lab.memory_agent import run_agent
 from token_budget_lab.provenance import HistoricalWriteGuard, ProvenanceRejected
 from token_budget_lab.tool_tasks import TOOLS
-from test_recovery_guard import Script, BUSINESS
+from helpers import Script, BUSINESS
 
 
 def add_result(messages, name, value, number):

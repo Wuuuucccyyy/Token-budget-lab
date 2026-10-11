@@ -1,69 +1,9 @@
-"""Continuous file-tool episodes with a native baseline and fully metered recovery."""
-import argparse
+"""Accounting and exports for current plugin task trajectories."""
 import csv
 import json
-import os
-import random
 from collections import Counter
 from pathlib import Path
-
 from .analysis import cluster_ci, latency_stats, mean
-from .datasets import digest
-from .experiment import ROOT, code_hash, stable_hash
-from .memory import HistoryArchive, MemoryPlugin
-from .memory_agent import DeepSeekChat, run_agent
-from .scripted_policy import ScriptedPolicy
-from .tool_tasks import TOOLS, ToolSandbox, assess
-
-
-def prepare(config):
-    if config['backend'] not in {'offline','deepseek'} or config['split'] not in {'dev','test'}:
-        raise ValueError('invalid backend/split')
-    if not config['modes'] or len(set(config['modes']))!=len(config['modes']) or 'full' not in config['modes'] or not set(config['modes'])<={'full','compact','recover'}:
-        raise ValueError('unique modes and native full baseline required')
-    if config['max_steps']<1 or config['budget_characters']<1:
-        raise ValueError('invalid step/budget')
-    path=ROOT/config['data']
-    bundle=json.loads(path.read_text(encoding='utf-8'))
-    requested_ids = config.get('episode_ids')
-    if requested_ids is not None:
-        if not isinstance(requested_ids, list) or not requested_ids or len(set(requested_ids)) != len(requested_ids):
-            raise ValueError('unique nonempty episode_ids required')
-        eligible = {e['id'] for e in bundle['episodes'] if e['split'] == config['split']}
-        if not set(requested_ids) <= eligible:
-            raise ValueError('episode_ids must belong to the selected split')
-    groups={kind:[] for kind in ('knowledge_update','temporal','abstention','tool_execution')}
-    for e in bundle['episodes']:
-        if e['split']==config['split'] and (requested_ids is None or e['id'] in requested_ids) and (not config.get('context_lengths') or e.get('context_length','legacy') in config['context_lengths']):
-            groups[e['kind']].append(e)
-    rng=random.Random(config['seed'])
-    episodes=[]
-    for group in groups.values():
-        # Length variants of one scenario stay matched and count as one cluster.
-        base_ids=sorted({e.get('base_id',e['id']) for e in group})
-        rng.shuffle(base_ids)
-        limit=config.get('per_kind_limit',len(base_ids))
-        for e in group:
-            context=e.get('context_length','legacy')
-            context_limit=config.get('per_context_limit',{}).get(context,limit)
-            if e.get('base_id',e['id']) in set(base_ids[:context_limit]): episodes.append(e)
-    rng.shuffle(episodes)
-    if not episodes: raise ValueError('no episodes')
-    if requested_ids is not None and {e['id'] for e in episodes} != set(requested_ids):
-        raise ValueError('episode_ids excluded by length or sampling limits')
-    if config['backend']=='deepseek' and (config.get('max_calls',0)<1 or not config.get('model') or config.get('max_tokens',0)<1):
-        raise ValueError('explicit paid-call/model/output limits required')
-    manifest=dict(schema_version='continuous-tools-v1',config=config,data_sha256=digest(path),code_sha256=code_hash(),
-        episode_ids=[e['id'] for e in episodes],checkpoints=sum(len(e['checkpoints']) for e in episodes),
-        dataset_source=bundle['source'],baseline='native full history without memory tools/archive',
-        setup='scripted actual file reads; no setup LLM calls; checkpoints are continuous agent execution',
-        protocol='chat',thinking='disabled',json_output=True)
-    manifest.update(base_scenarios=len({e.get('base_id',e['id']) for e in episodes}),
-        context_counts=dict(Counter(e.get('context_length','legacy') for e in episodes)),
-        expected_episode_checkpoints={e['id']:len(e['checkpoints']) for e in episodes})
-    manifest['identity']=stable_hash(manifest)
-    return episodes,manifest
-
 
 def summarize(records,manifest):
     offline=manifest['config']['backend']=='offline'
@@ -203,96 +143,6 @@ def compressed_accounting(tasks,episodes,offline,seed):
     return output
 
 
-def execute(config,output,transport=None):
-    episodes,manifest=prepare(config)
-    output=Path(output)
-    output.mkdir(parents=True,exist_ok=True)
-    if (output/'manifest.json').exists() or (output/'requests.jsonl').exists():
-        raise ValueError('fresh output required; no automatic paid replay')
-    (output/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    records=[]
-    attempts=0
-    rng=random.Random(config['seed'])
-    archive=HistoryArchive(output/'history.sqlite3')
-    plugin=MemoryPlugin(archive,budget=config['budget_characters'],recent_turns=config['recent_turns'],
-        selector=config.get('selector','structured'),min_reduction=config.get('min_reduction',.1))
-    if config['backend']=='deepseek' and transport is None:
-        transport=DeepSeekChat(config['model'],config['max_tokens'],config.get('timeout',120),json_output=True)
-    try:
-        with (output/'requests.jsonl').open('x',encoding='utf-8') as log:
-            metadata={e['id']:dict(base_id=e.get('base_id',e['id']),kind=e['kind'],
-                                  context_length=e.get('context_length','legacy')) for e in episodes}
-            def append(record):
-                record={**metadata[record['episode_id']],**record}
-                log.write(json.dumps(record,ensure_ascii=False)+'\n'); log.flush(); os.fsync(log.fileno())
-                records.append(record)
-            for episode in episodes:
-                modes=config['modes'].copy(); rng.shuffle(modes)
-                for mode in modes:
-                    phase=[-1]
-                    def on_action(action):
-                        if phase[0]>=0: append(dict(event='business_tool',episode_id=episode['id'],mode=mode,checkpoint=phase[0],**action))
-                    sandbox=ToolSandbox(output/'sandboxes'/episode['id']/mode,episode,on_action)
-                    history,sources=sandbox.seed_history(episode)
-                    client=transport if config['backend']=='deepseek' else ScriptedPolicy()
-                    for number,checkpoint in enumerate(episode['checkpoints']):
-                        phase[0]=number
-                        history.append(dict(role='user',content=checkpoint['query']))
-                        before_hashes=sandbox.file_hashes()
-                        trace_start=len(sandbox.trace)
-                        prepared=[]
-                        def before(step,p):
-                            nonlocal attempts
-                            if config['backend']=='deepseek' and attempts>=config['max_calls']:
-                                raise RuntimeError('paid call limit reached')
-                            append(dict(event='start',episode_id=episode['id'],mode=mode,checkpoint=number,step=step,
-                                sent_messages_sha256=stable_hash(p.messages)))
-                            if config['backend']=='deepseek': attempts+=1
-                            if step==0: prepared.append(p)
-                        def after(record):
-                            append(dict(event='response',episode_id=episode['id'],mode=mode,checkpoint=number,**record))
-                        def after_tools(record):
-                            append(dict(event='recovery_guard',episode_id=episode['id'],mode=mode,checkpoint=number,**record))
-                        result=run_agent(history,client,None if mode=='full' else plugin,'tools',episode['id']+':'+mode,
-                            mode=mode,max_steps=config['max_steps'],before_request=before,after_response=after,
-                            extra_tools=TOOLS,handlers=sandbox.handlers(),memory_tools=mode=='recover',
-                            max_recovery_rounds=config.get('max_recovery_rounds',2),
-                            reserve_task_steps=config.get('reserve_task_steps',3),after_tools=after_tools,
-                            snapshot_read_tools=config.get('snapshot_read_tools',[]))
-                        # Canonical history persists across checkpoints, including mistakes.
-                        original=history
-                        history=result['messages']
-                        score=assess(checkpoint,result,sandbox,before_hashes,trace_start,episode['initial_config'])
-                        relevant=[]
-                        snapshots=[s for s in sources if s['tool']=='read_config' and s.get('entity','Alpha')=='Alpha']
-                        if episode['kind']=='knowledge_update' and number<2:
-                            relevant=[snapshots[-1 if number==0 else 0]['position']]
-                        elif episode['kind']=='temporal' and number<2:
-                            import re
-                            cutoffs=re.findall(r'截至 (\d{4}-\d{2}-\d{2})',checkpoint['query'])
-                            relevant=[max((s for s in snapshots if s['observed_at']<=cutoff),key=lambda s:s['observed_at'])['position'] for cutoff in cutoffs]
-                        elif episode['kind']=='tool_execution' and number==0:
-                            relevant=[s['position'] for s in sources if s['tool']=='read_orders']
-                        retained=all(original[p] in prepared[0].messages for p in relevant) if relevant else None
-                        row=dict(event='task_result',episode_id=episode['id'],kind=episode['kind'],checkpoint=number,mode=mode,
-                            status=result['status'],**score,initial_history_mode=prepared[0].mode,
-                            initial_history_reason=prepared[0].reason,initial_sent_units=prepared[0].sent_units,
-                            initial_baseline_units=prepared[0].baseline_units,
-                            compressed_requests=sum(s['history_mode']=='compressed' for s in result['steps']),
-                            fallback_requests=sum(s['history_mode']=='fallback_full' for s in result['steps']),
-                            prompt_tokens=result['prompt_tokens'],completion_tokens=result['completion_tokens'],
-                            model_calls=result['api_calls'],unknown_usage_requests=result['unknown_usage_requests'],
-                            source_messages_retained=retained,end_to_end_seconds=result['end_to_end_seconds'])
-                        append(row)
-                        if result['status']=='error': raise RuntimeError('API failure logged; no retry')
-    finally:
-        archive.close()
-        summary=summarize(records,manifest)
-        summary['api_attempts']=attempts
-        (output/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    return summary
-
-
 def export(output,destination):
     output,destination=Path(output),Path(destination)
     destination.mkdir(parents=True,exist_ok=True)
@@ -322,23 +172,3 @@ def export(output,destination):
             if r['event']=='response': last[key]=r.get('message',{}).get('content') or ''
             if r['event']=='task_result': writer.writerow(dict(episode_id=key[0],checkpoint=key[1],mode=key[2],raw_answer=last.get(key,'')))
 
-
-def main():
-    parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--config',type=Path,required=True)
-    parser.add_argument('--output',type=Path,required=True)
-    parser.add_argument('--export',type=Path)
-    parser.add_argument('--plan',action='store_true')
-    args=parser.parse_args()
-    config=json.loads(args.config.read_text(encoding='utf-8'))
-    if args.plan:
-        episodes,manifest=prepare(config)
-        print(json.dumps(dict(episodes=len(episodes),checkpoints=manifest['checkpoints'],modes=config['modes'],
-            maximum_model_calls=0 if config['backend']=='offline' else config['max_calls'],
-            max_steps_per_checkpoint=config['max_steps']),indent=2));return
-    execute(config,args.output)
-    if args.export: export(args.output,args.export)
-    print(f'Written: {args.output.resolve()}')
-
-
-if __name__=='__main__': main()

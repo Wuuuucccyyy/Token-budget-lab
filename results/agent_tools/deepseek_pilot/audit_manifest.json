@@ -1,8 +1,0 @@
-{
-  "journal_sha256": "8add30999359829cc0e2e0260db45f906e40fd93e484d97fca592b4be443b78b",
-  "responses": 60,
-  "business_actions": 32,
-  "checkpoint_states": 24,
-  "contains_api_credentials": false,
-  "scope": "original synthetic tasks only; no real user files"
-}

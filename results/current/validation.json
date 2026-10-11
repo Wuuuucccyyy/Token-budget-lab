@@ -1,0 +1,13 @@
+{
+  "package_version": "0.8.0",
+  "local_python": "3.11",
+  "current_plugin_tests_passed": 52,
+  "scripted_refactor_parity_trajectories": 24,
+  "parity_scope": "same model request messages, tool schemas, business operations, final state and answers; normalized only unittest elapsed time",
+  "parity_is_model_accuracy_measurement": false,
+  "isolated_wheel_import_verified": true,
+  "wheel_sha256": "f516ded16f7d2486068661ae680b2e238d427c84d7676e503914b39e4e0672d1",
+  "new_paid_api_calls_during_cleanup": 0,
+  "latest_real_measurement_api_calls": 109,
+  "latest_real_measurement_commit": "ea96cdac9f33ed3a0e92b33e8537a9dcd4eba6a6"
+}

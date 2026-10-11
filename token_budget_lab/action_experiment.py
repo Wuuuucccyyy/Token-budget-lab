@@ -36,12 +36,12 @@ def plan(config):
         expected_episode_checkpoints={e['id']: 1 for e in bundle['episodes']},
         data_sha256=hashlib.sha256(path.read_bytes()).hexdigest(), code_sha256=code_hash(),
         dataset_source=bundle['source'], contract_source='host structured current-user intent; no automatic natural-language parsing; no answer/state labels',
-        quality='focused replay and changed-file diagnostic only; not independent near-lossless confirmation',
+        quality='six controlled long-history cases; no general near-lossless confirmation',
         cache_control='independent 128-hex system prefix per task/arm; natural within-task cache; cannot clear provider cache',
         baseline='full_contract and context_contract use the same execution contract; unguarded arms retained',
         protocol='chat', thinking='disabled', json_output=True,
         pricing_source='https://api-docs.deepseek.com/quick_start/pricing/', pricing_verified_date='2026-10-12',
-        pricing_interpretation='same fixed off-peak repricing as v0.6, not an account invoice; no warm probes')
+        pricing_interpretation='fixed reference rates for comparable repricing, not an account invoice; no warm probes')
 
 
 def execute(config, output, transport=None):

@@ -1,0 +1,111 @@
+{
+  "measured_at": "2026-10-12",
+  "measurement_commit": "ea96cdac9f33ed3a0e92b33e8537a9dcd4eba6a6",
+  "scope": "six synthetic long-history cases, four arms, one run; measured before repository-only refactor",
+  "max_steps_per_task": 6,
+  "actual_api_calls": 109,
+  "unknown_usage_requests": 0,
+  "rates": {
+    "hit": 0.003,
+    "miss": 0.15,
+    "output": 0.6
+  },
+  "price_interpretation": "fixed reference-rate repricing, not an account invoice or current-price promise",
+  "runs": [
+    {
+      "mode": "full",
+      "checkpoints": 6,
+      "task_success_rate": 1,
+      "answer_accuracy": 1,
+      "artifact_state_accuracy": 1,
+      "fresh_read_completed": 6,
+      "model_calls": 23,
+      "prompt_tokens": 808684,
+      "completion_tokens": 791,
+      "cache_hit_tokens": 586624,
+      "cache_miss_tokens": 222060,
+      "estimated_usd": 0.035543472,
+      "latency": {
+        "samples": 6,
+        "mean_seconds": 5.035687999979321,
+        "p50_seconds": 4.8935804500069935,
+        "p95_seconds": 5.691468199969677
+      },
+      "status_counts": {
+        "ok": 6
+      }
+    },
+    {
+      "mode": "full_contract",
+      "checkpoints": 6,
+      "task_success_rate": 1,
+      "answer_accuracy": 1,
+      "artifact_state_accuracy": 1,
+      "fresh_read_completed": 6,
+      "model_calls": 24,
+      "prompt_tokens": 851380,
+      "completion_tokens": 781,
+      "cache_hit_tokens": 627840,
+      "cache_miss_tokens": 223540,
+      "estimated_usd": 0.03588312,
+      "latency": {
+        "samples": 6,
+        "mean_seconds": 5.25656200000473,
+        "p50_seconds": 5.281516350005404,
+        "p95_seconds": 5.5998518749765935
+      },
+      "status_counts": {
+        "ok": 6
+      }
+    },
+    {
+      "mode": "context",
+      "checkpoints": 6,
+      "task_success_rate": 0.5,
+      "answer_accuracy": 0.6666666666666666,
+      "artifact_state_accuracy": 0.8333333333333334,
+      "fresh_read_completed": 5,
+      "model_calls": 32,
+      "prompt_tokens": 154717,
+      "completion_tokens": 1645,
+      "cache_hit_tokens": 120064,
+      "cache_miss_tokens": 34653,
+      "estimated_usd": 0.0065451419999999995,
+      "latency": {
+        "samples": 6,
+        "mean_seconds": 5.9764203499944415,
+        "p50_seconds": 6.208884749998106,
+        "p95_seconds": 7.134986399993068
+      },
+      "status_counts": {
+        "ok": 4,
+        "step_limit": 1,
+        "context_stalled": 1
+      }
+    },
+    {
+      "mode": "context_contract",
+      "checkpoints": 6,
+      "task_success_rate": 0.8333333333333334,
+      "answer_accuracy": 0.8333333333333334,
+      "artifact_state_accuracy": 0.8333333333333334,
+      "fresh_read_completed": 6,
+      "model_calls": 30,
+      "prompt_tokens": 142294,
+      "completion_tokens": 1381,
+      "cache_hit_tokens": 108928,
+      "cache_miss_tokens": 33366,
+      "estimated_usd": 0.006160283999999999,
+      "latency": {
+        "samples": 6,
+        "mean_seconds": 5.564251433306102,
+        "p50_seconds": 5.3815918500040425,
+        "p95_seconds": 7.214853424935427
+      },
+      "status_counts": {
+        "ok": 5,
+        "context_stalled": 1
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "schema_version": "fresh-actions-v1",
   "seed": 20261012,
-  "source": "focused synthetic diagnostic: two v0.6 task replays plus four current-file-change cases; not independent benchmark",
+  "source": "six controlled synthetic long-history tasks; repeated templates and current-file changes; not a natural benchmark",
   "episodes": [
     {
       "id": "actions-replay-00",
@@ -347,7 +347,7 @@
       "context_length": "long",
       "log_events": 60,
       "background_profile": "operational_records",
-      "diagnostic_source": "v0.6 task replay",
+      "diagnostic_source": "explicit fresh-read requirement",
       "live_updates": [],
       "request_actions": {
         "required": [
@@ -736,7 +736,7 @@
       "context_length": "long",
       "log_events": 60,
       "background_profile": "operational_records",
-      "diagnostic_source": "v0.6 task replay",
+      "diagnostic_source": "explicit fresh-read requirement",
       "live_updates": [],
       "request_actions": {
         "required": [
@@ -1125,7 +1125,7 @@
       "context_length": "long",
       "log_events": 60,
       "background_profile": "operational_records",
-      "diagnostic_source": "new controlled current-file change",
+      "diagnostic_source": "controlled current-file change",
       "live_updates": [
         {
           "file": "scan_c.json",
@@ -1523,7 +1523,7 @@
       "context_length": "long",
       "log_events": 60,
       "background_profile": "operational_records",
-      "diagnostic_source": "new controlled current-file change",
+      "diagnostic_source": "controlled current-file change",
       "live_updates": [
         {
           "file": "scan_a.json",
@@ -1921,7 +1921,7 @@
       "context_length": "long",
       "log_events": 60,
       "background_profile": "operational_records",
-      "diagnostic_source": "new controlled current-file change",
+      "diagnostic_source": "controlled current-file change",
       "live_updates": [
         {
           "file": "scan_d.json",
@@ -2315,7 +2315,7 @@
       "context_length": "long",
       "log_events": 60,
       "background_profile": "operational_records",
-      "diagnostic_source": "new controlled current-file change",
+      "diagnostic_source": "controlled current-file change",
       "live_updates": [
         {
           "file": "config.json",

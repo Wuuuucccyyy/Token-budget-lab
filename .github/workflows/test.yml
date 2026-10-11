@@ -1,4 +1,4 @@
-name: offline-tests
+name: tests
 on: [push, pull_request]
 permissions:
   contents: read
@@ -14,22 +14,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - run: python -m unittest discover -s tests -v
-      - run: python -m token_budget_lab --output local_results
-      - run: python -m token_budget_lab.experiment --config configs/deepseek_pilot.json --dry-run
-      - run: python scripts/reproduce.py --output local_results/public-ci
-      - run: python scripts/reproduce_rag_budget.py --output local_results/rag-budget-ci
-      - run: python -m token_budget_lab.rag_experiment --config configs/rag_budget_deepseek_pilot.json --output local_results/rag-live-plan --plan
-      - run: python -m token_budget_lab.memory_experiment --config configs/agent_memory_offline.json --output local_results/memory-ci
-      - run: python -m token_budget_lab.memory_experiment --config configs/agent_memory_deepseek.json --output local_results/memory-live-plan --plan
-      - run: python examples/python_memory_agent.py
-      - run: python examples/python_required_actions.py
+      - run: python examples/python_agent.py
       - run: python -m token_budget_lab.action_experiment --config configs/action_contract_deepseek.json --plan
-      - run: python scripts/analyze_agent_memory.py --answers results/agent_memory/deepseek_pilot/final_answers.csv --output local_results/memory-format-ci
-      - run: python -m token_budget_lab.tool_experiment --config configs/agent_tools_offline.json --output local_results/tools-ci
-      - run: python -m token_budget_lab.tool_experiment --config configs/agent_tools_deepseek.json --output local_results/tools-live-plan --plan
-      - run: python scripts/prepare_long_context_tasks.py
-      - run: python -m token_budget_lab.tool_experiment --config configs/agent_long_context_offline.json --output local_results/long-context-ci
-      - run: python -m token_budget_lab.tool_experiment --config configs/agent_long_context_deepseek.json --output local_results/long-context-live-plan --plan
-      - run: python -m token_budget_lab.tool_experiment --config configs/agent_recovery_guard_deepseek.json --output local_results/recovery-guard-live-plan --plan
       - run: python -m pip install --no-deps .
-      - run: python -I -c "from token_budget_lab.memory import HistoryArchive, MemoryPlugin; from token_budget_lab.memory_agent import run_agent; from token_budget_lab.action_contract import ActionContract, RequiredAction"
+      - run: python -I -c "from token_budget_lab import ContextPlugin, HistoryArchive, ActionContract, RequiredAction, HistoricalWriteGuard, DeepSeekChat, run_agent"

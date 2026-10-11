@@ -9,7 +9,7 @@ from token_budget_lab.context_plugin import ContextPlugin, source_id
 from token_budget_lab.memory import HistoryArchive, encode, validate_messages
 from token_budget_lab.memory_agent import run_agent
 from token_budget_lab.tool_tasks import tool
-from test_recovery_guard import Script
+from helpers import Script
 
 
 READ = tool('read_log', 'Read the current file.', dict(name=dict(type='string')), ['name'])

@@ -7,9 +7,9 @@ import json
 import re
 import time
 
-from .evidence_budget import EvidenceIndex
+from .retrieval import EvidenceIndex
 from .history_evidence import plan_evidence
-from .memory import MemoryPlugin, PreparedHistory, encode, scope_key, split_turns, validate_messages
+from .memory import CounterBackend, PreparedHistory, encode, scope_key, split_turns, validate_messages
 
 
 def source_id(position, message):
@@ -37,7 +37,7 @@ CONTEXT_TOOLS = [
            dict(query=dict(type='string'), limit=dict(type='integer', minimum=1, maximum=3)), ['query'])]
 
 
-class ContextPlugin(MemoryPlugin):
+class ContextPlugin:
     """Offload declared bulky tools, then freeze history selection for each task.
 
     budget is a soft character threshold; preserving instructions and evidence
@@ -48,8 +48,12 @@ class ContextPlugin(MemoryPlugin):
     context_tools = CONTEXT_TOOLS
 
     def __init__(self, archive, budget=9000, recent_turns=1, offload_tools=('read_log',),
-                 offload_threshold=1800, **kwargs):
-        super().__init__(archive, budget, recent_turns, **kwargs)
+                 offload_threshold=1800, counter=None):
+        if not isinstance(budget, int) or budget < 1 or recent_turns < 1:
+            raise ValueError("invalid memory budget/window")
+        self.archive, self.budget, self.recent_turns = archive, budget, recent_turns
+        self.counter = counter or CounterBackend()
+        self._indexes, self._visible, self._active = {}, {}, {}
         if type(offload_threshold) is not int or offload_threshold < 512:
             raise ValueError('offload threshold must be at least 512 characters')
         if any(not isinstance(n, str) or not n or n.startswith(('history_', 'context_')) for n in offload_tools):
@@ -58,6 +62,9 @@ class ContextPlugin(MemoryPlugin):
         self._stages, self._shapes, self._previous = {}, {}, {}
         archive.connection.execute('CREATE TABLE IF NOT EXISTS context_views '
             '(scope TEXT, source TEXT, value TEXT NOT NULL, PRIMARY KEY(scope,source))')
+
+    def _count(self, messages):
+        return self.counter.count(encode(messages))
 
     def _shape(self, scope, messages):
         shaped = copy.deepcopy(messages)
