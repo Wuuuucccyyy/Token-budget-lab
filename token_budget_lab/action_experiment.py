@@ -1,4 +1,4 @@
-"""Fixed six-step fresh-action diagnostic, including rejected final answers."""
+"""Bounded fresh-action diagnostics with complete task and latency accounting."""
 from __future__ import annotations
 import argparse
 import copy
@@ -24,33 +24,53 @@ from .transform_tasks import guard_from_query
 ARMS = ['full', 'full_contract', 'context', 'context_contract']
 LOCATOR_ARMS = ['full','context_lexical','context_structured']
 TRANSFORM_ARMS = ['full','context_structured','context_transform']
+FAST_ARMS = ['full','context_transform','context_fast']
 
 
 def plan(config):
-    if config['arms'] not in (ARMS,LOCATOR_ARMS,TRANSFORM_ARMS) or config['max_steps'] != 6 or config['max_calls'] < 1:
-        raise ValueError('explicit supported arms, original six-step cap and paid-call cap required')
-    if config['arms'] in (LOCATOR_ARMS,TRANSFORM_ARMS) and not config.get('execution_contract_all_arms'):
+    fast=config['arms']==FAST_ARMS
+    if config['arms'] not in (ARMS,LOCATOR_ARMS,TRANSFORM_ARMS,FAST_ARMS) or config['max_steps'] != (10 if fast else 6) or config['max_calls'] < 1:
+        raise ValueError('explicit supported arms and matching declared step/call cap required')
+    if config['arms'] in (LOCATOR_ARMS,TRANSFORM_ARMS,FAST_ARMS) and not config.get('execution_contract_all_arms'):
         raise ValueError('same execution contract required for all locator arms')
     path = ROOT / config['data']
     bundle = json.loads(path.read_text(encoding='utf-8'))
     for e in bundle['episodes']:
         execution_contract(e['request_actions'])
-        if config['arms']==TRANSFORM_ARMS:
+        if config['arms'] in (TRANSFORM_ARMS,FAST_ARMS):
             guard_from_query(e['checkpoints'][0]['query'])
     if config['arms']==TRANSFORM_ARMS and config.get('write_transform_arms')!=['full','context_transform']:
         raise ValueError('Full and transform plugin must share the same host write checks')
-    return bundle['episodes'], dict(
+    if fast and (config.get('write_transform_arms')!=FAST_ARMS or config.get('eager_evidence_arms')!=['context_fast']):
+        raise ValueError('fast comparison requires identical write checks and one eager-evidence arm')
+    repeats=config.get('repeats',1)
+    if type(repeats) is not int or not 1<=repeats<=5 or (not fast and repeats!=1):
+        raise ValueError('bounded repetitions are supported only in the fast comparison')
+    episodes=[]
+    for repetition in range(repeats):
+        for original in bundle['episodes']:
+            e=copy.deepcopy(original)
+            e['repetition']=repetition+1
+            if repeats>1:
+                e['id']=original['id']+f'-r{repetition+1:02d}'
+            episodes.append(e)
+    if config['max_calls']<len(episodes)*len(config['arms'])*config['max_steps']:
+        raise ValueError('paid-call cap must cover the declared bounded comparison')
+    return episodes, dict(
         config={**config, 'modes': config['arms'], 'backend': 'deepseek'},
-        episode_ids=[e['id'] for e in bundle['episodes']], checkpoints=len(bundle['episodes']),
-        expected_episode_checkpoints={e['id']: 1 for e in bundle['episodes']},
+        episode_ids=[e['id'] for e in episodes], checkpoints=len(episodes),
+        independent_case_templates=len(bundle['episodes']),repeats=repeats,
+        expected_episode_checkpoints={e['id']: 1 for e in episodes},
         data_sha256=hashlib.sha256(path.read_bytes()).hexdigest(), code_sha256=code_hash(),
         dataset_source=bundle['source'], contract_source='host structured current-user intent; no automatic natural-language parsing; no answer/state labels',
-        quality=f'{len(bundle["episodes"])} controlled long-history cases; no general near-lossless confirmation',
+        quality=f'{len(bundle["episodes"])} reused synthetic templates x {repeats} repeats; no general near-lossless confirmation',
         cache_control='independent 128-hex system prefix per task/arm; natural within-task cache; cannot clear provider cache',
-        baseline=('Full and context_transform share write checks; context_structured is the ablation; all use the same execution contract'
+        baseline=('all arms share ten-step cap and write/action checks; context_fast attaches declared original fields without an extra LLM call'
+                  if fast else 'Full and context_transform share write checks; context_structured is the ablation; all use the same execution contract'
                   if config['arms']==TRANSFORM_ARMS else 'all arms use same execution contract; lexical reproduces original recovery; structured adds exact locations'
                   if config['arms']==LOCATOR_ARMS else 'full_contract and context_contract use the same execution contract; unguarded arms retained'),
         write_transform_source='host adapter from current query only; actual current-run read results; never answer/state labels',
+        eager_evidence_source='same declared source selectors as write checks; raw fields only, no computed answers; new actual reads only',
         protocol='chat', thinking='disabled', json_output=True,
         pricing_source='https://api-docs.deepseek.com/quick_start/pricing/', pricing_verified_date='2026-10-12',
         pricing_interpretation='fixed reference rates for comparable repricing, not an account invoice; no warm probes')
@@ -89,7 +109,7 @@ def execute(config, output, transport=None):
                 rng.shuffle(arms)
                 for arm in arms:
                     active = [False]
-                    meta = dict(episode_id=episode['id'], base_id=episode['base_id'], kind=episode['kind'],
+                    meta = dict(episode_id=episode['id'], base_id=episode['base_id'], kind=episode['kind'],repetition=episode.get('repetition',1),
                                 context_length='long', mode=arm, checkpoint=0)
                     def action(row):
                         if active[0]:
@@ -130,7 +150,8 @@ def execute(config, output, transport=None):
                         memory_tools=arm.startswith('context'), max_steps=config['max_steps'], max_recovery_rounds=3,
                         extra_tools=TOOLS, handlers=sandbox.handlers(), snapshot_read_tools=config['snapshot_read_tools'],
                         action_contract=policy, before_request=before, after_response=response, after_tools=tools,
-                        write_guard=guard_from_query(checkpoint['query']) if arm in config.get('write_transform_arms',[]) else None)
+                        write_guard=guard_from_query(checkpoint['query']) if arm in config.get('write_transform_arms',[]) else None,
+                        eager_evidence=arm in config.get('eager_evidence_arms',[]))
                     score = assess(checkpoint, result, sandbox, hashes, trace_start, episode['initial_config'])
                     # A forbidden model write attempt remains a violation even
                     # when a host gate prevents its handler from running.
@@ -159,6 +180,7 @@ def execute(config, output, transport=None):
                         initial_history_mode=initial[0].mode, initial_history_reason=initial[0].reason,
                         initial_sent_units=initial[0].sent_units, initial_baseline_units=initial[0].baseline_units,
                         source_messages_retained=None, compressed_requests=sum(s['history_mode']=='compressed' for s in result['steps']),
+                        eager_evidence_requests=sum(bool(s['context_metadata'].get('eager_evidence_source_ids')) for s in result['steps']),
                         fallback_requests=sum(s['history_mode']=='fallback_full' for s in result['steps']),
                         prompt_tokens=result['prompt_tokens'], completion_tokens=result['completion_tokens'],
                         model_calls=result['api_calls'], unknown_usage_requests=result['unknown_usage_requests'],

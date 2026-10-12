@@ -1,44 +1,44 @@
 {
   "full": {
     "reused_cases": {
-      "cases": 6,
-      "passed": 6
+      "cases": 18,
+      "passed": 18
     },
     "new_boundary_cases": {
-      "cases": 6,
-      "passed": 6
+      "cases": 18,
+      "passed": 15
     },
     "actually_compressed": {
       "cases": 0,
       "passed": 0
     }
   },
-  "context_structured": {
-    "reused_cases": {
-      "cases": 6,
-      "passed": 6
-    },
-    "new_boundary_cases": {
-      "cases": 6,
-      "passed": 5
-    },
-    "actually_compressed": {
-      "cases": 12,
-      "passed": 11
-    }
-  },
   "context_transform": {
     "reused_cases": {
-      "cases": 6,
-      "passed": 6
+      "cases": 18,
+      "passed": 18
     },
     "new_boundary_cases": {
-      "cases": 6,
-      "passed": 5
+      "cases": 18,
+      "passed": 17
     },
     "actually_compressed": {
-      "cases": 12,
-      "passed": 11
+      "cases": 36,
+      "passed": 35
+    }
+  },
+  "context_fast": {
+    "reused_cases": {
+      "cases": 18,
+      "passed": 18
+    },
+    "new_boundary_cases": {
+      "cases": 18,
+      "passed": 18
+    },
+    "actually_compressed": {
+      "cases": 36,
+      "passed": 36
     }
   }
 }

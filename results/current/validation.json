@@ -1,51 +1,24 @@
 {
-  "package_version": "0.10.0",
+  "package_version": "0.11.0",
   "local_python": "3.11",
-  "current_plugin_tests_passed": 82,
-  "new_write_transform_tests_passed": 15,
+  "current_plugin_tests_passed": 93,
+  "new_eager_evidence_tests_passed": 11,
   "isolated_wheel_import_verified": true,
-  "wheel_sha256": "98f953428ac2c2ef188f1929fdbbdb4b258d22dba2f159097634c5ccfe9891a8",
+  "wheel_sha256": "cb18e641237b5841e398fcd8c596a17e174745838a1bfde86c4b30368d165695",
   "runtime_sources_match_pre_execution_snapshot": true,
   "execution_receipts_match_actual_business_handlers": true,
-  "write_transform_checks_recomputed_from_actual_handlers": 20,
-  "primary_real_api_attempts": 156,
-  "previous_paid_api_attempts": 341,
-  "research_api_attempts": 497,
+  "write_checks_recomputed": 94,
+  "eager_source_views_recomputed": 33,
+  "primary_real_api_attempts": 450,
+  "previous_paid_api_attempts": 497,
+  "research_api_attempts": 947,
   "unknown_usage_attempts": 0,
-  "max_model_steps_per_task": 6,
-  "conditional_action_contracts_do_not_expose_write_branch": true,
-  "scene_identifiers_do_not_expose_missing_or_duplicate_labels": true,
-  "actual_live_write_rejections": 0,
-  "offline_counterfactual_replay": {
-    "source_journal_sha256": "4cfbd2e9bc68ab00def70c577955b70e7274c0404350d92f04e3ce878aa2a98c",
-    "episode_id": "lookup-012",
-    "source_arm": "context_structured",
-    "paid_model_calls": 0,
-    "source_id": "S107-d7ac3f1fa0dd",
-    "result": {
-      "error": "write_value_rejected",
-      "executed": false,
-      "written": false,
-      "tool": "write_report",
-      "operation": "format_decimal",
-      "attempted_value": "2.06",
-      "source_id": "S107-d7ac3f1fa0dd",
-      "result_sha256": "04f89bdc78f6450c99a12d99451d52677b36b062cfc29d4a193c3330f8898f23",
-      "read_tool": "read_log",
-      "read_arguments": {
-        "name": "scan_c"
-      },
-      "source_value": "206",
-      "source_location": {
-        "pointer": "/log_text",
-        "offset": 5612,
-        "end_offset": 5627
-      },
-      "expected_value": "206.00",
-      "reason": "write_value_does_not_match_fresh_transform",
-      "note": "No write executed. Use the actual fresh source and the declared transform."
-    },
-    "interpretation": "same actual read and submitted write, validated offline; not a live correction or added accuracy sample"
-  },
-  "scope": "single reused synthetic diagnostic; general near-lossless and latency targets not achieved"
+  "max_model_steps_per_task": 10,
+  "repeats_per_template": 3,
+  "independent_case_templates": 12,
+  "all_arms_use_same_step_cap_and_write_checks": true,
+  "all_eager_evidence_from_actual_current_read": true,
+  "eager_evidence_contains_original_values_not_computed_answers": true,
+  "source_journal_sha256": "f4c325b88ebcd0ff1a4f6e84496cd4d7c2d1c50922755e3d623e26e0caadfb96",
+  "scope": "controlled repeated synthetic templates; no universal quality or latency guarantee"
 }

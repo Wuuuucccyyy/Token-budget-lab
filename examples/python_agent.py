@@ -19,6 +19,7 @@ def main():
     p.add_argument('--live', action='store_true')
     p.add_argument('--mode', choices=['full', 'context'], default='context')
     p.add_argument('--without-write-check', action='store_true', help='Disable the declared numeric write check for ablation')
+    p.add_argument('--without-eager-evidence', action='store_true', help='Keep lazy recovery as the comparison')
     args = p.parse_args()
     with tempfile.TemporaryDirectory() as tmp:
         episode = next(e for e in build_action_tasks()['episodes'] if e['id']=='actions-changed-log-00')
@@ -35,11 +36,13 @@ def main():
                 prepared = plugin.before_model('demo', 'session', messages)
                 print(json.dumps(dict(contract=contract.definition(), mode=prepared.mode,
                     baseline_characters=prepared.baseline_units, sent_characters=prepared.sent_units,
-                    write_transform_notice=guard.notice() if guard else None), ensure_ascii=True, indent=2))
+                    write_transform_notice=guard.notice() if guard else None,
+                    eager_evidence=bool(guard and args.mode=='context' and not args.without_eager_evidence),max_steps=10), ensure_ascii=True, indent=2))
                 return
             result = run_agent(messages, DeepSeekChat(json_output=True), plugin if args.mode=='context' else None,
                 'demo', 'session', mode='recover' if args.mode=='context' else 'full', memory_tools=args.mode=='context',
-                max_steps=6, max_recovery_rounds=3, extra_tools=TOOLS, handlers=sandbox.handlers(), action_contract=contract,write_guard=guard)
+                max_steps=10, max_recovery_rounds=3, extra_tools=TOOLS, handlers=sandbox.handlers(), action_contract=contract,write_guard=guard,
+                eager_evidence=bool(guard and args.mode=='context' and not args.without_eager_evidence))
             print(json.dumps({k:result[k] for k in ('status', 'answer', 'action_contract', 'write_transform', 'api_calls', 'prompt_tokens', 'completion_tokens')},
                              ensure_ascii=True, indent=2))
         finally:

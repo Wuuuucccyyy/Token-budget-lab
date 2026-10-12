@@ -11,12 +11,12 @@
 | `history_evidence.py` | 从真实工具原文识别主体、字段和观察日期，选择历史来源 |
 | `action_contract.py` | 本轮操作依赖、执行凭据与完成状态 |
 | `provenance.py` | 配置历史版本及数值写入核验 |
-| `write_transform.py` | 本轮实际读取绑定、字段选择、Decimal 重算与写入拦截 |
+| `write_transform.py` | 本轮实际读取绑定、字段选择、短原文投影、Decimal 重算与写入拦截 |
 | `transform_tasks.py` | 冻结任务措辞到显式数值规则的有限适配，不读取评分标签 |
 | `memory_agent.py` | 模型请求、工具分发、循环预算、结束检查与累计 usage |
 | `cache_cost.py` | 验证缓存分项，再按固定参考价格估算费用 |
 | `action_tasks.py` / `tool_tasks.py` | 冻结合成任务与真实本地文件工具沙盒 |
-| `action_experiment.py` | 当前三组对照、六步上限、全部调用与执行日志 |
+| `action_experiment.py` | 当前三组对照、十步上限、按模板聚类的重复运行与全部日志 |
 | `scripts/export_current.py` | 导出所有任务、请求，并从实际 handler 重新核对写入值 |
 | `tool_experiment.py` / `analysis.py` | 完整任务、压缩子集和统计汇总 |
 
@@ -29,6 +29,8 @@
 `invoke_context` 根据来源 ID 从当前作用域查原始工具结果。context_find 从实际 JSON 树推导位置，不根据事件编号猜数组下标；小对象完整返回，较大对象提供指定字段及位置。重复匹配保留计数与候选，返回长度受限。
 
 JSON pointer 返回精确字段；自由文本检索围绕命中词截取片段并保留原文偏移。检索只索引原始业务输出。恢复结果与原始业务读取分开，避免把旧证据当作新执行。
+
+已声明证据需求时，FreshWriteGuard.evidence_views 从实际本轮来源生成短原文字段。run_agent 在下次准备请求时传给 ContextPlugin.before_model，外置视图核对原文指纹后附上 requested_evidence。该路径不调用额外模型，也不改变规范消息。来源视图在首次发送后固定。
 
 ## 业务执行
 

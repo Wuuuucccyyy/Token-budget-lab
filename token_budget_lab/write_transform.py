@@ -206,6 +206,39 @@ class FreshWriteGuard:
         self.events.append(dict(accepted=True,**copy.deepcopy(detail)))
         return arguments
 
+    def evidence_views(self):
+        """Bounded original fields for the next request, never transformed gold.
+
+        This is explicit host selection from current-run reads. It avoids an
+        additional model recovery round when the source demand is already known.
+        Unknown formats retain the archive handle and normal recovery path.
+        """
+        views={}
+        for rule in self.rules:
+            source=self.sources.get(rule.write_tool)
+            if source is None:
+                continue
+            view=dict(source_id=source['source_id'],result_sha256=source['result_sha256'],
+                read_tool=source['tool'],read_arguments=source['arguments'],selector=rule.selector,
+                selection_status='unavailable',selection_complete=False)
+            try:
+                raw,path=self._select(rule,source)
+                numeric(raw)
+                if len(encode(raw))>256:
+                    raise ValueError('field_exceeds_evidence_budget')
+                view.update(selection_status='unique',selection_complete=True,
+                            original_value=copy.deepcopy(raw),source_location=path)
+            except (ValueError,KeyError,IndexError,TypeError,InvalidOperation) as exc:
+                reason=str(exc) if type(exc) is ValueError else 'source_field_invalid'
+                if reason in {'source_match_missing','source_match_ambiguous'}:
+                    view.update(selection_status='missing' if reason=='source_match_missing' else 'ambiguous',selection_complete=True)
+                else:
+                    view['reason']=reason
+            views.setdefault(source['source_id'],[]).append(view)
+        # More than one declared demand may point to the same actual read.
+        # Preserve bounded requests; unsupported large selections use recovery.
+        return {sid:rows for sid,rows in views.items() if len(encode(rows))<=1600}
+
     def state(self):
         return dict(rules=[asdict(r) for r in self.rules],events=copy.deepcopy(self.events),
                     accepted=sum(e['accepted'] for e in self.events),rejected=sum(not e['accepted'] for e in self.events))

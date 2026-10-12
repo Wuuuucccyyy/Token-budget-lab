@@ -12,6 +12,10 @@ from token_budget_lab.memory import encode
 from token_budget_lab.tool_experiment import export
 from token_budget_lab.write_transform import FreshWriteGuard, WriteTransform, WriteValueRejected
 from token_budget_lab.context_plugin import source_id
+from token_budget_lab.analysis import latency_stats
+from token_budget_lab.transform_tasks import guard_from_query
+from token_budget_lab.memory import scope_key
+import sqlite3
 
 
 def write(path,value):
@@ -66,7 +70,9 @@ def export_current(run,output,diagnostic=None):
     keys=('mode','checkpoints','task_success_rate','answer_accuracy','artifact_state_accuracy','fresh_read_completed',
           'model_calls','recovery_tool_calls','prompt_tokens','completion_tokens','cache_hit_tokens','cache_miss_tokens',
           'estimated_usd','latency','status_counts','constraint_violations','write_transform_accepted','write_transform_rejected')
-    metrics=dict(measured_at=manifest['started_at_utc'],package_version='0.10.0' if 'context_transform' in manifest['config']['arms'] else '0.9.0',case_count=manifest['checkpoints'],
+    fast='context_fast' in manifest['config']['arms']
+    metrics=dict(measured_at=manifest['started_at_utc'],package_version='0.11.0' if fast else '0.10.0' if 'context_transform' in manifest['config']['arms'] else '0.9.0',case_count=manifest['checkpoints'],
+        independent_case_templates=manifest.get('independent_case_templates',manifest['checkpoints']),repeats=manifest.get('repeats',1),
         arms=manifest['config']['arms'],scope=manifest['dataset_source'],
         max_steps_per_task=manifest['config']['max_steps'],actual_api_calls=summary['total_api_attempts'],
         unknown_usage_requests=summary['unknown_usage_attempts'],source_package_sha256=manifest['code_sha256'],
@@ -80,7 +86,7 @@ def export_current(run,output,diagnostic=None):
         note='Exact package bytes frozen before calls; frozen full copies retained in the private run directory'))
     write(output/'usage_ledger.json',dict(journal_sha256=hashlib.sha256(journal).hexdigest(),
         total_attempts=summary['total_api_attempts'],known_responses=len([r for r in responses if r.get('usage') is not None]),
-        unknown_usage_attempts=summary['unknown_usage_attempts'],max_steps=6,paid_call_cap=manifest['config']['max_calls'],
+        unknown_usage_attempts=summary['unknown_usage_attempts'],max_steps=manifest['config']['max_steps'],paid_call_cap=manifest['config']['max_calls'],
         automatic_retries=False,includes_all_failures=True,research_cost=summary['research_usage'],actual_invoice=None))
     diagnostic_note=None
     if diagnostic:
@@ -106,6 +112,9 @@ def export_current(run,output,diagnostic=None):
             actually_compressed=dict(cases=sum(t['compressed_requests']>0 for t in selected),
                 passed=sum(t['task_success'] for t in selected if t['compressed_requests']>0)))
     write(output/'case_groups.json',groups)
+    if fast:
+        audit_eager_views(run,rows,tasks,manifest,output)
+        return fast_report(summary,metrics,groups,tasks,responses,output)
     if 'context_transform' in manifest['config']['arms']:
         return transform_report(summary,metrics,groups,output)
     by={r['mode']:r for r in metrics['runs']}
@@ -168,7 +177,8 @@ def audit_transforms(rows,tasks,manifest,output):
         relevant=[r for r in rows if r['episode_id']==task['episode_id'] and r['mode']==task['mode']]
         # Count canonical positions without materializing a new sandbox. Each
         # actual setup read contributes user/assistant/tool/final messages.
-        position=2+4*sum('tool' in op for op in episodes[task['episode_id']]['setup'])
+        episode=episodes.get(task['episode_id']) or episodes[task['base_id']]
+        position=2+4*sum('tool' in op for op in episode['setup'])
         reads={}
         for response in (r for r in relevant if r['event']=='response'):
             if not response.get('message'):
@@ -270,6 +280,127 @@ def transform_report(summary,metrics,groups,output):
         '复现：`python -m token_budget_lab.action_experiment --config configs/transform_deepseek.json --plan`。实际执行使用新的 --output，最多 216 次请求。接口见 [接入说明](../../docs/INTEGRATION.md)。']
     (output/'REPORT.md').write_text('\n'.join(report)+'\n',encoding='utf-8')
     return dict(calls=summary['total_api_attempts'],receipts_reconciled=True,write_checks_recomputed=True,comparisons=comparisons,case_groups=groups)
+
+
+def audit_eager_views(run,rows,tasks,manifest,output):
+    """Compare saved request views with canonical and actual current reads."""
+    data=Path(__file__).resolve().parents[1]/manifest['config']['data']
+    episodes={e['id']:e for e in json.loads(data.read_text(encoding='utf-8'))['episodes']}
+    connection=sqlite3.connect((Path(run)/'history.sqlite3').resolve().as_uri()+'?mode=ro',uri=True)
+    audits=[]
+    try:
+        for task in tasks:
+            if task['mode'] not in manifest['config'].get('eager_evidence_arms',[]):
+                continue
+            relevant=[r for r in rows if r['episode_id']==task['episode_id'] and r['mode']==task['mode']]
+            sids={sid for r in relevant if r['event']=='response' for sid in r['context_metadata'].get('eager_evidence_source_ids',[])}
+            scope=scope_key('actions',task['episode_id']+':'+task['mode'])
+            for sid in sorted(sids):
+                position=int(sid.split('-')[0][1:])
+                row=connection.execute('SELECT value,sha FROM history WHERE scope=? AND position=?',(scope,position)).fetchone()
+                if not row or hashlib.sha256(row[0].encode()).hexdigest()!=row[1]:
+                    raise ValueError('canonical eager source integrity mismatch')
+                message=json.loads(row[0])
+                if message['role']!='tool' or source_id(position,message)!=sid:
+                    raise ValueError('canonical eager source identity mismatch')
+                call=next((c for r in relevant if r['event']=='response' for c in r.get('message',{}).get('tool_calls',[])
+                    if c['id']==message['tool_call_id']),None)
+                if call is None:
+                    raise ValueError('eager source is not a current paid-turn tool result')
+                name=call['function']['name'];args=json.loads(call['function']['arguments'])
+                actual=next((r for r in relevant if r['event']=='business_tool' and r['success'] and r['tool']==name
+                    and r['arguments']==args and encode(r['result'])==message['content']),None)
+                if actual is None:
+                    raise ValueError('eager source is not an actual current handler return')
+                episode=episodes.get(task['episode_id']) or episodes[task['base_id']]
+                guard=guard_from_query(episode['checkpoints'][0]['query'])
+                guard.observe(name,args,actual['result'],message,position,True)
+                expected=guard.evidence_views().get(sid)
+                view=connection.execute('SELECT value FROM context_views WHERE scope=? AND source=?',(scope,'structured:'+sid)).fetchone()
+                attached=json.loads(view[0]).get('requested_evidence') if view else None
+                if expected is None or attached!=expected:
+                    raise ValueError('eager request view differs from original-field recomputation')
+                audits.append(dict(episode_id=task['episode_id'],mode=task['mode'],source_id=sid,
+                    source_matches_actual_handler=True,canonical_integrity_verified=True,
+                    original_projection_recomputed=True,requested_evidence=attached))
+    finally:
+        connection.close()
+    write(output/'eager_evidence_audit.json',audits)
+
+
+def fast_report(summary,metrics,groups,tasks,responses,output):
+    by={r['mode']:r for r in metrics['runs']};a=by['context_fast']
+    total=lambda r:r['prompt_tokens']+r['completion_tokens']
+    comparisons=[]
+    for baseline in ('context_transform','full'):
+        b=by[baseline]
+        lookup={r['episode_id']:r for r in tasks if r['mode']==baseline}
+        successful=[r for r in tasks if r['mode']=='context_fast' and r['task_success'] and lookup[r['episode_id']]['task_success']]
+        matched=[lookup[r['episode_id']] for r in successful]
+        paired_a,paired_b=latency_stats(successful),latency_stats(matched)
+        comparisons.append(dict(variant='context_fast',baseline=baseline,task_quality_delta=a['task_success_rate']-b['task_success_rate'],
+            total_token_reduction=1-total(a)/total(b),fixed_reference_cost_reduction=1-a['estimated_usd']/b['estimated_usd'],
+            p95_seconds_ratio=a['latency']['p95_seconds']/b['latency']['p95_seconds'],
+            mean_seconds_ratio=a['latency']['mean_seconds']/b['latency']['mean_seconds'],
+            both_successful_paired_tasks=dict(cases=len(successful),variant_latency=paired_a,baseline_latency=paired_b,
+                mean_seconds_ratio=paired_a['mean_seconds']/paired_b['mean_seconds'] if matched else None,
+                p95_seconds_ratio=paired_a['p95_seconds']/paired_b['p95_seconds'] if matched else None)))
+    write(output/'comparisons.json',comparisons)
+    target=summary['manifest']['config']['latency_target_p95_ratio']
+    full=next(c for c in comparisons if c['baseline']=='full')
+    metrics['acceptance']=dict(all_fast_tasks_passed=a['task_success_rate']==1,
+        task_quality_at_least_full=a['task_success_rate']>=by['full']['task_success_rate'],
+        predeclared_max_p95_ratio=target,observed_p95_ratio=full['p95_seconds_ratio'],
+        latency_target_met=full['p95_seconds_ratio']<=target,
+        measured_faster_than_full_p95=full['p95_seconds_ratio']<1,
+        general_accuracy_guarantee=False)
+    write(output/'metrics.json',metrics)
+    repeated=[]
+    for repetition in range(1,metrics['repeats']+1):
+        for mode in metrics['arms']:
+            selected=[t for t in tasks if t['mode']==mode and t.get('repetition')==repetition]
+            requests=[r for r in responses if r['mode']==mode and r.get('repetition')==repetition]
+            repeated.append(dict(repetition=repetition,mode=mode,cases=len(selected),passed=sum(r['task_success'] for r in selected),
+                answer_correct=sum(r['answer_correct'] for r in selected),state_correct=sum(r['state_correct'] for r in selected),
+                model_calls=len(requests),recovery_tool_calls=sum(c['function']['name'].startswith('context_') for r in requests for c in r.get('message',{}).get('tool_calls',[])),
+                latency=latency_stats(selected)))
+    write(output/'per_repeat.json',repeated)
+    def table(label,fn):
+        return '| '+label+' | '+' | '.join(fn(by[m]) for m in metrics['arms'])+' |'
+    n=metrics['case_count'];change=lambda v:('减少 ' if v>=0 else '增加 ')+f'{abs(v):.1%}'
+    report=['# 十步上限与原文字段直送的真实对照','',
+        f"v0.11，{metrics['independent_case_templates']} 个冻结的长历史合成模板，各重复 {metrics['repeats']} 次。每组 {n} 个完整任务，共三组；重复用于观察生成和网络波动，不记作新的独立任务。全部组使用相同执行与写入核验、同样 {metrics['max_steps_per_task']} 步上限。",'',
+        '| 指标 | Full + 核验 | 原插件 + 10 步 | 字段直送 + 10 步 |','|---|---:|---:|---:|',
+        table('完整任务通过',lambda r:f"{round(r['task_success_rate']*n)}/{n}"),
+        table('答案准确率',lambda r:f"{r['answer_accuracy']:.1%}"),
+        table('文件状态正确率',lambda r:f"{r['artifact_state_accuracy']:.1%}"),
+        table('指定本轮读取',lambda r:f"{r['fresh_read_completed']}/{n}"),
+        table('模型请求',lambda r:str(r['model_calls'])),table('恢复调用',lambda r:str(r['recovery_tool_calls'])),
+        table('输入输出总 token',lambda r:f"{total(r):,}"),
+        table('固定参考费用 USD',lambda r:f"{r['estimated_usd']:.6f}"),
+        table('平均整任务秒',lambda r:f"{r['latency']['mean_seconds']:.3f}"),
+        table('整任务中位数秒',lambda r:f"{r['latency']['p50_seconds']:.3f}"),
+        table('整任务 P95 秒',lambda r:f"{r['latency']['p95_seconds']:.3f}"),'',
+        '## 质量与步骤','',
+        '步骤上限从六步调整为十步，三组同样增加。只增加步骤的插件与字段直送组分开对照，不把增加预算的效果全部归因于直送。任务提前完成就结束，实际调用数与完整成本仍全部统计。','',
+        *[p for finding in metrics['reviewed_findings'] for p in (finding,'')],
+        '## 速度与成本','']
+    for c in comparisons:
+        report.append(f"- 字段直送相对 {c['baseline']}：总 token {change(c['total_token_reduction'])}，固定参考费用{change(c['fixed_reference_cost_reduction'])}，平均耗时为其 {c['mean_seconds_ratio']:.2f} 倍，P95 为其 {c['p95_seconds_ratio']:.2f} 倍。")
+        pair=c['both_successful_paired_tasks']
+        if pair['cases']:
+            report.append(f"- 在两组均成功完成的同一批 {pair['cases']} 个任务条件中，相对 {c['baseline']} 的平均耗时为 {pair['mean_seconds_ratio']:.2f} 倍，P95 为 {pair['p95_seconds_ratio']:.2f} 倍；该子集是补充分析，原始全组失败与成本没有排除。")
+    report += ['',f"调用前设定速度目标为 P95 不超过 Full 的 {target:.2f} 倍。本轮观测为 {full['p95_seconds_ratio']:.3f} 倍，目标{'达到' if metrics['acceptance']['latency_target_met'] else '未达到'}。完整任务全部通过目标{'达到' if metrics['acceptance']['all_fast_tasks_passed'] else '未达到'}。",'',
+        '直送字段从本轮实际读取按已声明的 selector 提取，不调用额外模型，不提供格式化后的目标答案。完整原文仍归档；重复或缺失状态也从实际来源判定。未知格式保留恢复入口，写入核验和实际检查继续执行。','',
+        f"本轮全部 {summary['total_api_attempts']} 次真实请求计入，未知 usage {summary['unknown_usage_attempts']} 次，按固定命中/未命中参考价格合计 ${summary['research_usage']['estimated_usd']:.6f}，不是账单或实时价格。此前实验费用在同一账本中另列。没有自动重发或重跑至通过。",'',
+        '三次重复不能证明任意任务始终正确或始终更快。模板已用于调试；结果不覆盖任意自然语言、复杂开放任务或外部并发更新。服务商排队、网络和输出长度影响耗时，后续需冻结独立任务。','',
+        '## 可复核资料','',
+        '[指标](metrics.json) · [全部任务](per_checkpoint.csv) · [逐次重复](per_repeat.json) · [全部请求](per_request.csv) · [执行凭据](execution_audit.json) · [写入核验](write_validation.json) · [字段直送核对](eager_evidence_audit.json) · [费用账本](usage_ledger.json) · [源码指纹](source_manifest.json)','',
+        '相关项目、选择理由与速度口径见 [速度设计](../../docs/LATENCY_DESIGN.md)。','',
+        '复现：`python -m token_budget_lab.action_experiment --config configs/fast_deepseek.json --plan`。实际执行使用新的 --output，最多 1080 次请求。']
+    (output/'REPORT.md').write_text('\n'.join(report)+'\n',encoding='utf-8')
+    return dict(calls=summary['total_api_attempts'],receipts_reconciled=True,write_checks_recomputed=True,
+        eager_evidence_recomputed=True,acceptance=metrics['acceptance'],comparisons=comparisons,case_groups=groups)
 
 
 if __name__=='__main__':

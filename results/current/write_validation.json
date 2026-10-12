@@ -1,98 +1,12 @@
 [
   {
-    "episode_id": "lookup-003",
-    "mode": "context_transform",
-    "accepted": true,
-    "tool": "write_report",
-    "operation": "format_decimal",
-    "attempted_value": "206.00",
-    "source_id": "S107-7e5999550872",
-    "result_sha256": "e55249a36c20ed3922799198c33b78088f95f83b322318c26335dfbee080c162",
-    "read_tool": "read_log",
-    "read_arguments": {
-      "name": "scan_c"
-    },
-    "source_value": "206",
-    "source_location": "/events/37/status_code",
-    "expected_value": "206.00",
-    "submitted_arguments": {
-      "total": "206.00",
-      "currency": "USD"
-    },
-    "source_receipt_verified": true,
-    "recomputed": true
-  },
-  {
-    "episode_id": "lookup-003",
-    "mode": "full",
-    "accepted": true,
-    "tool": "write_report",
-    "operation": "format_decimal",
-    "attempted_value": "206.00",
-    "source_id": "S107-a3d4dde328b7",
-    "result_sha256": "e55249a36c20ed3922799198c33b78088f95f83b322318c26335dfbee080c162",
-    "read_tool": "read_log",
-    "read_arguments": {
-      "name": "scan_c"
-    },
-    "source_value": "206",
-    "source_location": "/events/37/status_code",
-    "expected_value": "206.00",
-    "submitted_arguments": {
-      "total": "206.00",
-      "currency": "USD"
-    },
-    "source_receipt_verified": true,
-    "recomputed": true
-  },
-  {
-    "episode_id": "lookup-006",
-    "mode": "full",
-    "accepted": true,
-    "tool": "write_config",
-    "operation": "add_integer",
-    "attempted_value": 1838,
-    "source_id": "S107-3b2ef7e3b430",
-    "result_sha256": "155c191ff31b6f3df69a7c2dfb91ed3264026f5af47c176d8cfc7c1e06a30aa7",
-    "read_tool": "read_config",
-    "read_arguments": {},
-    "source_value": "1837",
-    "source_location": "/config/timeout_ms",
-    "expected_value": 1838,
-    "submitted_arguments": {
-      "timeout_ms": 1838
-    },
-    "source_receipt_verified": true,
-    "recomputed": true
-  },
-  {
-    "episode_id": "lookup-006",
-    "mode": "context_transform",
-    "accepted": true,
-    "tool": "write_config",
-    "operation": "add_integer",
-    "attempted_value": 1838,
-    "source_id": "S107-53a637d42ce1",
-    "result_sha256": "155c191ff31b6f3df69a7c2dfb91ed3264026f5af47c176d8cfc7c1e06a30aa7",
-    "read_tool": "read_config",
-    "read_arguments": {},
-    "source_value": "1837",
-    "source_location": "/config/timeout_ms",
-    "expected_value": 1838,
-    "submitted_arguments": {
-      "timeout_ms": 1838
-    },
-    "source_receipt_verified": true,
-    "recomputed": true
-  },
-  {
-    "episode_id": "lookup-004",
-    "mode": "context_transform",
+    "episode_id": "lookup-004-r02",
+    "mode": "context_fast",
     "accepted": true,
     "tool": "write_report",
     "operation": "format_decimal",
     "attempted_value": "409.00",
-    "source_id": "S107-36476de83abf",
+    "source_id": "S107-99e3b95fa141",
     "result_sha256": "9756add9c2822496606e1c4cffeec3ccd60f5fb456816804e51be42db7014266",
     "read_tool": "read_log",
     "read_arguments": {
@@ -109,13 +23,13 @@
     "recomputed": true
   },
   {
-    "episode_id": "lookup-004",
-    "mode": "full",
+    "episode_id": "lookup-004-r02",
+    "mode": "context_transform",
     "accepted": true,
     "tool": "write_report",
     "operation": "format_decimal",
     "attempted_value": "409.00",
-    "source_id": "S107-dc381cbc2ff4",
+    "source_id": "S107-d49725eaa73a",
     "result_sha256": "9756add9c2822496606e1c4cffeec3ccd60f5fb456816804e51be42db7014266",
     "read_tool": "read_log",
     "read_arguments": {
@@ -132,105 +46,36 @@
     "recomputed": true
   },
   {
-    "episode_id": "lookup-002",
-    "mode": "context_transform",
-    "accepted": true,
-    "tool": "write_report",
-    "operation": "format_decimal",
-    "attempted_value": "204.00",
-    "source_id": "S107-06c676cc8835",
-    "result_sha256": "e11c2de77043389b2526e119e2b5e1f19492e06b83c9924db2e557b06f261f63",
-    "read_tool": "read_log",
-    "read_arguments": {
-      "name": "scan_c"
-    },
-    "source_value": "204",
-    "source_location": "/events/39/status_code",
-    "expected_value": "204.00",
-    "submitted_arguments": {
-      "total": "204.00",
-      "currency": "USD"
-    },
-    "source_receipt_verified": true,
-    "recomputed": true
-  },
-  {
-    "episode_id": "lookup-002",
+    "episode_id": "lookup-004-r02",
     "mode": "full",
     "accepted": true,
     "tool": "write_report",
     "operation": "format_decimal",
-    "attempted_value": "204.00",
-    "source_id": "S107-34503319f2fd",
-    "result_sha256": "e11c2de77043389b2526e119e2b5e1f19492e06b83c9924db2e557b06f261f63",
+    "attempted_value": "409.00",
+    "source_id": "S107-0f902ce3c71d",
+    "result_sha256": "9756add9c2822496606e1c4cffeec3ccd60f5fb456816804e51be42db7014266",
     "read_tool": "read_log",
     "read_arguments": {
-      "name": "scan_c"
+      "name": "scan_a"
     },
-    "source_value": "204",
-    "source_location": "/events/39/status_code",
-    "expected_value": "204.00",
+    "source_value": "409",
+    "source_location": "/events/15/status_code",
+    "expected_value": "409.00",
     "submitted_arguments": {
-      "total": "204.00",
+      "total": "409.00",
       "currency": "USD"
     },
     "source_receipt_verified": true,
     "recomputed": true
   },
   {
-    "episode_id": "lookup-008",
+    "episode_id": "lookup-012-r02",
     "mode": "full",
     "accepted": true,
     "tool": "write_report",
     "operation": "format_decimal",
     "attempted_value": "206.00",
-    "source_id": "S107-dea840a3f959",
-    "result_sha256": "17fe7d699153417e061c725be78a5f1626f995268abf36208b1938d3d8b73dc1",
-    "read_tool": "read_log",
-    "read_arguments": {
-      "name": "scan_c"
-    },
-    "source_value": "206",
-    "source_location": "/events/7/status_code",
-    "expected_value": "206.00",
-    "submitted_arguments": {
-      "total": "206.00",
-      "currency": "USD"
-    },
-    "source_receipt_verified": true,
-    "recomputed": true
-  },
-  {
-    "episode_id": "lookup-008",
-    "mode": "context_transform",
-    "accepted": true,
-    "tool": "write_report",
-    "operation": "format_decimal",
-    "attempted_value": "206.00",
-    "source_id": "S107-25cc81d8eeb0",
-    "result_sha256": "17fe7d699153417e061c725be78a5f1626f995268abf36208b1938d3d8b73dc1",
-    "read_tool": "read_log",
-    "read_arguments": {
-      "name": "scan_c"
-    },
-    "source_value": "206",
-    "source_location": "/events/7/status_code",
-    "expected_value": "206.00",
-    "submitted_arguments": {
-      "total": "206.00",
-      "currency": "USD"
-    },
-    "source_receipt_verified": true,
-    "recomputed": true
-  },
-  {
-    "episode_id": "lookup-012",
-    "mode": "context_transform",
-    "accepted": true,
-    "tool": "write_report",
-    "operation": "format_decimal",
-    "attempted_value": "206.00",
-    "source_id": "S107-567216f7aea0",
+    "source_id": "S107-dc8975d1062c",
     "result_sha256": "04f89bdc78f6450c99a12d99451d52677b36b062cfc29d4a193c3330f8898f23",
     "read_tool": "read_log",
     "read_arguments": {
@@ -243,21 +88,1673 @@
       "end_offset": 5627
     },
     "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-012-r02",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "206.00",
+    "source_id": "S107-deca3df952c2",
+    "result_sha256": "04f89bdc78f6450c99a12d99451d52677b36b062cfc29d4a193c3330f8898f23",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "206",
+    "source_location": {
+      "pointer": "/log_text",
+      "offset": 5612,
+      "end_offset": 5627
+    },
+    "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-012-r02",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "206.00",
+    "source_id": "S107-1f2699780660",
+    "result_sha256": "04f89bdc78f6450c99a12d99451d52677b36b062cfc29d4a193c3330f8898f23",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "206",
+    "source_location": {
+      "pointer": "/log_text",
+      "offset": 5612,
+      "end_offset": 5627
+    },
+    "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-010-r01",
+    "mode": "full",
+    "accepted": false,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "UNKNOWN",
+    "source_id": "S107-9209008fd43b",
+    "result_sha256": "d219064c7a36e3118bc61ffbbef7240aeb7e0f0cea2fbafc3e6adbbf975a742f",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_b"
+    },
+    "reason": "source_match_ambiguous",
+    "submitted_arguments": {
+      "total": "UNKNOWN",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-009-r03",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "503.00",
+    "source_id": "S107-469db32bded3",
+    "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_a"
+    },
+    "source_value": "503",
+    "source_location": "/events/37/status_code",
+    "expected_value": "503.00",
+    "submitted_arguments": {
+      "total": "503.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-009-r03",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "503.00",
+    "source_id": "S107-e958756f071d",
+    "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_a"
+    },
+    "source_value": "503",
+    "source_location": "/events/37/status_code",
+    "expected_value": "503.00",
+    "submitted_arguments": {
+      "total": "503.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-009-r03",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "503.00",
+    "source_id": "S107-890fb5758653",
+    "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_a"
+    },
+    "source_value": "503",
+    "source_location": "/events/37/status_code",
+    "expected_value": "503.00",
+    "submitted_arguments": {
+      "total": "503.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-010-r03",
+    "mode": "full",
+    "accepted": false,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "UNKNOWN",
+    "source_id": "S107-cf24fc689ba8",
+    "result_sha256": "d219064c7a36e3118bc61ffbbef7240aeb7e0f0cea2fbafc3e6adbbf975a742f",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_b"
+    },
+    "reason": "source_match_ambiguous",
+    "submitted_arguments": {
+      "total": "UNKNOWN",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-003-r02",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "206.00",
+    "source_id": "S107-9c936554fb83",
+    "result_sha256": "e55249a36c20ed3922799198c33b78088f95f83b322318c26335dfbee080c162",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "206",
+    "source_location": "/events/37/status_code",
+    "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-003-r02",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "206.00",
+    "source_id": "S107-bc7949df15eb",
+    "result_sha256": "e55249a36c20ed3922799198c33b78088f95f83b322318c26335dfbee080c162",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "206",
+    "source_location": "/events/37/status_code",
+    "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-003-r02",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "206.00",
+    "source_id": "S107-ef88c526c14a",
+    "result_sha256": "e55249a36c20ed3922799198c33b78088f95f83b322318c26335dfbee080c162",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "206",
+    "source_location": "/events/37/status_code",
+    "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-007-r02",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "202.00",
+    "source_id": "S107-01397fc304f9",
+    "result_sha256": "072249201b3016f9b29f6560969223819c1e0a0b07292f34a4d2244b8e19b895",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "source_value": "202",
+    "source_location": "/events/5/status_code",
+    "expected_value": "202.00",
+    "submitted_arguments": {
+      "total": "202.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-007-r02",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "202.00",
+    "source_id": "S107-7ae90c670238",
+    "result_sha256": "072249201b3016f9b29f6560969223819c1e0a0b07292f34a4d2244b8e19b895",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "source_value": "202",
+    "source_location": "/events/5/status_code",
+    "expected_value": "202.00",
+    "submitted_arguments": {
+      "total": "202.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-007-r02",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "202.00",
+    "source_id": "S107-c5e48d1d7cb8",
+    "result_sha256": "072249201b3016f9b29f6560969223819c1e0a0b07292f34a4d2244b8e19b895",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "source_value": "202",
+    "source_location": "/events/5/status_code",
+    "expected_value": "202.00",
+    "submitted_arguments": {
+      "total": "202.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-005-r01",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "202.00",
+    "source_id": "S107-33a7e726c308",
+    "result_sha256": "e55840d1a55d94dc6c1f80da84dd7141333f5240b6c75662e2fda3bbb340b137",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "source_value": "202",
+    "source_location": "/events/43/status_code",
+    "expected_value": "202.00",
+    "submitted_arguments": {
+      "total": "202.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-005-r01",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "202.00",
+    "source_id": "S107-e66cd7f7796a",
+    "result_sha256": "e55840d1a55d94dc6c1f80da84dd7141333f5240b6c75662e2fda3bbb340b137",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "source_value": "202",
+    "source_location": "/events/43/status_code",
+    "expected_value": "202.00",
+    "submitted_arguments": {
+      "total": "202.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-005-r01",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "202.00",
+    "source_id": "S107-e04370c395bd",
+    "result_sha256": "e55840d1a55d94dc6c1f80da84dd7141333f5240b6c75662e2fda3bbb340b137",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "source_value": "202",
+    "source_location": "/events/43/status_code",
+    "expected_value": "202.00",
+    "submitted_arguments": {
+      "total": "202.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-006-r03",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_config",
+    "operation": "add_integer",
+    "attempted_value": 1838,
+    "source_id": "S107-b97d9d6bc5d4",
+    "result_sha256": "155c191ff31b6f3df69a7c2dfb91ed3264026f5af47c176d8cfc7c1e06a30aa7",
+    "read_tool": "read_config",
+    "read_arguments": {},
+    "source_value": "1837",
+    "source_location": "/config/timeout_ms",
+    "expected_value": 1838,
+    "submitted_arguments": {
+      "timeout_ms": 1838
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-006-r03",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_config",
+    "operation": "add_integer",
+    "attempted_value": 1838,
+    "source_id": "S107-edab26db8776",
+    "result_sha256": "155c191ff31b6f3df69a7c2dfb91ed3264026f5af47c176d8cfc7c1e06a30aa7",
+    "read_tool": "read_config",
+    "read_arguments": {},
+    "source_value": "1837",
+    "source_location": "/config/timeout_ms",
+    "expected_value": 1838,
+    "submitted_arguments": {
+      "timeout_ms": 1838
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-006-r03",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_config",
+    "operation": "add_integer",
+    "attempted_value": 1838,
+    "source_id": "S107-2bc8a35b3990",
+    "result_sha256": "155c191ff31b6f3df69a7c2dfb91ed3264026f5af47c176d8cfc7c1e06a30aa7",
+    "read_tool": "read_config",
+    "read_arguments": {},
+    "source_value": "1837",
+    "source_location": "/config/timeout_ms",
+    "expected_value": 1838,
+    "submitted_arguments": {
+      "timeout_ms": 1838
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-002-r02",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "204.00",
+    "source_id": "S107-6244c62f67d8",
+    "result_sha256": "e11c2de77043389b2526e119e2b5e1f19492e06b83c9924db2e557b06f261f63",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "204",
+    "source_location": "/events/39/status_code",
+    "expected_value": "204.00",
+    "submitted_arguments": {
+      "total": "204.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-002-r02",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "204.00",
+    "source_id": "S107-f95df892f9b8",
+    "result_sha256": "e11c2de77043389b2526e119e2b5e1f19492e06b83c9924db2e557b06f261f63",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "204",
+    "source_location": "/events/39/status_code",
+    "expected_value": "204.00",
+    "submitted_arguments": {
+      "total": "204.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-002-r02",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "204.00",
+    "source_id": "S107-c2b5a52fb4ac",
+    "result_sha256": "e11c2de77043389b2526e119e2b5e1f19492e06b83c9924db2e557b06f261f63",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "204",
+    "source_location": "/events/39/status_code",
+    "expected_value": "204.00",
+    "submitted_arguments": {
+      "total": "204.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-004-r03",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "409.00",
+    "source_id": "S107-8ff5eeb59318",
+    "result_sha256": "9756add9c2822496606e1c4cffeec3ccd60f5fb456816804e51be42db7014266",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_a"
+    },
+    "source_value": "409",
+    "source_location": "/events/15/status_code",
+    "expected_value": "409.00",
+    "submitted_arguments": {
+      "total": "409.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-004-r03",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "409.00",
+    "source_id": "S107-7877b6b3b260",
+    "result_sha256": "9756add9c2822496606e1c4cffeec3ccd60f5fb456816804e51be42db7014266",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_a"
+    },
+    "source_value": "409",
+    "source_location": "/events/15/status_code",
+    "expected_value": "409.00",
+    "submitted_arguments": {
+      "total": "409.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-004-r03",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "409.00",
+    "source_id": "S107-8b4eed326224",
+    "result_sha256": "9756add9c2822496606e1c4cffeec3ccd60f5fb456816804e51be42db7014266",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_a"
+    },
+    "source_value": "409",
+    "source_location": "/events/15/status_code",
+    "expected_value": "409.00",
+    "submitted_arguments": {
+      "total": "409.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-009-r01",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "503.00",
+    "source_id": "S107-16ffd7f08ca2",
+    "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_a"
+    },
+    "source_value": "503",
+    "source_location": "/events/37/status_code",
+    "expected_value": "503.00",
+    "submitted_arguments": {
+      "total": "503.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-009-r01",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "503.00",
+    "source_id": "S107-cd1f7eef130e",
+    "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_a"
+    },
+    "source_value": "503",
+    "source_location": "/events/37/status_code",
+    "expected_value": "503.00",
+    "submitted_arguments": {
+      "total": "503.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-009-r01",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "503.00",
+    "source_id": "S107-86f77a5cd353",
+    "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_a"
+    },
+    "source_value": "503",
+    "source_location": "/events/37/status_code",
+    "expected_value": "503.00",
+    "submitted_arguments": {
+      "total": "503.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-012-r01",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "206.00",
+    "source_id": "S107-dcf4b761d0c8",
+    "result_sha256": "04f89bdc78f6450c99a12d99451d52677b36b062cfc29d4a193c3330f8898f23",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "206",
+    "source_location": {
+      "pointer": "/log_text",
+      "offset": 5612,
+      "end_offset": 5627
+    },
+    "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-012-r01",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "206.00",
+    "source_id": "S107-7df693c97a1b",
+    "result_sha256": "04f89bdc78f6450c99a12d99451d52677b36b062cfc29d4a193c3330f8898f23",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "206",
+    "source_location": {
+      "pointer": "/log_text",
+      "offset": 5612,
+      "end_offset": 5627
+    },
+    "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-012-r01",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "206.00",
+    "source_id": "S107-73162ec7ce26",
+    "result_sha256": "04f89bdc78f6450c99a12d99451d52677b36b062cfc29d4a193c3330f8898f23",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "206",
+    "source_location": {
+      "pointer": "/log_text",
+      "offset": 5612,
+      "end_offset": 5627
+    },
+    "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-007-r01",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "202.00",
+    "source_id": "S107-3bc493229114",
+    "result_sha256": "072249201b3016f9b29f6560969223819c1e0a0b07292f34a4d2244b8e19b895",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "source_value": "202",
+    "source_location": "/events/5/status_code",
+    "expected_value": "202.00",
+    "submitted_arguments": {
+      "total": "202.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-007-r01",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "202.00",
+    "source_id": "S107-f26ee29bd163",
+    "result_sha256": "072249201b3016f9b29f6560969223819c1e0a0b07292f34a4d2244b8e19b895",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "source_value": "202",
+    "source_location": "/events/5/status_code",
+    "expected_value": "202.00",
     "submitted_arguments": {
       "currency": "USD",
-      "total": "206.00"
+      "total": "202.00"
     },
     "source_receipt_verified": true,
     "recomputed": true
   },
   {
-    "episode_id": "lookup-012",
+    "episode_id": "lookup-007-r01",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "202.00",
+    "source_id": "S107-dee513ba074f",
+    "result_sha256": "072249201b3016f9b29f6560969223819c1e0a0b07292f34a4d2244b8e19b895",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "source_value": "202",
+    "source_location": "/events/5/status_code",
+    "expected_value": "202.00",
+    "submitted_arguments": {
+      "total": "202.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-011-r01",
+    "mode": "full",
+    "accepted": false,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "UNKNOWN",
+    "source_id": "S107-2f8f16a8a5b0",
+    "result_sha256": "9e206a303390b11fac0eb52db751d659e5a1b1a42338f748801adcd186996861",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_b"
+    },
+    "reason": "source_match_missing",
+    "submitted_arguments": {
+      "total": "UNKNOWN",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-002-r03",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "204.00",
+    "source_id": "S107-15cf5836117c",
+    "result_sha256": "e11c2de77043389b2526e119e2b5e1f19492e06b83c9924db2e557b06f261f63",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "204",
+    "source_location": "/events/39/status_code",
+    "expected_value": "204.00",
+    "submitted_arguments": {
+      "total": "204.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-002-r03",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "204.00",
+    "source_id": "S107-add5e4eed3b1",
+    "result_sha256": "e11c2de77043389b2526e119e2b5e1f19492e06b83c9924db2e557b06f261f63",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "204",
+    "source_location": "/events/39/status_code",
+    "expected_value": "204.00",
+    "submitted_arguments": {
+      "total": "204.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-002-r03",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "204.00",
+    "source_id": "S107-65103894f2a8",
+    "result_sha256": "e11c2de77043389b2526e119e2b5e1f19492e06b83c9924db2e557b06f261f63",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "204",
+    "source_location": "/events/39/status_code",
+    "expected_value": "204.00",
+    "submitted_arguments": {
+      "total": "204.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-009-r02",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "503.00",
+    "source_id": "S107-929f9bc3461c",
+    "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_a"
+    },
+    "source_value": "503",
+    "source_location": "/events/37/status_code",
+    "expected_value": "503.00",
+    "submitted_arguments": {
+      "total": "503.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-009-r02",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "503.00",
+    "source_id": "S107-a1211ca8afa7",
+    "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_a"
+    },
+    "source_value": "503",
+    "source_location": "/events/37/status_code",
+    "expected_value": "503.00",
+    "submitted_arguments": {
+      "total": "503.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-009-r02",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "503.00",
+    "source_id": "S107-7196d70b6553",
+    "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_a"
+    },
+    "source_value": "503",
+    "source_location": "/events/37/status_code",
+    "expected_value": "503.00",
+    "submitted_arguments": {
+      "total": "503.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-008-r02",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "206.00",
+    "source_id": "S107-bff4f34ea313",
+    "result_sha256": "17fe7d699153417e061c725be78a5f1626f995268abf36208b1938d3d8b73dc1",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "206",
+    "source_location": "/events/7/status_code",
+    "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-008-r02",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "206.00",
+    "source_id": "S107-110e1f044109",
+    "result_sha256": "17fe7d699153417e061c725be78a5f1626f995268abf36208b1938d3d8b73dc1",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "206",
+    "source_location": "/events/7/status_code",
+    "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-008-r02",
     "mode": "full",
     "accepted": true,
     "tool": "write_report",
     "operation": "format_decimal",
     "attempted_value": "206.00",
-    "source_id": "S107-90472b8a0db6",
+    "source_id": "S107-78a46997534c",
+    "result_sha256": "17fe7d699153417e061c725be78a5f1626f995268abf36208b1938d3d8b73dc1",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "206",
+    "source_location": "/events/7/status_code",
+    "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-007-r03",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "202.00",
+    "source_id": "S107-fa0f75c6e658",
+    "result_sha256": "072249201b3016f9b29f6560969223819c1e0a0b07292f34a4d2244b8e19b895",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "source_value": "202",
+    "source_location": "/events/5/status_code",
+    "expected_value": "202.00",
+    "submitted_arguments": {
+      "total": "202.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-007-r03",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "202.00",
+    "source_id": "S107-95007b5fd6d5",
+    "result_sha256": "072249201b3016f9b29f6560969223819c1e0a0b07292f34a4d2244b8e19b895",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "source_value": "202",
+    "source_location": "/events/5/status_code",
+    "expected_value": "202.00",
+    "submitted_arguments": {
+      "total": "202.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-007-r03",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "202.00",
+    "source_id": "S107-c0c7431e9dcf",
+    "result_sha256": "072249201b3016f9b29f6560969223819c1e0a0b07292f34a4d2244b8e19b895",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "source_value": "202",
+    "source_location": "/events/5/status_code",
+    "expected_value": "202.00",
+    "submitted_arguments": {
+      "total": "202.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-005-r03",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "202.00",
+    "source_id": "S107-4b160a097088",
+    "result_sha256": "e55840d1a55d94dc6c1f80da84dd7141333f5240b6c75662e2fda3bbb340b137",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "source_value": "202",
+    "source_location": "/events/43/status_code",
+    "expected_value": "202.00",
+    "submitted_arguments": {
+      "total": "202.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-005-r03",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "202.00",
+    "source_id": "S107-3bdb167bebae",
+    "result_sha256": "e55840d1a55d94dc6c1f80da84dd7141333f5240b6c75662e2fda3bbb340b137",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "source_value": "202",
+    "source_location": "/events/43/status_code",
+    "expected_value": "202.00",
+    "submitted_arguments": {
+      "total": "202.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-005-r03",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "202.00",
+    "source_id": "S107-e2eb6d676cc4",
+    "result_sha256": "e55840d1a55d94dc6c1f80da84dd7141333f5240b6c75662e2fda3bbb340b137",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "source_value": "202",
+    "source_location": "/events/43/status_code",
+    "expected_value": "202.00",
+    "submitted_arguments": {
+      "total": "202.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-006-r01",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_config",
+    "operation": "add_integer",
+    "attempted_value": 1838,
+    "source_id": "S107-b7f67adc3ae0",
+    "result_sha256": "155c191ff31b6f3df69a7c2dfb91ed3264026f5af47c176d8cfc7c1e06a30aa7",
+    "read_tool": "read_config",
+    "read_arguments": {},
+    "source_value": "1837",
+    "source_location": "/config/timeout_ms",
+    "expected_value": 1838,
+    "submitted_arguments": {
+      "timeout_ms": 1838
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-006-r01",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_config",
+    "operation": "add_integer",
+    "attempted_value": 1838,
+    "source_id": "S107-734b9b02c898",
+    "result_sha256": "155c191ff31b6f3df69a7c2dfb91ed3264026f5af47c176d8cfc7c1e06a30aa7",
+    "read_tool": "read_config",
+    "read_arguments": {},
+    "source_value": "1837",
+    "source_location": "/config/timeout_ms",
+    "expected_value": 1838,
+    "submitted_arguments": {
+      "timeout_ms": 1838
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-006-r01",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_config",
+    "operation": "add_integer",
+    "attempted_value": 1838,
+    "source_id": "S107-618825f0c83a",
+    "result_sha256": "155c191ff31b6f3df69a7c2dfb91ed3264026f5af47c176d8cfc7c1e06a30aa7",
+    "read_tool": "read_config",
+    "read_arguments": {},
+    "source_value": "1837",
+    "source_location": "/config/timeout_ms",
+    "expected_value": 1838,
+    "submitted_arguments": {
+      "timeout_ms": 1838
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-002-r01",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "204.00",
+    "source_id": "S107-6590498e5f5b",
+    "result_sha256": "e11c2de77043389b2526e119e2b5e1f19492e06b83c9924db2e557b06f261f63",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "204",
+    "source_location": "/events/39/status_code",
+    "expected_value": "204.00",
+    "submitted_arguments": {
+      "total": "204.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-002-r01",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "204.00",
+    "source_id": "S107-af8391ec30f6",
+    "result_sha256": "e11c2de77043389b2526e119e2b5e1f19492e06b83c9924db2e557b06f261f63",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "204",
+    "source_location": "/events/39/status_code",
+    "expected_value": "204.00",
+    "submitted_arguments": {
+      "total": "204.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-002-r01",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "204.00",
+    "source_id": "S107-4fa3c327cf14",
+    "result_sha256": "e11c2de77043389b2526e119e2b5e1f19492e06b83c9924db2e557b06f261f63",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "204",
+    "source_location": "/events/39/status_code",
+    "expected_value": "204.00",
+    "submitted_arguments": {
+      "total": "204.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-001-r02",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "503.00",
+    "source_id": "S107-e76135b5a7a8",
+    "result_sha256": "7b661b3879087250cd117ae357b8522ce302e84549266201cfc9c8dbd9bcc755",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "503",
+    "source_location": "/events/37/status_code",
+    "expected_value": "503.00",
+    "submitted_arguments": {
+      "total": "503.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-001-r02",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "503.00",
+    "source_id": "S107-c5677fae7c7e",
+    "result_sha256": "7b661b3879087250cd117ae357b8522ce302e84549266201cfc9c8dbd9bcc755",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "503",
+    "source_location": "/events/37/status_code",
+    "expected_value": "503.00",
+    "submitted_arguments": {
+      "total": "503.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-001-r02",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "503.00",
+    "source_id": "S107-d578c4dad198",
+    "result_sha256": "7b661b3879087250cd117ae357b8522ce302e84549266201cfc9c8dbd9bcc755",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "503",
+    "source_location": "/events/37/status_code",
+    "expected_value": "503.00",
+    "submitted_arguments": {
+      "total": "503.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-008-r01",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "206.00",
+    "source_id": "S107-ce04cdb2d0a0",
+    "result_sha256": "17fe7d699153417e061c725be78a5f1626f995268abf36208b1938d3d8b73dc1",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "206",
+    "source_location": "/events/7/status_code",
+    "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-008-r01",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "206.00",
+    "source_id": "S107-8e6c15ddcad4",
+    "result_sha256": "17fe7d699153417e061c725be78a5f1626f995268abf36208b1938d3d8b73dc1",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "206",
+    "source_location": "/events/7/status_code",
+    "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-008-r01",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "206.00",
+    "source_id": "S107-9bb5e2cda437",
+    "result_sha256": "17fe7d699153417e061c725be78a5f1626f995268abf36208b1938d3d8b73dc1",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "206",
+    "source_location": "/events/7/status_code",
+    "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-008-r03",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "206.00",
+    "source_id": "S107-089c5d5ff842",
+    "result_sha256": "17fe7d699153417e061c725be78a5f1626f995268abf36208b1938d3d8b73dc1",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "206",
+    "source_location": "/events/7/status_code",
+    "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-008-r03",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "206.00",
+    "source_id": "S107-bebadcab915a",
+    "result_sha256": "17fe7d699153417e061c725be78a5f1626f995268abf36208b1938d3d8b73dc1",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "206",
+    "source_location": "/events/7/status_code",
+    "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-008-r03",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "206.00",
+    "source_id": "S107-0c8f7ca0b919",
+    "result_sha256": "17fe7d699153417e061c725be78a5f1626f995268abf36208b1938d3d8b73dc1",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "206",
+    "source_location": "/events/7/status_code",
+    "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-005-r02",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "202.00",
+    "source_id": "S107-7974281685bc",
+    "result_sha256": "e55840d1a55d94dc6c1f80da84dd7141333f5240b6c75662e2fda3bbb340b137",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "source_value": "202",
+    "source_location": "/events/43/status_code",
+    "expected_value": "202.00",
+    "submitted_arguments": {
+      "total": "202.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-005-r02",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "202.00",
+    "source_id": "S107-35bf55349a1a",
+    "result_sha256": "e55840d1a55d94dc6c1f80da84dd7141333f5240b6c75662e2fda3bbb340b137",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "source_value": "202",
+    "source_location": "/events/43/status_code",
+    "expected_value": "202.00",
+    "submitted_arguments": {
+      "total": "202.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-005-r02",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "202.00",
+    "source_id": "S107-adbe5c5cb27c",
+    "result_sha256": "e55840d1a55d94dc6c1f80da84dd7141333f5240b6c75662e2fda3bbb340b137",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "source_value": "202",
+    "source_location": "/events/43/status_code",
+    "expected_value": "202.00",
+    "submitted_arguments": {
+      "total": "202.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-005-r02",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "202.00",
+    "source_id": "S107-adbe5c5cb27c",
+    "result_sha256": "e55840d1a55d94dc6c1f80da84dd7141333f5240b6c75662e2fda3bbb340b137",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "source_value": "202",
+    "source_location": "/events/43/status_code",
+    "expected_value": "202.00",
+    "submitted_arguments": {
+      "total": "202.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-001-r03",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "503.00",
+    "source_id": "S107-622b583bf584",
+    "result_sha256": "7b661b3879087250cd117ae357b8522ce302e84549266201cfc9c8dbd9bcc755",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "503",
+    "source_location": "/events/37/status_code",
+    "expected_value": "503.00",
+    "submitted_arguments": {
+      "total": "503.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-001-r03",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "503.00",
+    "source_id": "S107-3039b2ccdbc3",
+    "result_sha256": "7b661b3879087250cd117ae357b8522ce302e84549266201cfc9c8dbd9bcc755",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "503",
+    "source_location": "/events/37/status_code",
+    "expected_value": "503.00",
+    "submitted_arguments": {
+      "total": "503.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-001-r03",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "503.00",
+    "source_id": "S107-a2604652aaac",
+    "result_sha256": "7b661b3879087250cd117ae357b8522ce302e84549266201cfc9c8dbd9bcc755",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "503",
+    "source_location": "/events/37/status_code",
+    "expected_value": "503.00",
+    "submitted_arguments": {
+      "total": "503.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-012-r03",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "206.00",
+    "source_id": "S107-66c8217bed59",
     "result_sha256": "04f89bdc78f6450c99a12d99451d52677b36b062cfc29d4a193c3330f8898f23",
     "read_tool": "read_log",
     "read_arguments": {
@@ -278,105 +1775,265 @@
     "recomputed": true
   },
   {
-    "episode_id": "lookup-005",
+    "episode_id": "lookup-012-r03",
     "mode": "full",
     "accepted": true,
     "tool": "write_report",
     "operation": "format_decimal",
-    "attempted_value": "202.00",
-    "source_id": "S107-3208de4f0539",
-    "result_sha256": "e55840d1a55d94dc6c1f80da84dd7141333f5240b6c75662e2fda3bbb340b137",
+    "attempted_value": "206.00",
+    "source_id": "S107-e478ba79ce9c",
+    "result_sha256": "04f89bdc78f6450c99a12d99451d52677b36b062cfc29d4a193c3330f8898f23",
     "read_tool": "read_log",
     "read_arguments": {
-      "name": "scan_d"
+      "name": "scan_c"
     },
-    "source_value": "202",
-    "source_location": "/events/43/status_code",
-    "expected_value": "202.00",
+    "source_value": "206",
+    "source_location": {
+      "pointer": "/log_text",
+      "offset": 5612,
+      "end_offset": 5627
+    },
+    "expected_value": "206.00",
     "submitted_arguments": {
-      "total": "202.00",
+      "total": "206.00",
       "currency": "USD"
     },
     "source_receipt_verified": true,
     "recomputed": true
   },
   {
-    "episode_id": "lookup-005",
+    "episode_id": "lookup-012-r03",
     "mode": "context_transform",
     "accepted": true,
     "tool": "write_report",
     "operation": "format_decimal",
-    "attempted_value": "202.00",
-    "source_id": "S107-b3300b10e30f",
-    "result_sha256": "e55840d1a55d94dc6c1f80da84dd7141333f5240b6c75662e2fda3bbb340b137",
+    "attempted_value": "206.00",
+    "source_id": "S107-b3b63166f7c0",
+    "result_sha256": "04f89bdc78f6450c99a12d99451d52677b36b062cfc29d4a193c3330f8898f23",
     "read_tool": "read_log",
     "read_arguments": {
-      "name": "scan_d"
+      "name": "scan_c"
     },
-    "source_value": "202",
-    "source_location": "/events/43/status_code",
-    "expected_value": "202.00",
+    "source_value": "206",
+    "source_location": {
+      "pointer": "/log_text",
+      "offset": 5612,
+      "end_offset": 5627
+    },
+    "expected_value": "206.00",
     "submitted_arguments": {
-      "total": "202.00",
+      "total": "206.00",
       "currency": "USD"
     },
     "source_receipt_verified": true,
     "recomputed": true
   },
   {
-    "episode_id": "lookup-009",
+    "episode_id": "lookup-006-r02",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_config",
+    "operation": "add_integer",
+    "attempted_value": 1838,
+    "source_id": "S107-814e25f32c2c",
+    "result_sha256": "155c191ff31b6f3df69a7c2dfb91ed3264026f5af47c176d8cfc7c1e06a30aa7",
+    "read_tool": "read_config",
+    "read_arguments": {},
+    "source_value": "1837",
+    "source_location": "/config/timeout_ms",
+    "expected_value": 1838,
+    "submitted_arguments": {
+      "timeout_ms": 1838
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-006-r02",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_config",
+    "operation": "add_integer",
+    "attempted_value": 1838,
+    "source_id": "S107-50a482b6499d",
+    "result_sha256": "155c191ff31b6f3df69a7c2dfb91ed3264026f5af47c176d8cfc7c1e06a30aa7",
+    "read_tool": "read_config",
+    "read_arguments": {},
+    "source_value": "1837",
+    "source_location": "/config/timeout_ms",
+    "expected_value": 1838,
+    "submitted_arguments": {
+      "timeout_ms": 1838
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-006-r02",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_config",
+    "operation": "add_integer",
+    "attempted_value": 1838,
+    "source_id": "S107-12a45e14b674",
+    "result_sha256": "155c191ff31b6f3df69a7c2dfb91ed3264026f5af47c176d8cfc7c1e06a30aa7",
+    "read_tool": "read_config",
+    "read_arguments": {},
+    "source_value": "1837",
+    "source_location": "/config/timeout_ms",
+    "expected_value": 1838,
+    "submitted_arguments": {
+      "timeout_ms": 1838
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-003-r01",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "206.00",
+    "source_id": "S107-f20b4f390a84",
+    "result_sha256": "e55249a36c20ed3922799198c33b78088f95f83b322318c26335dfbee080c162",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "206",
+    "source_location": "/events/37/status_code",
+    "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-003-r01",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "206.00",
+    "source_id": "S107-10ef572c8982",
+    "result_sha256": "e55249a36c20ed3922799198c33b78088f95f83b322318c26335dfbee080c162",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "206",
+    "source_location": "/events/37/status_code",
+    "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-003-r01",
     "mode": "full",
     "accepted": true,
     "tool": "write_report",
     "operation": "format_decimal",
-    "attempted_value": "503.00",
-    "source_id": "S107-6f2645abee60",
-    "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5",
+    "attempted_value": "206.00",
+    "source_id": "S107-99eb5c790506",
+    "result_sha256": "e55249a36c20ed3922799198c33b78088f95f83b322318c26335dfbee080c162",
     "read_tool": "read_log",
     "read_arguments": {
-      "name": "scan_a"
+      "name": "scan_c"
     },
-    "source_value": "503",
+    "source_value": "206",
     "source_location": "/events/37/status_code",
-    "expected_value": "503.00",
+    "expected_value": "206.00",
     "submitted_arguments": {
-      "total": "503.00",
+      "total": "206.00",
       "currency": "USD"
     },
     "source_receipt_verified": true,
     "recomputed": true
   },
   {
-    "episode_id": "lookup-009",
+    "episode_id": "lookup-004-r01",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "409.00",
+    "source_id": "S107-cc2b6d885ea2",
+    "result_sha256": "9756add9c2822496606e1c4cffeec3ccd60f5fb456816804e51be42db7014266",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_a"
+    },
+    "source_value": "409",
+    "source_location": "/events/15/status_code",
+    "expected_value": "409.00",
+    "submitted_arguments": {
+      "total": "409.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-004-r01",
+    "mode": "full",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "409.00",
+    "source_id": "S107-8872f5a264fc",
+    "result_sha256": "9756add9c2822496606e1c4cffeec3ccd60f5fb456816804e51be42db7014266",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_a"
+    },
+    "source_value": "409",
+    "source_location": "/events/15/status_code",
+    "expected_value": "409.00",
+    "submitted_arguments": {
+      "total": "409.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-004-r01",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "409.00",
+    "source_id": "S107-fab2ce9cfb6c",
+    "result_sha256": "9756add9c2822496606e1c4cffeec3ccd60f5fb456816804e51be42db7014266",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_a"
+    },
+    "source_value": "409",
+    "source_location": "/events/15/status_code",
+    "expected_value": "409.00",
+    "submitted_arguments": {
+      "total": "409.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-001-r01",
     "mode": "context_transform",
     "accepted": true,
     "tool": "write_report",
     "operation": "format_decimal",
     "attempted_value": "503.00",
-    "source_id": "S107-503e0cfbcb12",
-    "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5",
-    "read_tool": "read_log",
-    "read_arguments": {
-      "name": "scan_a"
-    },
-    "source_value": "503",
-    "source_location": "/events/37/status_code",
-    "expected_value": "503.00",
-    "submitted_arguments": {
-      "total": "503.00",
-      "currency": "USD"
-    },
-    "source_receipt_verified": true,
-    "recomputed": true
-  },
-  {
-    "episode_id": "lookup-001",
-    "mode": "full",
-    "accepted": true,
-    "tool": "write_report",
-    "operation": "format_decimal",
-    "attempted_value": "503.00",
-    "source_id": "S107-a8df887f37e2",
+    "source_id": "S107-6975a3edcc29",
     "result_sha256": "7b661b3879087250cd117ae357b8522ce302e84549266201cfc9c8dbd9bcc755",
     "read_tool": "read_log",
     "read_arguments": {
@@ -393,13 +2050,13 @@
     "recomputed": true
   },
   {
-    "episode_id": "lookup-001",
-    "mode": "context_transform",
+    "episode_id": "lookup-001-r01",
+    "mode": "context_fast",
     "accepted": true,
     "tool": "write_report",
     "operation": "format_decimal",
     "attempted_value": "503.00",
-    "source_id": "S107-1adea2978dd3",
+    "source_id": "S107-e10ffde45f0c",
     "result_sha256": "7b661b3879087250cd117ae357b8522ce302e84549266201cfc9c8dbd9bcc755",
     "read_tool": "read_log",
     "read_arguments": {
@@ -416,46 +2073,92 @@
     "recomputed": true
   },
   {
-    "episode_id": "lookup-007",
-    "mode": "context_transform",
+    "episode_id": "lookup-001-r01",
+    "mode": "full",
     "accepted": true,
     "tool": "write_report",
     "operation": "format_decimal",
-    "attempted_value": "202.00",
-    "source_id": "S107-2c15126caf49",
-    "result_sha256": "072249201b3016f9b29f6560969223819c1e0a0b07292f34a4d2244b8e19b895",
+    "attempted_value": "503.00",
+    "source_id": "S107-ff0b8f3ccf6b",
+    "result_sha256": "7b661b3879087250cd117ae357b8522ce302e84549266201cfc9c8dbd9bcc755",
     "read_tool": "read_log",
     "read_arguments": {
-      "name": "scan_d"
+      "name": "scan_c"
     },
-    "source_value": "202",
-    "source_location": "/events/5/status_code",
-    "expected_value": "202.00",
+    "source_value": "503",
+    "source_location": "/events/37/status_code",
+    "expected_value": "503.00",
     "submitted_arguments": {
-      "total": "202.00",
+      "total": "503.00",
       "currency": "USD"
     },
     "source_receipt_verified": true,
     "recomputed": true
   },
   {
-    "episode_id": "lookup-007",
+    "episode_id": "lookup-003-r03",
+    "mode": "context_transform",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "206.00",
+    "source_id": "S107-3738c84c05ee",
+    "result_sha256": "e55249a36c20ed3922799198c33b78088f95f83b322318c26335dfbee080c162",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "206",
+    "source_location": "/events/37/status_code",
+    "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-003-r03",
+    "mode": "context_fast",
+    "accepted": true,
+    "tool": "write_report",
+    "operation": "format_decimal",
+    "attempted_value": "206.00",
+    "source_id": "S107-ae460e8a65fd",
+    "result_sha256": "e55249a36c20ed3922799198c33b78088f95f83b322318c26335dfbee080c162",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "source_value": "206",
+    "source_location": "/events/37/status_code",
+    "expected_value": "206.00",
+    "submitted_arguments": {
+      "total": "206.00",
+      "currency": "USD"
+    },
+    "source_receipt_verified": true,
+    "recomputed": true
+  },
+  {
+    "episode_id": "lookup-003-r03",
     "mode": "full",
     "accepted": true,
     "tool": "write_report",
     "operation": "format_decimal",
-    "attempted_value": "202.00",
-    "source_id": "S107-7a33c721e027",
-    "result_sha256": "072249201b3016f9b29f6560969223819c1e0a0b07292f34a4d2244b8e19b895",
+    "attempted_value": "206.00",
+    "source_id": "S107-725d46502f59",
+    "result_sha256": "e55249a36c20ed3922799198c33b78088f95f83b322318c26335dfbee080c162",
     "read_tool": "read_log",
     "read_arguments": {
-      "name": "scan_d"
+      "name": "scan_c"
     },
-    "source_value": "202",
-    "source_location": "/events/5/status_code",
-    "expected_value": "202.00",
+    "source_value": "206",
+    "source_location": "/events/37/status_code",
+    "expected_value": "206.00",
     "submitted_arguments": {
-      "total": "202.00",
+      "total": "206.00",
       "currency": "USD"
     },
     "source_receipt_verified": true,

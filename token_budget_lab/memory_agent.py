@@ -53,10 +53,10 @@ class DeepSeekChat:
         return dict(self.last, message=clean)
 
 
-def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_steps=4,
+def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_steps=10,
               before_request=None, after_response=None, extra_tools=None, handlers=None,
               memory_tools=True, max_recovery_rounds=2, after_tools=None,
-              snapshot_read_tools=None, write_guard=None, action_contract=None):
+              snapshot_read_tools=None, write_guard=None, action_contract=None, eager_evidence=False):
     """Canonical state stays full; only each transport request is compacted."""
     if max_steps < 1:
         raise ValueError('max_steps must be positive')
@@ -69,6 +69,8 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
     context_controller = bool(plugin is not None and hasattr(plugin, 'context_tools'))
     if plugin is not None and not context_controller:
         raise ValueError("plugin must provide the current context tool interface")
+    if eager_evidence and (plugin is None or not write_guard or not hasattr(write_guard,'evidence_views')):
+        raise ValueError('eager evidence requires a context plugin and explicit fresh-read rules')
     extra_tools = write_guard.tools(extra_tools or []) if write_guard else copy.deepcopy(extra_tools or [])
     recovery_schemas = plugin.context_tools if context_controller else []
     tools = copy.deepcopy(recovery_schemas if memory_tools else [])+copy.deepcopy(extra_tools)
@@ -96,7 +98,11 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
             prepared = PreparedHistory(copy.deepcopy(history), 'full', 'native_agent_without_plugin',
                 size, size, 'characters', [], [], time.perf_counter()-start)
         else:
-            prepared = plugin.before_model(tenant, session, history, 'full' if full_locked else mode)
+            if eager_evidence:
+                prepared = plugin.before_model(tenant, session, history, 'full' if full_locked else mode,
+                                               evidence_views=write_guard.evidence_views())
+            else:
+                prepared = plugin.before_model(tenant, session, history, 'full' if full_locked else mode)
         recovery_enabled = memory_tools and mode == 'recover' and (context_controller or prepared.mode == 'compressed')
         request_tools = copy.deepcopy(recovery_schemas if recovery_enabled else [])+copy.deepcopy(extra_tools)
         read_guard = memory_tools and mode == 'recover'

@@ -17,7 +17,7 @@ plugin = ContextPlugin(archive, budget=9000, offload_threshold=1800,
 try:
     result = run_agent(
         messages, DeepSeekChat(json_output=True), plugin,
-        tenant="user", session="conversation", max_steps=6,
+        tenant="user", session="conversation", max_steps=10,
         max_recovery_rounds=3, extra_tools=schemas, handlers=handlers,
     )
     messages = result["messages"]
@@ -103,6 +103,16 @@ guard = FreshWriteGuard([WriteTransform(
 
 实验的 `guard_from_query` 仅识别冻结任务的几种明确措辞，没有通用自然语言解析能力。生产接入优先使用上面的显式结构规则。
 
+## 短原文字段直送
+
+在带有 FreshWriteGuard 的插件调用中增加 `eager_evidence=True`。实际读取完成后，宿主按同一 selector 提取短原文字段，外置入口中附上 requested_evidence；完整返回仍保存在规范历史和归档中。Full 对照设置 `eager_evidence=False` 并保留相同核验与步骤上限。
+
+requested_evidence 包含 original_value、source_location、source_id、result_sha256 和 selection_status。unique 表示唯一匹配，missing/ambiguous 是检查完整实际来源后得出的状态；unavailable 表示格式或字段不支持，仍需正常恢复。直送不发送格式化后的 expected_value，也不省略实际业务读取。
+
+单个来源的直送字段预算为 1,600 字符，单个原值最多 256 字符。源视图第一次发送后固定，不允许后补字段改写旧前缀。仅作用于被外置的大结果；小结果已经直接发送，无需重复直送。跨会话来源、历史恢复和缓存回显不能建立新直送证据。
+
+`run_agent` 默认最多十步，可显式配置；任务提前输出符合执行要求的最终答案即结束。单纯增加上限不能解决所有恢复停滞，速度设计与同轮对照见 [LATENCY_DESIGN.md](LATENCY_DESIGN.md)。
+
 ## 历史配置核验
 
 ```python
@@ -121,8 +131,9 @@ guard = HistoricalWriteGuard(messages)
 ```python
 result = run_agent(
     messages, transport, None, tenant="user", session="conversation",
-    mode="full", memory_tools=False, max_steps=6,
+    mode="full", memory_tools=False, max_steps=10,
     extra_tools=schemas, handlers=handlers, action_contract=contract,
+    write_guard=guard, eager_evidence=False,
 )
 ```
 

@@ -1,19 +1,19 @@
 {
-  "journal_sha256": "4cfbd2e9bc68ab00def70c577955b70e7274c0404350d92f04e3ce878aa2a98c",
-  "total_attempts": 156,
-  "known_responses": 156,
+  "journal_sha256": "f4c325b88ebcd0ff1a4f6e84496cd4d7c2d1c50922755e3d623e26e0caadfb96",
+  "total_attempts": 450,
+  "known_responses": 450,
   "unknown_usage_attempts": 0,
-  "max_steps": 6,
-  "paid_call_cap": 216,
+  "max_steps": 10,
+  "paid_call_cap": 1080,
   "automatic_retries": false,
   "includes_all_failures": true,
   "research_cost": {
-    "cache_hit_tokens": 1551232,
-    "cache_miss_tokens": 572803,
-    "completion_tokens_with_cache_partition": 7079,
+    "cache_hit_tokens": 4707200,
+    "cache_miss_tokens": 1722682,
+    "completion_tokens_with_cache_partition": 18188,
     "cache_partition_invalid_or_missing_requests": 0,
-    "cache_hit_fraction": 0.7303231820567928,
-    "estimated_usd": 0.09482154599999999,
+    "cache_hit_fraction": 0.7320818640217659,
+    "estimated_usd": 0.28343669999999993,
     "pricing": "fixed-rate repricing of reported usage; not an invoice"
   },
   "actual_invoice": null,
@@ -27,14 +27,22 @@
       "primary_quality_evidence": false
     },
     {
-      "kind": "earlier_fixed_implementation",
+      "kind": "earlier_locator_comparison",
       "attempts": 172,
       "unknown_usage_attempts": 0,
       "fixed_reference_cost": 0.09767597399999998,
       "journal_sha256": "da2ff5065eecfadb95b439dc8431298e4745ee661b08476750a361fc457a41cc",
       "primary_quality_evidence": false
+    },
+    {
+      "kind": "earlier_transform_comparison",
+      "attempts": 156,
+      "unknown_usage_attempts": 0,
+      "fixed_reference_cost": 0.09482154599999999,
+      "journal_sha256": "4cfbd2e9bc68ab00def70c577955b70e7274c0404350d92f04e3ce878aa2a98c",
+      "primary_quality_evidence": false
     }
   ],
-  "total_research_attempts": 497,
-  "total_fixed_reference_research_cost": 0.29042527799999995
+  "total_research_attempts": 947,
+  "total_fixed_reference_research_cost": 0.5738619779999998
 }

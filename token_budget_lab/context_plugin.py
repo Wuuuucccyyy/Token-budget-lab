@@ -86,7 +86,7 @@ class ContextPlugin:
     def _count(self, messages):
         return self.counter.count(encode(messages))
 
-    def _shape(self, scope, messages):
+    def _shape(self, scope, messages, evidence_views=None):
         shaped = copy.deepcopy(messages)
         sources = tool_sources(messages)
         offloaded = []
@@ -108,6 +108,15 @@ class ContextPlugin:
                                    if self.evidence_mode=='structured' else
                                    'context_read(source_id, pointer, offset, limit) or context_search(query)'),
                         note='Original output retained. This handle proves neither task success nor absence of facts.')
+                    if evidence_views and sid in evidence_views:
+                        rows=evidence_views[sid]
+                        fingerprint=hashlib.sha256(raw.encode()).hexdigest()
+                        if (not isinstance(rows,list) or len(encode(rows))>1600 or any(
+                            not isinstance(r,dict) or r.get('source_id')!=sid or r.get('result_sha256')!=fingerprint
+                            for r in rows)):
+                            raise ValueError('eager evidence must match this actual original source')
+                        view['requested_evidence']=copy.deepcopy(rows)
+                        view['retrieval']='Requested original evidence is included below. Use it directly when selection is complete. Recover other fields only if needed.'
                     with self.archive.connection:
                         self.archive.connection.execute('INSERT INTO context_views VALUES (?,?,?)', (*key, encode(view)))
                 self._shapes[key] = encode(view)
@@ -115,14 +124,14 @@ class ContextPlugin:
             offloaded.append(sid)
         return shaped, offloaded
 
-    def before_model(self, tenant, session, messages, mode='recover'):
+    def before_model(self, tenant, session, messages, mode='recover', evidence_views=None):
         if mode not in {'full', 'compact', 'recover'}:
             raise ValueError('invalid history mode')
         start = time.perf_counter()
         validate_messages(messages)
         scope = scope_key(tenant, session)
         self.archive.ingest(scope, messages)
-        shaped, offloaded = self._shape(scope, messages)
+        shaped, offloaded = self._shape(scope, messages, evidence_views)
         turns = split_turns(messages)
         users = [t for t in turns if any(m['role'] == 'user' for m in t['messages'])]
         active = users[-1]['id'] if users else 'none'
@@ -179,6 +188,8 @@ class ContextPlugin:
                         common_prefix_messages=common, previous_messages=len(previous),
                         soft_budget_exceeded=self._count(sent) > self.budget,
                         canonical_originals_in_request=not offloaded and not stage['omitted'])
+        metadata['eager_evidence_source_ids']=[sid for sid in offloaded
+            if 'requested_evidence' in json.loads(self._shapes[(scope,'structured:'+sid if self.evidence_mode=='structured' else sid)])]
         return PreparedHistory(sent, 'compressed' if reduced else 'full', stage['reason'], self._count(messages),
             self._count(sent), self.counter.unit, stage['omitted'], stage['restored'], time.perf_counter()-start,
             stage['evidence_plan'], metadata)

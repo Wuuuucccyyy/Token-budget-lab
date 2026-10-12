@@ -1,0 +1,956 @@
+[
+  {
+    "episode_id": "lookup-004-r02",
+    "mode": "context_fast",
+    "source_id": "S107-99e3b95fa141",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 409,
+        "read_arguments": {
+          "name": "scan_a"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "9756add9c2822496606e1c4cffeec3ccd60f5fb456816804e51be42db7014266",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_a-15"
+        },
+        "source_id": "S107-99e3b95fa141",
+        "source_location": "/events/15/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-012-r02",
+    "mode": "context_fast",
+    "source_id": "S107-deca3df952c2",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": "206",
+        "read_arguments": {
+          "name": "scan_c"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "04f89bdc78f6450c99a12d99451d52677b36b062cfc29d4a193c3330f8898f23",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "field": "status_code",
+          "kind": "text_record",
+          "marker": "TAIL_MARKER",
+          "pointer": "/log_text"
+        },
+        "source_id": "S107-deca3df952c2",
+        "source_location": {
+          "end_offset": 5627,
+          "offset": 5612,
+          "pointer": "/log_text"
+        }
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-010-r01",
+    "mode": "context_fast",
+    "source_id": "S107-37a755277ef3",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "read_arguments": {
+          "name": "scan_b"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "d219064c7a36e3118bc61ffbbef7240aeb7e0f0cea2fbafc3e6adbbf975a742f",
+        "selection_complete": true,
+        "selection_status": "ambiguous",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_b-17"
+        },
+        "source_id": "S107-37a755277ef3"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-009-r03",
+    "mode": "context_fast",
+    "source_id": "S107-890fb5758653",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 503,
+        "read_arguments": {
+          "name": "scan_a"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_a-37"
+        },
+        "source_id": "S107-890fb5758653",
+        "source_location": "/events/37/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-010-r03",
+    "mode": "context_fast",
+    "source_id": "S107-9d319dc5ee2a",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "read_arguments": {
+          "name": "scan_b"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "d219064c7a36e3118bc61ffbbef7240aeb7e0f0cea2fbafc3e6adbbf975a742f",
+        "selection_complete": true,
+        "selection_status": "ambiguous",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_b-17"
+        },
+        "source_id": "S107-9d319dc5ee2a"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-003-r02",
+    "mode": "context_fast",
+    "source_id": "S107-ef88c526c14a",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 206,
+        "read_arguments": {
+          "name": "scan_c"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "e55249a36c20ed3922799198c33b78088f95f83b322318c26335dfbee080c162",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_c-37"
+        },
+        "source_id": "S107-ef88c526c14a",
+        "source_location": "/events/37/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-007-r02",
+    "mode": "context_fast",
+    "source_id": "S107-7ae90c670238",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 202,
+        "read_arguments": {
+          "name": "scan_d"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "072249201b3016f9b29f6560969223819c1e0a0b07292f34a4d2244b8e19b895",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_d-43"
+        },
+        "source_id": "S107-7ae90c670238",
+        "source_location": "/events/5/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-005-r01",
+    "mode": "context_fast",
+    "source_id": "S107-e04370c395bd",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 202,
+        "read_arguments": {
+          "name": "scan_d"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "e55840d1a55d94dc6c1f80da84dd7141333f5240b6c75662e2fda3bbb340b137",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_d-43"
+        },
+        "source_id": "S107-e04370c395bd",
+        "source_location": "/events/43/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-002-r02",
+    "mode": "context_fast",
+    "source_id": "S107-c2b5a52fb4ac",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 204,
+        "read_arguments": {
+          "name": "scan_c"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "e11c2de77043389b2526e119e2b5e1f19492e06b83c9924db2e557b06f261f63",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_c-39"
+        },
+        "source_id": "S107-c2b5a52fb4ac",
+        "source_location": "/events/39/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-004-r03",
+    "mode": "context_fast",
+    "source_id": "S107-8ff5eeb59318",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 409,
+        "read_arguments": {
+          "name": "scan_a"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "9756add9c2822496606e1c4cffeec3ccd60f5fb456816804e51be42db7014266",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_a-15"
+        },
+        "source_id": "S107-8ff5eeb59318",
+        "source_location": "/events/15/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-009-r01",
+    "mode": "context_fast",
+    "source_id": "S107-cd1f7eef130e",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 503,
+        "read_arguments": {
+          "name": "scan_a"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_a-37"
+        },
+        "source_id": "S107-cd1f7eef130e",
+        "source_location": "/events/37/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-012-r01",
+    "mode": "context_fast",
+    "source_id": "S107-73162ec7ce26",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": "206",
+        "read_arguments": {
+          "name": "scan_c"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "04f89bdc78f6450c99a12d99451d52677b36b062cfc29d4a193c3330f8898f23",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "field": "status_code",
+          "kind": "text_record",
+          "marker": "TAIL_MARKER",
+          "pointer": "/log_text"
+        },
+        "source_id": "S107-73162ec7ce26",
+        "source_location": {
+          "end_offset": 5627,
+          "offset": 5612,
+          "pointer": "/log_text"
+        }
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-011-r02",
+    "mode": "context_fast",
+    "source_id": "S107-0a876aa79ea8",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "read_arguments": {
+          "name": "scan_b"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "9e206a303390b11fac0eb52db751d659e5a1b1a42338f748801adcd186996861",
+        "selection_complete": true,
+        "selection_status": "missing",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_b-404"
+        },
+        "source_id": "S107-0a876aa79ea8"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-007-r01",
+    "mode": "context_fast",
+    "source_id": "S107-f26ee29bd163",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 202,
+        "read_arguments": {
+          "name": "scan_d"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "072249201b3016f9b29f6560969223819c1e0a0b07292f34a4d2244b8e19b895",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_d-43"
+        },
+        "source_id": "S107-f26ee29bd163",
+        "source_location": "/events/5/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-011-r01",
+    "mode": "context_fast",
+    "source_id": "S107-7be563139e16",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "read_arguments": {
+          "name": "scan_b"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "9e206a303390b11fac0eb52db751d659e5a1b1a42338f748801adcd186996861",
+        "selection_complete": true,
+        "selection_status": "missing",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_b-404"
+        },
+        "source_id": "S107-7be563139e16"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-002-r03",
+    "mode": "context_fast",
+    "source_id": "S107-15cf5836117c",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 204,
+        "read_arguments": {
+          "name": "scan_c"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "e11c2de77043389b2526e119e2b5e1f19492e06b83c9924db2e557b06f261f63",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_c-39"
+        },
+        "source_id": "S107-15cf5836117c",
+        "source_location": "/events/39/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-009-r02",
+    "mode": "context_fast",
+    "source_id": "S107-7196d70b6553",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 503,
+        "read_arguments": {
+          "name": "scan_a"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_a-37"
+        },
+        "source_id": "S107-7196d70b6553",
+        "source_location": "/events/37/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-008-r02",
+    "mode": "context_fast",
+    "source_id": "S107-bff4f34ea313",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 206,
+        "read_arguments": {
+          "name": "scan_c"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "17fe7d699153417e061c725be78a5f1626f995268abf36208b1938d3d8b73dc1",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_c-901"
+        },
+        "source_id": "S107-bff4f34ea313",
+        "source_location": "/events/7/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-007-r03",
+    "mode": "context_fast",
+    "source_id": "S107-fa0f75c6e658",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 202,
+        "read_arguments": {
+          "name": "scan_d"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "072249201b3016f9b29f6560969223819c1e0a0b07292f34a4d2244b8e19b895",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_d-43"
+        },
+        "source_id": "S107-fa0f75c6e658",
+        "source_location": "/events/5/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-005-r03",
+    "mode": "context_fast",
+    "source_id": "S107-e2eb6d676cc4",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 202,
+        "read_arguments": {
+          "name": "scan_d"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "e55840d1a55d94dc6c1f80da84dd7141333f5240b6c75662e2fda3bbb340b137",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_d-43"
+        },
+        "source_id": "S107-e2eb6d676cc4",
+        "source_location": "/events/43/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-002-r01",
+    "mode": "context_fast",
+    "source_id": "S107-4fa3c327cf14",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 204,
+        "read_arguments": {
+          "name": "scan_c"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "e11c2de77043389b2526e119e2b5e1f19492e06b83c9924db2e557b06f261f63",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_c-39"
+        },
+        "source_id": "S107-4fa3c327cf14",
+        "source_location": "/events/39/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-001-r02",
+    "mode": "context_fast",
+    "source_id": "S107-e76135b5a7a8",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 503,
+        "read_arguments": {
+          "name": "scan_c"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "7b661b3879087250cd117ae357b8522ce302e84549266201cfc9c8dbd9bcc755",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_c-37"
+        },
+        "source_id": "S107-e76135b5a7a8",
+        "source_location": "/events/37/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-008-r01",
+    "mode": "context_fast",
+    "source_id": "S107-9bb5e2cda437",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 206,
+        "read_arguments": {
+          "name": "scan_c"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "17fe7d699153417e061c725be78a5f1626f995268abf36208b1938d3d8b73dc1",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_c-901"
+        },
+        "source_id": "S107-9bb5e2cda437",
+        "source_location": "/events/7/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-008-r03",
+    "mode": "context_fast",
+    "source_id": "S107-089c5d5ff842",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 206,
+        "read_arguments": {
+          "name": "scan_c"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "17fe7d699153417e061c725be78a5f1626f995268abf36208b1938d3d8b73dc1",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_c-901"
+        },
+        "source_id": "S107-089c5d5ff842",
+        "source_location": "/events/7/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-010-r02",
+    "mode": "context_fast",
+    "source_id": "S107-951bab3936e9",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "read_arguments": {
+          "name": "scan_b"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "d219064c7a36e3118bc61ffbbef7240aeb7e0f0cea2fbafc3e6adbbf975a742f",
+        "selection_complete": true,
+        "selection_status": "ambiguous",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_b-17"
+        },
+        "source_id": "S107-951bab3936e9"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-005-r02",
+    "mode": "context_fast",
+    "source_id": "S107-7974281685bc",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 202,
+        "read_arguments": {
+          "name": "scan_d"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "e55840d1a55d94dc6c1f80da84dd7141333f5240b6c75662e2fda3bbb340b137",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_d-43"
+        },
+        "source_id": "S107-7974281685bc",
+        "source_location": "/events/43/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-001-r03",
+    "mode": "context_fast",
+    "source_id": "S107-3039b2ccdbc3",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 503,
+        "read_arguments": {
+          "name": "scan_c"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "7b661b3879087250cd117ae357b8522ce302e84549266201cfc9c8dbd9bcc755",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_c-37"
+        },
+        "source_id": "S107-3039b2ccdbc3",
+        "source_location": "/events/37/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-012-r03",
+    "mode": "context_fast",
+    "source_id": "S107-66c8217bed59",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": "206",
+        "read_arguments": {
+          "name": "scan_c"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "04f89bdc78f6450c99a12d99451d52677b36b062cfc29d4a193c3330f8898f23",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "field": "status_code",
+          "kind": "text_record",
+          "marker": "TAIL_MARKER",
+          "pointer": "/log_text"
+        },
+        "source_id": "S107-66c8217bed59",
+        "source_location": {
+          "end_offset": 5627,
+          "offset": 5612,
+          "pointer": "/log_text"
+        }
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-003-r01",
+    "mode": "context_fast",
+    "source_id": "S107-f20b4f390a84",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 206,
+        "read_arguments": {
+          "name": "scan_c"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "e55249a36c20ed3922799198c33b78088f95f83b322318c26335dfbee080c162",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_c-37"
+        },
+        "source_id": "S107-f20b4f390a84",
+        "source_location": "/events/37/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-011-r03",
+    "mode": "context_fast",
+    "source_id": "S107-d134269ac3f8",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "read_arguments": {
+          "name": "scan_b"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "9e206a303390b11fac0eb52db751d659e5a1b1a42338f748801adcd186996861",
+        "selection_complete": true,
+        "selection_status": "missing",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_b-404"
+        },
+        "source_id": "S107-d134269ac3f8"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-004-r01",
+    "mode": "context_fast",
+    "source_id": "S107-fab2ce9cfb6c",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 409,
+        "read_arguments": {
+          "name": "scan_a"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "9756add9c2822496606e1c4cffeec3ccd60f5fb456816804e51be42db7014266",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_a-15"
+        },
+        "source_id": "S107-fab2ce9cfb6c",
+        "source_location": "/events/15/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-001-r01",
+    "mode": "context_fast",
+    "source_id": "S107-e10ffde45f0c",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 503,
+        "read_arguments": {
+          "name": "scan_c"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "7b661b3879087250cd117ae357b8522ce302e84549266201cfc9c8dbd9bcc755",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_c-37"
+        },
+        "source_id": "S107-e10ffde45f0c",
+        "source_location": "/events/37/status_code"
+      }
+    ]
+  },
+  {
+    "episode_id": "lookup-003-r03",
+    "mode": "context_fast",
+    "source_id": "S107-ae460e8a65fd",
+    "source_matches_actual_handler": true,
+    "canonical_integrity_verified": true,
+    "original_projection_recomputed": true,
+    "requested_evidence": [
+      {
+        "original_value": 206,
+        "read_arguments": {
+          "name": "scan_c"
+        },
+        "read_tool": "read_log",
+        "result_sha256": "e55249a36c20ed3922799198c33b78088f95f83b322318c26335dfbee080c162",
+        "selection_complete": true,
+        "selection_status": "unique",
+        "selector": {
+          "array": "/events",
+          "field": "status_code",
+          "kind": "unique_event",
+          "match_key": "event",
+          "match_value": "scan_c-37"
+        },
+        "source_id": "S107-ae460e8a65fd",
+        "source_location": "/events/37/status_code"
+      }
+    ]
+  }
+]
