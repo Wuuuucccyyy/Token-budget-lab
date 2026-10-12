@@ -1,7 +1,7 @@
 [
   {
     "episode_id": "lookup-003",
-    "mode": "context_lexical",
+    "mode": "context_structured",
     "status": "ok",
     "task_success": true,
     "fresh_read_completed": true,
@@ -53,7 +53,7 @@
           "matched_actions": [
             "check"
           ],
-          "result_sha256": "4114518541aa0c5eab61d374afcf8f80df4a09cf47b7ec3218f4620f49910bc5"
+          "result_sha256": "1cd0fee08f6ae791f0e3d4aeae119d754d07399b88d0fa3339ba5f4324c0ccf4"
         }
       ]
     },
@@ -61,7 +61,7 @@
   },
   {
     "episode_id": "lookup-003",
-    "mode": "context_structured",
+    "mode": "context_transform",
     "status": "ok",
     "task_success": true,
     "fresh_read_completed": true,
@@ -173,7 +173,7 @@
           "matched_actions": [
             "check"
           ],
-          "result_sha256": "4114518541aa0c5eab61d374afcf8f80df4a09cf47b7ec3218f4620f49910bc5"
+          "result_sha256": "1cd0fee08f6ae791f0e3d4aeae119d754d07399b88d0fa3339ba5f4324c0ccf4"
         }
       ]
     },
@@ -181,7 +181,7 @@
   },
   {
     "episode_id": "lookup-006",
-    "mode": "context_lexical",
+    "mode": "context_structured",
     "status": "ok",
     "task_success": true,
     "fresh_read_completed": true,
@@ -295,7 +295,7 @@
   },
   {
     "episode_id": "lookup-006",
-    "mode": "context_structured",
+    "mode": "context_transform",
     "status": "ok",
     "task_success": true,
     "fresh_read_completed": true,
@@ -344,7 +344,7 @@
           "matched_actions": [
             "check"
           ],
-          "result_sha256": "06f0b2f6fb0c7142b17acd739a0690101c8fa03acf58de4ba9f8bd1d85b4fb03"
+          "result_sha256": "ae128b01fec2a75e95e0e7649ab3c1857fc21da2aa3c0550962540f5145d7d0f"
         }
       ]
     },
@@ -352,9 +352,9 @@
   },
   {
     "episode_id": "lookup-004",
-    "mode": "context_structured",
+    "mode": "context_transform",
     "status": "ok",
-    "task_success": false,
+    "task_success": true,
     "fresh_read_completed": true,
     "execution_contract": {
       "complete": true,
@@ -383,7 +383,7 @@
           "sequence": 1,
           "tool": "write_report",
           "arguments": {
-            "total": "4.09",
+            "total": "409.00",
             "currency": "USD"
           },
           "handler_returned": true,
@@ -392,7 +392,7 @@
           "matched_actions": [
             "write"
           ],
-          "result_sha256": "91b9fb52f632e6527e2086ffd09bef7835bf19019d58619d1d58a5cf7b255392"
+          "result_sha256": "e33556002247752e757ece9351373ef1185fbd34c1991cf8f459456daba77c50"
         },
         {
           "sequence": 2,
@@ -404,7 +404,7 @@
           "matched_actions": [
             "check"
           ],
-          "result_sha256": "1cd0fee08f6ae791f0e3d4aeae119d754d07399b88d0fa3339ba5f4324c0ccf4"
+          "result_sha256": "4114518541aa0c5eab61d374afcf8f80df4a09cf47b7ec3218f4620f49910bc5"
         }
       ]
     },
@@ -412,7 +412,7 @@
   },
   {
     "episode_id": "lookup-004",
-    "mode": "context_lexical",
+    "mode": "context_structured",
     "status": "ok",
     "task_success": true,
     "fresh_read_completed": true,
@@ -532,9 +532,9 @@
   },
   {
     "episode_id": "lookup-002",
-    "mode": "context_structured",
+    "mode": "context_transform",
     "status": "ok",
-    "task_success": false,
+    "task_success": true,
     "fresh_read_completed": true,
     "execution_contract": {
       "complete": true,
@@ -563,7 +563,7 @@
           "sequence": 1,
           "tool": "write_report",
           "arguments": {
-            "total": "2.04",
+            "total": "204.00",
             "currency": "USD"
           },
           "handler_returned": true,
@@ -572,7 +572,7 @@
           "matched_actions": [
             "write"
           ],
-          "result_sha256": "f1251ce1543af86c18ff145e14ea002bc4da8f17c973035b4e2add06a2a98f93"
+          "result_sha256": "000b6bfffb127b5e028c029e31f3a897d30cb05a93faff9ef2e3b5cbe9d912e6"
         },
         {
           "sequence": 2,
@@ -584,7 +584,7 @@
           "matched_actions": [
             "check"
           ],
-          "result_sha256": "900ddb7fac032cfc2bbbb9193c57bcb7d56b4aa5e28caec56c439e6bbd0e2a49"
+          "result_sha256": "3a882fdaecf7120ff4da791fcd41a0bcf9a210031a278a96c01ef9ad86a1636f"
         }
       ]
     },
@@ -644,7 +644,7 @@
           "matched_actions": [
             "check"
           ],
-          "result_sha256": "4114518541aa0c5eab61d374afcf8f80df4a09cf47b7ec3218f4620f49910bc5"
+          "result_sha256": "1cd0fee08f6ae791f0e3d4aeae119d754d07399b88d0fa3339ba5f4324c0ccf4"
         }
       ]
     },
@@ -652,18 +652,17 @@
   },
   {
     "episode_id": "lookup-002",
-    "mode": "context_lexical",
-    "status": "context_stalled",
-    "task_success": false,
+    "mode": "context_structured",
+    "status": "ok",
+    "task_success": true,
     "fresh_read_completed": true,
     "execution_contract": {
-      "complete": false,
-      "missing": [
+      "complete": true,
+      "missing": [],
+      "completed": [
+        "fresh_read",
         "write",
         "check"
-      ],
-      "completed": [
-        "fresh_read"
       ],
       "receipts": [
         {
@@ -679,6 +678,33 @@
             "fresh_read"
           ],
           "result_sha256": "e11c2de77043389b2526e119e2b5e1f19492e06b83c9924db2e557b06f261f63"
+        },
+        {
+          "sequence": 1,
+          "tool": "write_report",
+          "arguments": {
+            "total": "204.00",
+            "currency": "USD"
+          },
+          "handler_returned": true,
+          "error_type": null,
+          "succeeded": true,
+          "matched_actions": [
+            "write"
+          ],
+          "result_sha256": "000b6bfffb127b5e028c029e31f3a897d30cb05a93faff9ef2e3b5cbe9d912e6"
+        },
+        {
+          "sequence": 2,
+          "tool": "run_checks",
+          "arguments": {},
+          "handler_returned": true,
+          "error_type": null,
+          "succeeded": true,
+          "matched_actions": [
+            "check"
+          ],
+          "result_sha256": "4114518541aa0c5eab61d374afcf8f80df4a09cf47b7ec3218f4620f49910bc5"
         }
       ]
     },
@@ -686,9 +712,9 @@
   },
   {
     "episode_id": "lookup-008",
-    "mode": "context_lexical",
+    "mode": "context_structured",
     "status": "ok",
-    "task_success": false,
+    "task_success": true,
     "fresh_read_completed": true,
     "execution_contract": {
       "complete": true,
@@ -710,6 +736,29 @@
             "fresh_read"
           ],
           "result_sha256": "17fe7d699153417e061c725be78a5f1626f995268abf36208b1938d3d8b73dc1"
+        },
+        {
+          "sequence": 1,
+          "tool": "write_report",
+          "arguments": {
+            "total": "206.00",
+            "currency": "USD"
+          },
+          "handler_returned": true,
+          "error_type": null,
+          "succeeded": true,
+          "matched_actions": [],
+          "result_sha256": "1915d1a19e50cb5662eed0de9d3d861f50a742eebdc0eafb27ade096f086685e"
+        },
+        {
+          "sequence": 2,
+          "tool": "run_checks",
+          "arguments": {},
+          "handler_returned": true,
+          "error_type": null,
+          "succeeded": true,
+          "matched_actions": [],
+          "result_sha256": "3a882fdaecf7120ff4da791fcd41a0bcf9a210031a278a96c01ef9ad86a1636f"
         }
       ]
     },
@@ -763,7 +812,7 @@
           "error_type": null,
           "succeeded": true,
           "matched_actions": [],
-          "result_sha256": "4114518541aa0c5eab61d374afcf8f80df4a09cf47b7ec3218f4620f49910bc5"
+          "result_sha256": "3a882fdaecf7120ff4da791fcd41a0bcf9a210031a278a96c01ef9ad86a1636f"
         }
       ]
     },
@@ -771,7 +820,7 @@
   },
   {
     "episode_id": "lookup-008",
-    "mode": "context_structured",
+    "mode": "context_transform",
     "status": "ok",
     "task_success": true,
     "fresh_read_completed": true,
@@ -817,66 +866,6 @@
           "error_type": null,
           "succeeded": true,
           "matched_actions": [],
-          "result_sha256": "bb003ff650f76a6214d1fd2efcbd77361b07dc1dcc9fe3c0b12779fcd486483f"
-        }
-      ]
-    },
-    "receipts_match_business_calls": true
-  },
-  {
-    "episode_id": "lookup-012",
-    "mode": "context_structured",
-    "status": "ok",
-    "task_success": true,
-    "fresh_read_completed": true,
-    "execution_contract": {
-      "complete": true,
-      "missing": [],
-      "completed": [
-        "fresh_read",
-        "write",
-        "check"
-      ],
-      "receipts": [
-        {
-          "sequence": 0,
-          "tool": "read_log",
-          "arguments": {
-            "name": "scan_c"
-          },
-          "handler_returned": true,
-          "error_type": null,
-          "succeeded": true,
-          "matched_actions": [
-            "fresh_read"
-          ],
-          "result_sha256": "04f89bdc78f6450c99a12d99451d52677b36b062cfc29d4a193c3330f8898f23"
-        },
-        {
-          "sequence": 1,
-          "tool": "write_report",
-          "arguments": {
-            "total": "206.00",
-            "currency": "USD"
-          },
-          "handler_returned": true,
-          "error_type": null,
-          "succeeded": true,
-          "matched_actions": [
-            "write"
-          ],
-          "result_sha256": "1915d1a19e50cb5662eed0de9d3d861f50a742eebdc0eafb27ade096f086685e"
-        },
-        {
-          "sequence": 2,
-          "tool": "run_checks",
-          "arguments": {},
-          "handler_returned": true,
-          "error_type": null,
-          "succeeded": true,
-          "matched_actions": [
-            "check"
-          ],
           "result_sha256": "4114518541aa0c5eab61d374afcf8f80df4a09cf47b7ec3218f4620f49910bc5"
         }
       ]
@@ -885,7 +874,7 @@
   },
   {
     "episode_id": "lookup-012",
-    "mode": "context_lexical",
+    "mode": "context_transform",
     "status": "step_limit",
     "task_success": false,
     "fresh_read_completed": true,
@@ -916,8 +905,8 @@
           "sequence": 1,
           "tool": "write_report",
           "arguments": {
-            "total": "206.00",
-            "currency": "USD"
+            "currency": "USD",
+            "total": "206.00"
           },
           "handler_returned": true,
           "error_type": null,
@@ -938,6 +927,66 @@
             "check"
           ],
           "result_sha256": "4114518541aa0c5eab61d374afcf8f80df4a09cf47b7ec3218f4620f49910bc5"
+        }
+      ]
+    },
+    "receipts_match_business_calls": true
+  },
+  {
+    "episode_id": "lookup-012",
+    "mode": "context_structured",
+    "status": "ok",
+    "task_success": false,
+    "fresh_read_completed": true,
+    "execution_contract": {
+      "complete": true,
+      "missing": [],
+      "completed": [
+        "fresh_read",
+        "write",
+        "check"
+      ],
+      "receipts": [
+        {
+          "sequence": 0,
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_c"
+          },
+          "handler_returned": true,
+          "error_type": null,
+          "succeeded": true,
+          "matched_actions": [
+            "fresh_read"
+          ],
+          "result_sha256": "04f89bdc78f6450c99a12d99451d52677b36b062cfc29d4a193c3330f8898f23"
+        },
+        {
+          "sequence": 1,
+          "tool": "write_report",
+          "arguments": {
+            "currency": "USD",
+            "total": "2.06"
+          },
+          "handler_returned": true,
+          "error_type": null,
+          "succeeded": true,
+          "matched_actions": [
+            "write"
+          ],
+          "result_sha256": "b16a68e56d254ba9108e4fb3a09c548b86b6201d8d2c47073f786336b61b6352"
+        },
+        {
+          "sequence": 2,
+          "tool": "run_checks",
+          "arguments": {},
+          "handler_returned": true,
+          "error_type": null,
+          "succeeded": true,
+          "matched_actions": [
+            "check"
+          ],
+          "result_sha256": "900ddb7fac032cfc2bbbb9193c57bcb7d56b4aa5e28caec56c439e6bbd0e2a49"
         }
       ]
     },
@@ -1065,7 +1114,7 @@
   },
   {
     "episode_id": "lookup-005",
-    "mode": "context_structured",
+    "mode": "context_transform",
     "status": "ok",
     "task_success": true,
     "fresh_read_completed": true,
@@ -1125,7 +1174,7 @@
   },
   {
     "episode_id": "lookup-005",
-    "mode": "context_lexical",
+    "mode": "context_structured",
     "status": "ok",
     "task_success": true,
     "fresh_read_completed": true,
@@ -1177,7 +1226,7 @@
           "matched_actions": [
             "check"
           ],
-          "result_sha256": "4114518541aa0c5eab61d374afcf8f80df4a09cf47b7ec3218f4620f49910bc5"
+          "result_sha256": "1cd0fee08f6ae791f0e3d4aeae119d754d07399b88d0fa3339ba5f4324c0ccf4"
         }
       ]
     },
@@ -1185,38 +1234,7 @@
   },
   {
     "episode_id": "lookup-009",
-    "mode": "context_lexical",
-    "status": "context_stalled",
-    "task_success": false,
-    "fresh_read_completed": true,
-    "execution_contract": {
-      "complete": true,
-      "missing": [],
-      "completed": [
-        "fresh_read"
-      ],
-      "receipts": [
-        {
-          "sequence": 0,
-          "tool": "read_log",
-          "arguments": {
-            "name": "scan_a"
-          },
-          "handler_returned": true,
-          "error_type": null,
-          "succeeded": true,
-          "matched_actions": [
-            "fresh_read"
-          ],
-          "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5"
-        }
-      ]
-    },
-    "receipts_match_business_calls": true
-  },
-  {
-    "episode_id": "lookup-009",
-    "mode": "full",
+    "mode": "context_structured",
     "status": "ok",
     "task_success": true,
     "fresh_read_completed": true,
@@ -1262,7 +1280,7 @@
           "error_type": null,
           "succeeded": true,
           "matched_actions": [],
-          "result_sha256": "4114518541aa0c5eab61d374afcf8f80df4a09cf47b7ec3218f4620f49910bc5"
+          "result_sha256": "3a882fdaecf7120ff4da791fcd41a0bcf9a210031a278a96c01ef9ad86a1636f"
         }
       ]
     },
@@ -1270,7 +1288,7 @@
   },
   {
     "episode_id": "lookup-009",
-    "mode": "context_structured",
+    "mode": "full",
     "status": "ok",
     "task_success": true,
     "fresh_read_completed": true,
@@ -1323,8 +1341,8 @@
     "receipts_match_business_calls": true
   },
   {
-    "episode_id": "lookup-010",
-    "mode": "context_structured",
+    "episode_id": "lookup-009",
+    "mode": "context_transform",
     "status": "ok",
     "task_success": true,
     "fresh_read_completed": true,
@@ -1339,7 +1357,7 @@
           "sequence": 0,
           "tool": "read_log",
           "arguments": {
-            "name": "scan_b"
+            "name": "scan_a"
           },
           "handler_returned": true,
           "error_type": null,
@@ -1347,51 +1365,30 @@
           "matched_actions": [
             "fresh_read"
           ],
-          "result_sha256": "d219064c7a36e3118bc61ffbbef7240aeb7e0f0cea2fbafc3e6adbbf975a742f"
-        }
-      ]
-    },
-    "receipts_match_business_calls": true
-  },
-  {
-    "episode_id": "lookup-010",
-    "mode": "full",
-    "status": "ok",
-    "task_success": false,
-    "fresh_read_completed": true,
-    "execution_contract": {
-      "complete": true,
-      "missing": [],
-      "completed": [
-        "fresh_read"
-      ],
-      "receipts": [
-        {
-          "sequence": 0,
-          "tool": "read_log",
-          "arguments": {
-            "name": "scan_b"
-          },
-          "handler_returned": true,
-          "error_type": null,
-          "succeeded": true,
-          "matched_actions": [
-            "fresh_read"
-          ],
-          "result_sha256": "d219064c7a36e3118bc61ffbbef7240aeb7e0f0cea2fbafc3e6adbbf975a742f"
+          "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5"
         },
         {
           "sequence": 1,
           "tool": "write_report",
           "arguments": {
-            "currency": "USD",
-            "total": "UNKNOWN"
+            "total": "503.00",
+            "currency": "USD"
           },
-          "handler_returned": false,
-          "error_type": "InvalidOperation",
-          "succeeded": false,
+          "handler_returned": true,
+          "error_type": null,
+          "succeeded": true,
           "matched_actions": [],
-          "result_sha256": null
+          "result_sha256": "d9b2d40f71ed6390b9df14e0bdb4c8d74b9a9436b76c318a2afa81ab2b93557d"
+        },
+        {
+          "sequence": 2,
+          "tool": "run_checks",
+          "arguments": {},
+          "handler_returned": true,
+          "error_type": null,
+          "succeeded": true,
+          "matched_actions": [],
+          "result_sha256": "4114518541aa0c5eab61d374afcf8f80df4a09cf47b7ec3218f4620f49910bc5"
         }
       ]
     },
@@ -1399,9 +1396,71 @@
   },
   {
     "episode_id": "lookup-010",
-    "mode": "context_lexical",
-    "status": "context_stalled",
-    "task_success": false,
+    "mode": "context_transform",
+    "status": "ok",
+    "task_success": true,
+    "fresh_read_completed": true,
+    "execution_contract": {
+      "complete": true,
+      "missing": [],
+      "completed": [
+        "fresh_read"
+      ],
+      "receipts": [
+        {
+          "sequence": 0,
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_b"
+          },
+          "handler_returned": true,
+          "error_type": null,
+          "succeeded": true,
+          "matched_actions": [
+            "fresh_read"
+          ],
+          "result_sha256": "d219064c7a36e3118bc61ffbbef7240aeb7e0f0cea2fbafc3e6adbbf975a742f"
+        }
+      ]
+    },
+    "receipts_match_business_calls": true
+  },
+  {
+    "episode_id": "lookup-010",
+    "mode": "full",
+    "status": "ok",
+    "task_success": true,
+    "fresh_read_completed": true,
+    "execution_contract": {
+      "complete": true,
+      "missing": [],
+      "completed": [
+        "fresh_read"
+      ],
+      "receipts": [
+        {
+          "sequence": 0,
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_b"
+          },
+          "handler_returned": true,
+          "error_type": null,
+          "succeeded": true,
+          "matched_actions": [
+            "fresh_read"
+          ],
+          "result_sha256": "d219064c7a36e3118bc61ffbbef7240aeb7e0f0cea2fbafc3e6adbbf975a742f"
+        }
+      ]
+    },
+    "receipts_match_business_calls": true
+  },
+  {
+    "episode_id": "lookup-010",
+    "mode": "context_structured",
+    "status": "ok",
+    "task_success": true,
     "fresh_read_completed": true,
     "execution_contract": {
       "complete": true,
@@ -1430,7 +1489,7 @@
   },
   {
     "episode_id": "lookup-011",
-    "mode": "context_structured",
+    "mode": "context_transform",
     "status": "ok",
     "task_success": true,
     "fresh_read_completed": true,
@@ -1461,9 +1520,9 @@
   },
   {
     "episode_id": "lookup-011",
-    "mode": "context_lexical",
-    "status": "context_stalled",
-    "task_success": false,
+    "mode": "context_structured",
+    "status": "ok",
+    "task_success": true,
     "fresh_read_completed": true,
     "execution_contract": {
       "complete": true,
@@ -1516,6 +1575,16 @@
             "fresh_read"
           ],
           "result_sha256": "9e206a303390b11fac0eb52db751d659e5a1b1a42338f748801adcd186996861"
+        },
+        {
+          "sequence": 1,
+          "tool": "run_checks",
+          "arguments": {},
+          "handler_returned": true,
+          "error_type": null,
+          "succeeded": true,
+          "matched_actions": [],
+          "result_sha256": "083bb695c5a6b21811a24ba9bac9a50c5adcab7a1b892fa33df2738a3521294e"
         }
       ]
     },
@@ -1524,6 +1593,66 @@
   {
     "episode_id": "lookup-001",
     "mode": "full",
+    "status": "ok",
+    "task_success": true,
+    "fresh_read_completed": true,
+    "execution_contract": {
+      "complete": true,
+      "missing": [],
+      "completed": [
+        "fresh_read",
+        "write",
+        "check"
+      ],
+      "receipts": [
+        {
+          "sequence": 0,
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_c"
+          },
+          "handler_returned": true,
+          "error_type": null,
+          "succeeded": true,
+          "matched_actions": [
+            "fresh_read"
+          ],
+          "result_sha256": "7b661b3879087250cd117ae357b8522ce302e84549266201cfc9c8dbd9bcc755"
+        },
+        {
+          "sequence": 1,
+          "tool": "write_report",
+          "arguments": {
+            "total": "503.00",
+            "currency": "USD"
+          },
+          "handler_returned": true,
+          "error_type": null,
+          "succeeded": true,
+          "matched_actions": [
+            "write"
+          ],
+          "result_sha256": "d9b2d40f71ed6390b9df14e0bdb4c8d74b9a9436b76c318a2afa81ab2b93557d"
+        },
+        {
+          "sequence": 2,
+          "tool": "run_checks",
+          "arguments": {},
+          "handler_returned": true,
+          "error_type": null,
+          "succeeded": true,
+          "matched_actions": [
+            "check"
+          ],
+          "result_sha256": "1cd0fee08f6ae791f0e3d4aeae119d754d07399b88d0fa3339ba5f4324c0ccf4"
+        }
+      ]
+    },
+    "receipts_match_business_calls": true
+  },
+  {
+    "episode_id": "lookup-001",
+    "mode": "context_transform",
     "status": "ok",
     "task_success": true,
     "fresh_read_completed": true,
@@ -1635,67 +1764,7 @@
           "matched_actions": [
             "check"
           ],
-          "result_sha256": "4114518541aa0c5eab61d374afcf8f80df4a09cf47b7ec3218f4620f49910bc5"
-        }
-      ]
-    },
-    "receipts_match_business_calls": true
-  },
-  {
-    "episode_id": "lookup-001",
-    "mode": "context_lexical",
-    "status": "step_limit",
-    "task_success": false,
-    "fresh_read_completed": true,
-    "execution_contract": {
-      "complete": true,
-      "missing": [],
-      "completed": [
-        "fresh_read",
-        "write",
-        "check"
-      ],
-      "receipts": [
-        {
-          "sequence": 0,
-          "tool": "read_log",
-          "arguments": {
-            "name": "scan_c"
-          },
-          "handler_returned": true,
-          "error_type": null,
-          "succeeded": true,
-          "matched_actions": [
-            "fresh_read"
-          ],
-          "result_sha256": "7b661b3879087250cd117ae357b8522ce302e84549266201cfc9c8dbd9bcc755"
-        },
-        {
-          "sequence": 1,
-          "tool": "write_report",
-          "arguments": {
-            "total": "503.00",
-            "currency": "USD"
-          },
-          "handler_returned": true,
-          "error_type": null,
-          "succeeded": true,
-          "matched_actions": [
-            "write"
-          ],
-          "result_sha256": "d9b2d40f71ed6390b9df14e0bdb4c8d74b9a9436b76c318a2afa81ab2b93557d"
-        },
-        {
-          "sequence": 2,
-          "tool": "run_checks",
-          "arguments": {},
-          "handler_returned": true,
-          "error_type": null,
-          "succeeded": true,
-          "matched_actions": [
-            "check"
-          ],
-          "result_sha256": "4114518541aa0c5eab61d374afcf8f80df4a09cf47b7ec3218f4620f49910bc5"
+          "result_sha256": "1cd0fee08f6ae791f0e3d4aeae119d754d07399b88d0fa3339ba5f4324c0ccf4"
         }
       ]
     },
@@ -1703,7 +1772,7 @@
   },
   {
     "episode_id": "lookup-007",
-    "mode": "context_structured",
+    "mode": "context_transform",
     "status": "ok",
     "task_success": true,
     "fresh_read_completed": true,
@@ -1732,8 +1801,8 @@
           "sequence": 1,
           "tool": "write_report",
           "arguments": {
-            "currency": "USD",
-            "total": "202.00"
+            "total": "202.00",
+            "currency": "USD"
           },
           "handler_returned": true,
           "error_type": null,
@@ -1757,9 +1826,9 @@
   },
   {
     "episode_id": "lookup-007",
-    "mode": "context_lexical",
-    "status": "context_stalled",
-    "task_success": false,
+    "mode": "context_structured",
+    "status": "ok",
+    "task_success": true,
     "fresh_read_completed": true,
     "execution_contract": {
       "complete": true,
@@ -1781,6 +1850,29 @@
             "fresh_read"
           ],
           "result_sha256": "072249201b3016f9b29f6560969223819c1e0a0b07292f34a4d2244b8e19b895"
+        },
+        {
+          "sequence": 1,
+          "tool": "write_report",
+          "arguments": {
+            "total": "202.00",
+            "currency": "USD"
+          },
+          "handler_returned": true,
+          "error_type": null,
+          "succeeded": true,
+          "matched_actions": [],
+          "result_sha256": "3691df1d41cc85dc5373222f179fb386f6980a280f1c8dcf0d75ae9c9f4487e8"
+        },
+        {
+          "sequence": 2,
+          "tool": "run_checks",
+          "arguments": {},
+          "handler_returned": true,
+          "error_type": null,
+          "succeeded": true,
+          "matched_actions": [],
+          "result_sha256": "4114518541aa0c5eab61d374afcf8f80df4a09cf47b7ec3218f4620f49910bc5"
         }
       ]
     },

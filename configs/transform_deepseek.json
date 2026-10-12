@@ -1,0 +1,12 @@
+{
+  "data": "data/locator_tasks.json",
+  "arms": ["full", "context_structured", "context_transform"],
+  "execution_contract_all_arms": true,
+  "write_transform_arms": ["full", "context_transform"],
+  "seed": 20261012, "max_steps": 6, "max_calls": 216,
+  "budget_characters": 9000, "offload_threshold": 1800,
+  "offload_tools": ["read_log"],
+  "snapshot_read_tools": ["read_config", "read_orders", "read_report"],
+  "model": "deepseek-flash", "max_tokens": 1024, "timeout": 120,
+  "usd_per_million": {"hit": 0.003, "miss": 0.15, "output": 0.6}
+}

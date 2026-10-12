@@ -11,12 +11,14 @@ from token_budget_lab.context_plugin import ContextPlugin
 from token_budget_lab.memory import HistoryArchive
 from token_budget_lab.memory_agent import DeepSeekChat, run_agent
 from token_budget_lab.tool_tasks import ToolSandbox, TOOLS
+from token_budget_lab.transform_tasks import guard_from_query
 
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--live', action='store_true')
     p.add_argument('--mode', choices=['full', 'context'], default='context')
+    p.add_argument('--without-write-check', action='store_true', help='Disable the declared numeric write check for ablation')
     args = p.parse_args()
     with tempfile.TemporaryDirectory() as tmp:
         episode = next(e for e in build_action_tasks()['episodes'] if e['id']=='actions-changed-log-00')
@@ -25,18 +27,20 @@ def main():
         update_current_files(sandbox, episode['live_updates'])
         messages.append(dict(role='user', content=episode['checkpoints'][0]['query']))
         contract = execution_contract(episode['request_actions'])
+        guard = None if args.without_write_check else guard_from_query(episode['checkpoints'][0]['query'])
         archive = HistoryArchive(Path(tmp)/'history.sqlite3')
         try:
             plugin = ContextPlugin(archive)
             if not args.live:
                 prepared = plugin.before_model('demo', 'session', messages)
                 print(json.dumps(dict(contract=contract.definition(), mode=prepared.mode,
-                    baseline_characters=prepared.baseline_units, sent_characters=prepared.sent_units), ensure_ascii=True, indent=2))
+                    baseline_characters=prepared.baseline_units, sent_characters=prepared.sent_units,
+                    write_transform_notice=guard.notice() if guard else None), ensure_ascii=True, indent=2))
                 return
             result = run_agent(messages, DeepSeekChat(json_output=True), plugin if args.mode=='context' else None,
                 'demo', 'session', mode='recover' if args.mode=='context' else 'full', memory_tools=args.mode=='context',
-                max_steps=6, max_recovery_rounds=3, extra_tools=TOOLS, handlers=sandbox.handlers(), action_contract=contract)
-            print(json.dumps({k:result[k] for k in ('status', 'answer', 'action_contract', 'api_calls', 'prompt_tokens', 'completion_tokens')},
+                max_steps=6, max_recovery_rounds=3, extra_tools=TOOLS, handlers=sandbox.handlers(), action_contract=contract,write_guard=guard)
+            print(json.dumps({k:result[k] for k in ('status', 'answer', 'action_contract', 'write_transform', 'api_calls', 'prompt_tokens', 'completion_tokens')},
                              ensure_ascii=True, indent=2))
         finally:
             archive.close()

@@ -18,21 +18,27 @@ from .memory import HistoryArchive, encode
 from .memory_agent import DeepSeekChat, run_agent
 from .tool_experiment import summarize
 from .tool_tasks import TOOLS, ToolSandbox, assess
+from .transform_tasks import guard_from_query
 
 
 ARMS = ['full', 'full_contract', 'context', 'context_contract']
 LOCATOR_ARMS = ['full','context_lexical','context_structured']
+TRANSFORM_ARMS = ['full','context_structured','context_transform']
 
 
 def plan(config):
-    if config['arms'] not in (ARMS,LOCATOR_ARMS) or config['max_steps'] != 6 or config['max_calls'] < 1:
+    if config['arms'] not in (ARMS,LOCATOR_ARMS,TRANSFORM_ARMS) or config['max_steps'] != 6 or config['max_calls'] < 1:
         raise ValueError('explicit supported arms, original six-step cap and paid-call cap required')
-    if config['arms']==LOCATOR_ARMS and not config.get('execution_contract_all_arms'):
+    if config['arms'] in (LOCATOR_ARMS,TRANSFORM_ARMS) and not config.get('execution_contract_all_arms'):
         raise ValueError('same execution contract required for all locator arms')
     path = ROOT / config['data']
     bundle = json.loads(path.read_text(encoding='utf-8'))
     for e in bundle['episodes']:
         execution_contract(e['request_actions'])
+        if config['arms']==TRANSFORM_ARMS:
+            guard_from_query(e['checkpoints'][0]['query'])
+    if config['arms']==TRANSFORM_ARMS and config.get('write_transform_arms')!=['full','context_transform']:
+        raise ValueError('Full and transform plugin must share the same host write checks')
     return bundle['episodes'], dict(
         config={**config, 'modes': config['arms'], 'backend': 'deepseek'},
         episode_ids=[e['id'] for e in bundle['episodes']], checkpoints=len(bundle['episodes']),
@@ -41,8 +47,10 @@ def plan(config):
         dataset_source=bundle['source'], contract_source='host structured current-user intent; no automatic natural-language parsing; no answer/state labels',
         quality=f'{len(bundle["episodes"])} controlled long-history cases; no general near-lossless confirmation',
         cache_control='independent 128-hex system prefix per task/arm; natural within-task cache; cannot clear provider cache',
-        baseline=('all arms use same execution contract; lexical reproduces original recovery; structured adds exact locations'
+        baseline=('Full and context_transform share write checks; context_structured is the ablation; all use the same execution contract'
+                  if config['arms']==TRANSFORM_ARMS else 'all arms use same execution contract; lexical reproduces original recovery; structured adds exact locations'
                   if config['arms']==LOCATOR_ARMS else 'full_contract and context_contract use the same execution contract; unguarded arms retained'),
+        write_transform_source='host adapter from current query only; actual current-run read results; never answer/state labels',
         protocol='chat', thinking='disabled', json_output=True,
         pricing_source='https://api-docs.deepseek.com/quick_start/pricing/', pricing_verified_date='2026-10-12',
         pricing_interpretation='fixed reference rates for comparable repricing, not an account invoice; no warm probes')
@@ -121,8 +129,16 @@ def execute(config, output, transport=None):
                         'actions', episode['id']+':'+arm, mode='recover' if arm.startswith('context') else 'full',
                         memory_tools=arm.startswith('context'), max_steps=config['max_steps'], max_recovery_rounds=3,
                         extra_tools=TOOLS, handlers=sandbox.handlers(), snapshot_read_tools=config['snapshot_read_tools'],
-                        action_contract=policy, before_request=before, after_response=response, after_tools=tools)
+                        action_contract=policy, before_request=before, after_response=response, after_tools=tools,
+                        write_guard=guard_from_query(checkpoint['query']) if arm in config.get('write_transform_arms',[]) else None)
                     score = assess(checkpoint, result, sandbox, hashes, trace_start, episode['initial_config'])
+                    # A forbidden model write attempt remains a violation even
+                    # when a host gate prevents its handler from running.
+                    write_attempts=sum(c['function']['name'] in {'write_config','write_report'}
+                        for m in result['messages'][len(history):] for c in m.get('tool_calls',[]))
+                    if checkpoint.get('no_writes') and write_attempts:
+                        score['constraint_violation']=True
+                        score['task_success']=False
                     required_read = episode['request_actions']['required'][0]
                     fresh = any(a['success'] and a['tool'] == required_read['tool'] and a['arguments'] == required_read['arguments']
                                 for a in sandbox.trace[trace_start:])
@@ -139,6 +155,7 @@ def execute(config, output, transport=None):
                         evaluation_group=episode.get('evaluation_group','reused'),
                         locator_feature=episode.get('locator_feature'),
                         execution_contract=result['action_contract'],
+                        write_transform=result['write_transform'],model_write_attempts=write_attempts,
                         initial_history_mode=initial[0].mode, initial_history_reason=initial[0].reason,
                         initial_sent_units=initial[0].sent_units, initial_baseline_units=initial[0].baseline_units,
                         source_messages_retained=None, compressed_requests=sum(s['history_mode']=='compressed' for s in result['steps']),
@@ -158,6 +175,9 @@ def execute(config, output, transport=None):
                 run['estimated_usd'] = None
             tasks = [r for r in records if r['event']=='task_result' and r['mode']==run['mode']]
             run['fresh_read_completed'] = sum(r['fresh_read_completed'] for r in tasks)
+            guards=[r['write_transform'] for r in tasks if r.get('write_transform')]
+            run['write_transform_accepted']=sum(g['accepted'] for g in guards)
+            run['write_transform_rejected']=sum(g['rejected'] for g in guards)
         summary['total_api_attempts'] = attempts
         summary['research_usage'] = cache_cost([r.get('usage') or {} for r in records if r['event']=='response'], config['usd_per_million'])
         known = sum(r['event']=='response' and r.get('usage') is not None for r in records)

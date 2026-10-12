@@ -6,39 +6,39 @@
     },
     "new_boundary_cases": {
       "cases": 6,
-      "passed": 5
+      "passed": 6
     },
     "actually_compressed": {
       "cases": 0,
       "passed": 0
     }
   },
-  "context_lexical": {
-    "reused_cases": {
-      "cases": 6,
-      "passed": 4
-    },
-    "new_boundary_cases": {
-      "cases": 6,
-      "passed": 0
-    },
-    "actually_compressed": {
-      "cases": 12,
-      "passed": 4
-    }
-  },
   "context_structured": {
     "reused_cases": {
       "cases": 6,
-      "passed": 4
+      "passed": 6
     },
     "new_boundary_cases": {
       "cases": 6,
-      "passed": 6
+      "passed": 5
     },
     "actually_compressed": {
       "cases": 12,
-      "passed": 10
+      "passed": 11
+    }
+  },
+  "context_transform": {
+    "reused_cases": {
+      "cases": 6,
+      "passed": 6
+    },
+    "new_boundary_cases": {
+      "cases": 6,
+      "passed": 5
+    },
+    "actually_compressed": {
+      "cases": 12,
+      "passed": 11
     }
   }
 }

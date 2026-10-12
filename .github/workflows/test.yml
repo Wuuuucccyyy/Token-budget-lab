@@ -17,5 +17,6 @@ jobs:
       - run: python examples/python_agent.py
       - run: python -m token_budget_lab.action_experiment --config configs/action_contract_deepseek.json --plan
       - run: python -m token_budget_lab.action_experiment --config configs/locator_deepseek.json --plan
+      - run: python -m token_budget_lab.action_experiment --config configs/transform_deepseek.json --plan
       - run: python -m pip install --no-deps .
-      - run: python -I -c "from token_budget_lab import ContextPlugin, HistoryArchive, ActionContract, RequiredAction, HistoricalWriteGuard, DeepSeekChat, run_agent"
+      - run: python -I -c "from token_budget_lab import ContextPlugin, HistoryArchive, ActionContract, RequiredAction, HistoricalWriteGuard, FreshWriteGuard, WriteTransform, DeepSeekChat, run_agent"

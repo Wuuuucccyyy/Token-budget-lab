@@ -1,4 +1,4 @@
-"""Export every task and request of the current locator pilot."""
+"""Export all tasks, paid requests and host checks of the current pilot."""
 import argparse
 import csv
 import hashlib
@@ -10,6 +10,8 @@ from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from token_budget_lab.memory import encode
 from token_budget_lab.tool_experiment import export
+from token_budget_lab.write_transform import FreshWriteGuard, WriteTransform, WriteValueRejected
+from token_budget_lab.context_plugin import source_id
 
 
 def write(path,value):
@@ -58,17 +60,19 @@ def export_current(run,output,diagnostic=None):
             raise ValueError('execution receipts differ from actual handler journal')
         audits.append(dict(episode_id=task['episode_id'],mode=task['mode'],status=task['status'],task_success=task['task_success'],
             fresh_read_completed=task['fresh_read_completed'],execution_contract=task['execution_contract'],receipts_match_business_calls=True))
+    if 'context_transform' in manifest['config']['arms']:
+        audit_transforms(rows,tasks,manifest,output)
     write(output/'execution_audit.json',audits)
     keys=('mode','checkpoints','task_success_rate','answer_accuracy','artifact_state_accuracy','fresh_read_completed',
           'model_calls','recovery_tool_calls','prompt_tokens','completion_tokens','cache_hit_tokens','cache_miss_tokens',
-          'estimated_usd','latency','status_counts','constraint_violations')
-    metrics=dict(measured_at=manifest['started_at_utc'],package_version='0.9.0',case_count=manifest['checkpoints'],
+          'estimated_usd','latency','status_counts','constraint_violations','write_transform_accepted','write_transform_rejected')
+    metrics=dict(measured_at=manifest['started_at_utc'],package_version='0.10.0' if 'context_transform' in manifest['config']['arms'] else '0.9.0',case_count=manifest['checkpoints'],
         arms=manifest['config']['arms'],scope=manifest['dataset_source'],
         max_steps_per_task=manifest['config']['max_steps'],actual_api_calls=summary['total_api_attempts'],
         unknown_usage_requests=summary['unknown_usage_attempts'],source_package_sha256=manifest['code_sha256'],
         data_sha256=manifest['data_sha256'],rates=manifest['config']['usd_per_million'],
         price_interpretation=manifest['pricing_interpretation'],
-        runs=[{k:r[k] for k in keys} for r in summary['runs']],
+        runs=[{k:r[k] for k in keys if k in r} for r in summary['runs']],
         reviewed_findings=review['findings'] if reviewed else [])
     write(output/'metrics.json',metrics)
     sources={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in (run/'execution_sources').glob('*.py')}
@@ -102,6 +106,8 @@ def export_current(run,output,diagnostic=None):
             actually_compressed=dict(cases=sum(t['compressed_requests']>0 for t in selected),
                 passed=sum(t['task_success'] for t in selected if t['compressed_requests']>0)))
     write(output/'case_groups.json',groups)
+    if 'context_transform' in manifest['config']['arms']:
+        return transform_report(summary,metrics,groups,output)
     by={r['mode']:r for r in metrics['runs']}
     total=lambda r:r['prompt_tokens']+r['completion_tokens']
     comparisons=[]
@@ -148,6 +154,122 @@ def export_current(run,output,diagnostic=None):
         '复现：`python -m token_budget_lab.action_experiment --config configs/locator_deepseek.json --plan`。真实执行使用新 --output，最多 216 次请求。接口见 [接入说明](../../docs/INTEGRATION.md)，后续方案见 [改进路线](../../docs/ROADMAP.md)。']
     (output/'REPORT.md').write_text('\n'.join(report)+'\n',encoding='utf-8')
     return dict(calls=summary['total_api_attempts'],receipts_reconciled=True,comparisons=comparisons,case_groups=groups)
+
+
+def audit_transforms(rows,tasks,manifest,output):
+    """Recompute every check from journaled actual handler results, not gold."""
+    data=Path(__file__).resolve().parents[1]/manifest['config']['data']
+    episodes={e['id']:e for e in json.loads(data.read_text(encoding='utf-8'))['episodes']}
+    audits=[]
+    for task in tasks:
+        state=task.get('write_transform')
+        if state is None:
+            continue
+        relevant=[r for r in rows if r['episode_id']==task['episode_id'] and r['mode']==task['mode']]
+        # Count canonical positions without materializing a new sandbox. Each
+        # actual setup read contributes user/assistant/tool/final messages.
+        position=2+4*sum('tool' in op for op in episodes[task['episode_id']]['setup'])
+        reads={}
+        for response in (r for r in relevant if r['event']=='response'):
+            if not response.get('message'):
+                continue
+            position+=1
+            controller=next((r for r in relevant if r['event']=='execution_controller' and r['step']==response['step']),{})
+            receipts=controller.get('action_receipts',[])
+            for call in response['message'].get('tool_calls',[]):
+                name=call['function']['name'];args=json.loads(call['function']['arguments'])
+                for receipt in receipts:
+                    if receipt['tool']==name and receipt['arguments']==args and receipt['handler_returned']:
+                        actual=next((a for a in relevant if a['event']=='business_tool' and a['success'] and a['tool']==name and a['arguments']==args
+                            and hashlib.sha256(encode(a['result']).encode()).hexdigest()==receipt['result_sha256']),None)
+                        if actual and name.startswith('read_'):
+                            message=dict(role='tool',tool_call_id=call['id'],content=encode(actual['result']))
+                            reads[source_id(position,message)]=dict(receipt=receipt,result=actual['result'],message=message,position=position)
+                        break
+                position+=1
+            if not response['message'].get('tool_calls') and response['status']=='action_pending':
+                position+=1  # Host retry notice enters canonical history.
+        for event in state['events']:
+            sid=event.get('source_id')
+            source=reads.get(sid) if sid else None
+            if sid and (source is None or source['receipt']['result_sha256']!=event['result_sha256']
+                or source['receipt']['tool']!=event['read_tool'] or source['receipt']['arguments']!=event['read_arguments']):
+                raise ValueError('transform source does not match actual read receipt/message')
+            rule=next(WriteTransform(**r) for r in state['rules'] if r['write_tool']==event['tool'])
+            arguments=None
+            # Use actual submitted arguments, including a wrong currency or
+            # type, rather than reconstructing fixed arguments from the rule.
+            for response in (r for r in relevant if r['event']=='response'):
+                for call in response.get('message',{}).get('tool_calls',[]):
+                    if call['function']['name']!=event['tool']:
+                        continue
+                    candidate=json.loads(call['function']['arguments'])
+                    if candidate.get(rule.value_argument)!=event['attempted_value']:
+                        continue
+                    g=FreshWriteGuard([rule])
+                    if source:
+                        g.observe(rule.read_tool,rule.read_arguments,source['result'],source['message'],source['position'],True)
+                    try:
+                        g.validate(event['tool'],candidate)
+                    except WriteValueRejected:
+                        pass
+                    if g.events[-1]==event:
+                        arguments=candidate
+                        break
+                if arguments is not None:
+                    break
+            if arguments is None:
+                raise ValueError('transform recomputation differs from runtime check')
+            audits.append(dict(episode_id=task['episode_id'],mode=task['mode'],**event,
+                submitted_arguments=arguments,source_receipt_verified=source is not None,recomputed=True))
+    write(output/'write_validation.json',audits)
+
+
+def transform_report(summary,metrics,groups,output):
+    by={r['mode']:r for r in metrics['runs']}
+    total=lambda r:r['prompt_tokens']+r['completion_tokens']
+    a=by['context_transform'];comparisons=[]
+    for base in ('context_structured','full'):
+        b=by[base]
+        comparisons.append(dict(variant='context_transform',baseline=base,
+            task_quality_delta=a['task_success_rate']-b['task_success_rate'],
+            total_token_reduction=1-total(a)/total(b),fixed_reference_cost_reduction=1-a['estimated_usd']/b['estimated_usd'],
+            p95_seconds_ratio=a['latency']['p95_seconds']/b['latency']['p95_seconds']))
+    write(output/'comparisons.json',comparisons)
+    n=metrics['case_count']
+    def table(name,fn):
+        return '| '+name+' | '+' | '.join(fn(by[m]) for m in metrics['arms'])+' |'
+    report=['# 本轮写入值变换核验的真实对照','',
+        f'v0.10，{n} 个长历史合成情境、三组、同轮随机顺序。复用冻结的诊断任务，含重复模板；不是新的独立自然任务确认。Full 与插件核验组使用相同写入规则；不加核验的压缩插件作为消融对照。全部组保留相同执行合同。','',
+        '| 指标 | Full + 核验 | 压缩插件 | 压缩插件 + 核验 |','|---|---:|---:|---:|',
+        table('完整任务通过',lambda r:f"{round(r['task_success_rate']*n)}/{n}"),
+        table('答案准确率',lambda r:f"{r['answer_accuracy']:.1%}"),
+        table('文件状态准确率',lambda r:f"{r['artifact_state_accuracy']:.1%}"),
+        table('本轮实际读取',lambda r:f"{r['fresh_read_completed']}/{n}"),
+        table('模型调用',lambda r:str(r['model_calls'])),
+        table('恢复调用',lambda r:str(r['recovery_tool_calls'])),
+        table('通过/拒绝写入核验',lambda r:f"{r['write_transform_accepted']}/{r['write_transform_rejected']}"),
+        table('输入输出总 token',lambda r:f"{total(r):,}"),
+        table('固定参考费用 USD',lambda r:f"{r['estimated_usd']:.6f}"),
+        table('整任务 P95 秒',lambda r:f"{r['latency']['p95_seconds']:.3f}"),'',
+        '## 核验内容','',
+        '宿主从当前用户要求声明读取参数、字段选择与允许变换，在实际读取 handler 返回后绑定本轮原文。格式化使用 Decimal，保留数值大小；整数偏移使用明确的常量。提交值不符时先拒绝写入，并反馈真实原文重算值，模型可在原六步上限内纠正。宿主不自动写入。','',
+        '核验不读取标准答案、目标文件状态或缺失/重复标签。所有条件题仍只声明相同的必需读取；是否唯一由实际文件决定。规则提示仅包含选择与变换，首次请求没有计算出的答案。组间区别同时包含核验提示与拒绝反馈，不能把通过率变化全部归因于某一次拦截。','',
+        '## 本轮结论与轨迹','',
+        *[p for finding in metrics['reviewed_findings'] for p in (finding,'')],
+        f"插件核验组与 Full 的逐任务答案一致率为 {next(r['agreement_with_full'] for r in summary['runs'] if r['mode']=='context_transform'):.1%}。单次、复用的合成诊断不足以证明一般任务准确率近乎无损；宿主只验证配置的数值写入，最终答案仍独立评分。",'',
+        '## 完整任务成本与延迟','']
+    for c in comparisons:
+        change=lambda v:('减少 ' if v>=0 else '增加 ')+f'{abs(v):.1%}'
+        report.append(f"- 核验插件相对 {c['baseline']}：总 token {change(c['total_token_reduction'])}，固定参考费用{change(c['fixed_reference_cost_reduction'])}，P95 为其 {c['p95_seconds_ratio']:.2f} 倍。")
+    report += ['',f"本轮共 {summary['total_api_attempts']} 次真实请求，未知 usage {summary['unknown_usage_attempts']} 次，固定参考费用合计 ${summary['research_usage']['estimated_usd']:.6f}。使用命中/未命中分项重算，全部失败、恢复、纠正与最终回答均计入；不是账户账单或实时价格。",'',
+        '真正发生压缩的任务另见 [case_groups.json](case_groups.json)。禁止写入任务中的模型写调用尝试仍记违规，即使宿主核验拦截、未落盘。没有增加步骤、重置状态或重跑至通过。','',
+        '逐项写入核验从实际 handler 日志重新计算，并核对 canonical 来源 ID、读取参数和原文 SHA-256；不会用结果标签验证来源。既有实验的费用继续保留在调用账本，旧质量成绩不与本轮混合。','',
+        '## 可核对资料','',
+        '[指标](metrics.json) · [全部任务](per_checkpoint.csv) · [全部请求](per_request.csv) · [回答](final_answers.csv) · [执行凭据](execution_audit.json) · [写入核验](write_validation.json) · [源码指纹](source_manifest.json) · [调用账本](usage_ledger.json)','',
+        '复现：`python -m token_budget_lab.action_experiment --config configs/transform_deepseek.json --plan`。实际执行使用新的 --output，最多 216 次请求。接口见 [接入说明](../../docs/INTEGRATION.md)。']
+    (output/'REPORT.md').write_text('\n'.join(report)+'\n',encoding='utf-8')
+    return dict(calls=summary['total_api_attempts'],receipts_reconciled=True,write_checks_recomputed=True,comparisons=comparisons,case_groups=groups)
 
 
 if __name__=='__main__':

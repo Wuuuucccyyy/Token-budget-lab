@@ -72,6 +72,37 @@ contract = ActionContract([
 
 `result["action_contract"]` 提供 completed、missing、complete 和 receipts。status 为 ok 才接受最终答案；缺少操作且步骤耗尽时为 action_incomplete。所有补做请求计入 api_calls 和实际 usage。
 
+## 本轮写入值变换核验
+
+```python
+from token_budget_lab import FreshWriteGuard, WriteTransform
+
+guard = FreshWriteGuard([WriteTransform(
+    read_tool="read_log", read_arguments={"name": "scan_c"},
+    write_tool="write_report", value_argument="total",
+    selector={"kind": "unique_event", "array": "/events",
+              "match_key": "event", "match_value": "scan_c-39",
+              "field": "status_code"},
+    operation="format_decimal", places=2,
+    fixed_arguments={"currency": "USD"},
+)])
+# 在 run_agent 中增加 write_guard=guard，Full 对照也传同样的 guard。
+```
+
+规则由宿主根据当前用户授权的任务构造，只包含读取参数、字段选择与变换，不包含目标数值。调用实际读取 handler 后，宿主保存本轮来源 ID、原始结果指纹和完整返回；恢复历史、缓存回显和模型自报 evidence 不建立新来源。每次 run_agent 创建独立核验状态。
+
+`unique_event` 在实际数组中精确匹配 event，必须恰好一个匹配，不根据编号猜下标。`pointer` 直接取指定 RFC6901 字段。`text_record` 在指定文本字段中查唯一 marker，再从到分号或换行之间的记录读取唯一 `field=value`；这是明确的文本格式约定，不是任意日志解析。
+
+`format_decimal` 使用 Decimal 与 ROUND_HALF_EVEN，保留数值大小，例如整数 409 格式化为 `"409.00"`。`add_integer` 要求整数来源，按宿主声明的 constant 偏移。小数位数最多六位，数值大小最多 10¹⁸；不支持任意自然语言计算。
+
+提交的值、类型、格式或固定参数不符时，返回 `write_value_rejected`，实际写 handler 不执行。可计算时反馈包含从真实原文重算的 expected_value，模型可在原步骤预算内修改调用。宿主不自动改写提交值或代执行写入；最终答案仍需单独评测。
+
+`result["write_transform"]` 返回全部 accepted/rejected 事件，包括实际源指纹、字段位置、原值、重算值和提交值。读取报错后清除该读取的旧来源；会改变源文件的已知写工具在执行前使来源失效，覆盖部分修改后抛错的情况。源读取与写入之间发生的外部并发更新目前没有事务保证。
+
+当前规则核验已配置的写工具、目标数值与 fixed_arguments，不自动覆盖其他工具或额外业务字段。任意工具的源修改关系需要宿主扩展；HistoricalWriteGuard 与 FreshWriteGuard 目前通过单一 write_guard 参数择一接入。
+
+实验的 `guard_from_query` 仅识别冻结任务的几种明确措辞，没有通用自然语言解析能力。生产接入优先使用上面的显式结构规则。
+
 ## 历史配置核验
 
 ```python

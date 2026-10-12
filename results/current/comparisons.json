@@ -1,18 +1,18 @@
 [
   {
-    "variant": "context_structured",
-    "baseline": "context_lexical",
-    "task_quality_delta": 0.5,
-    "total_token_reduction": 0.19897105895643896,
-    "fixed_reference_cost_reduction": 0.18252682544102683,
-    "p95_seconds_ratio": 1.0321925408148047
+    "variant": "context_transform",
+    "baseline": "context_structured",
+    "task_quality_delta": 0.0,
+    "total_token_reduction": -0.06433278666325615,
+    "fixed_reference_cost_reduction": -0.06069085857136325,
+    "p95_seconds_ratio": 1.2428463815223743
   },
   {
-    "variant": "context_structured",
+    "variant": "context_transform",
     "baseline": "full",
-    "task_quality_delta": -0.08333333333333326,
-    "total_token_reduction": 0.8163853641445915,
-    "fixed_reference_cost_reduction": 0.8297090397350937,
-    "p95_seconds_ratio": 1.2305402548429325
+    "task_quality_delta": -0.08333333333333337,
+    "total_token_reduction": 0.8211756631298477,
+    "fixed_reference_cost_reduction": 0.8277057257639573,
+    "p95_seconds_ratio": 1.2811825618188992
   }
 ]

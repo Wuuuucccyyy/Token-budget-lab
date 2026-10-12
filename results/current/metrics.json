@@ -1,17 +1,17 @@
 {
-  "measured_at": "2026-10-12T02:41:58.382611+00:00",
-  "package_version": "0.9.0",
+  "measured_at": "2026-10-12T04:42:00.665585+00:00",
+  "package_version": "0.10.0",
   "case_count": 12,
   "arms": [
     "full",
-    "context_lexical",
-    "context_structured"
+    "context_structured",
+    "context_transform"
   ],
   "scope": "six reused diagnostics plus six controlled lookup boundary cases; synthetic templates, not an independent natural benchmark",
   "max_steps_per_task": 6,
-  "actual_api_calls": 172,
+  "actual_api_calls": 156,
   "unknown_usage_requests": 0,
-  "source_package_sha256": "220d5a1955f3429fa7f0a2ba3c43f6e71701b9478268b135a49a7198d2291bd4",
+  "source_package_sha256": "cafbc959d9029bdc3514af47e0a8532ce21eaf219a2a1022ac1e032816fbff31",
   "data_sha256": "5b6a95d64f40bde1aa3484ecfb50ad1943121d09f56d2b98c91d95f5566029c8",
   "rates": {
     "hit": 0.003,
@@ -23,85 +23,90 @@
     {
       "mode": "full",
       "checkpoints": 12,
-      "task_success_rate": 0.9166666666666666,
+      "task_success_rate": 1,
       "answer_accuracy": 1,
       "artifact_state_accuracy": 1,
       "fresh_read_completed": 12,
       "model_calls": 45,
       "recovery_tool_calls": 0,
-      "prompt_tokens": 1573794,
-      "completion_tokens": 1734,
-      "cache_hit_tokens": 1131008,
-      "cache_miss_tokens": 442786,
-      "estimated_usd": 0.070851324,
+      "prompt_tokens": 1580737,
+      "completion_tokens": 1570,
+      "cache_hit_tokens": 1136128,
+      "cache_miss_tokens": 444609,
+      "estimated_usd": 0.071041734,
       "latency": {
         "samples": 12,
-        "mean_seconds": 4.531160500033972,
-        "p50_seconds": 4.796197100047721,
-        "p95_seconds": 5.185476765048224
+        "mean_seconds": 3.9974779583377917,
+        "p50_seconds": 4.152733749971958,
+        "p95_seconds": 4.78051061007718
       },
       "status_counts": {
         "ok": 12
       },
-      "constraint_violations": 1
-    },
-    {
-      "mode": "context_lexical",
-      "checkpoints": 12,
-      "task_success_rate": 0.3333333333333333,
-      "answer_accuracy": 0.3333333333333333,
-      "artifact_state_accuracy": 0.6666666666666666,
-      "fresh_read_completed": 12,
-      "model_calls": 68,
-      "recovery_tool_calls": 42,
-      "prompt_tokens": 357161,
-      "completion_tokens": 3987,
-      "cache_hit_tokens": 280320,
-      "cache_miss_tokens": 76841,
-      "estimated_usd": 0.014759310000000001,
-      "latency": {
-        "samples": 12,
-        "mean_seconds": 5.283129925014994,
-        "p50_seconds": 5.476305249991128,
-        "p95_seconds": 6.181925995035272
-      },
-      "status_counts": {
-        "ok": 5,
-        "context_stalled": 5,
-        "step_limit": 2
-      },
-      "constraint_violations": 0
+      "constraint_violations": 0,
+      "write_transform_accepted": 10,
+      "write_transform_rejected": 0
     },
     {
       "mode": "context_structured",
       "checkpoints": 12,
-      "task_success_rate": 0.8333333333333334,
-      "answer_accuracy": 0.8333333333333334,
-      "artifact_state_accuracy": 0.8333333333333334,
+      "task_success_rate": 0.9166666666666666,
+      "answer_accuracy": 0.9166666666666666,
+      "artifact_state_accuracy": 0.9166666666666666,
       "fresh_read_completed": 12,
-      "model_calls": 59,
-      "recovery_tool_calls": 16,
-      "prompt_tokens": 286362,
-      "completion_tokens": 2928,
-      "cache_hit_tokens": 222080,
-      "cache_miss_tokens": 64282,
-      "estimated_usd": 0.012065339999999999,
+      "model_calls": 55,
+      "recovery_tool_calls": 11,
+      "prompt_tokens": 263304,
+      "completion_tokens": 2548,
+      "cache_hit_tokens": 200576,
+      "cache_miss_tokens": 62728,
+      "estimated_usd": 0.011539727999999999,
       "latency": {
         "samples": 12,
-        "mean_seconds": 4.635975716667114,
-        "p50_seconds": 4.61987650001538,
-        "p95_seconds": 6.380937899944547
+        "mean_seconds": 4.0197312999516726,
+        "p50_seconds": 4.257685649878113,
+        "p95_seconds": 4.927967704841285
       },
       "status_counts": {
         "ok": 12
       },
-      "constraint_violations": 0
+      "constraint_violations": 0,
+      "write_transform_accepted": 0,
+      "write_transform_rejected": 0
+    },
+    {
+      "mode": "context_transform",
+      "checkpoints": 12,
+      "task_success_rate": 0.9166666666666666,
+      "answer_accuracy": 0.9166666666666666,
+      "artifact_state_accuracy": 1,
+      "fresh_read_completed": 12,
+      "model_calls": 56,
+      "recovery_tool_calls": 15,
+      "prompt_tokens": 279994,
+      "completion_tokens": 2961,
+      "cache_hit_tokens": 214528,
+      "cache_miss_tokens": 65466,
+      "estimated_usd": 0.012240084,
+      "latency": {
+        "samples": 12,
+        "mean_seconds": 4.249379933375167,
+        "p50_seconds": 4.228771600028267,
+        "p95_seconds": 6.12470683022111
+      },
+      "status_counts": {
+        "ok": 11,
+        "step_limit": 1
+      },
+      "constraint_violations": 0,
+      "write_transform_accepted": 10,
+      "write_transform_rejected": 0
     }
   ],
   "reviewed_findings": [
-    "精准定位的两个失败均正确读取和定位了本轮来源：lookup-004 的 status_code=409 被写成 4.09，lookup-002 的 status_code=204 被写成 2.04。要求是保持数值大小并格式化为 409.00 和 204.00。检查通过但不能核验数值来源及变换，下一步应优先绑定原文字段并核验写入变换。",
-    "精准定位在新增六个边界情境全部通过，包括文本末尾目标；本轮没有恢复停滞或步骤耗尽。恢复调用明显减少，但 P95 比原方案略高，时延目标仍未达到，需要继续定位请求数及尾部耗时。",
-    "Full 的最终答案与文件状态均正确，其中一题重复事件先尝试 write_report(total=UNKNOWN)，handler 校验失败且未落盘，随后回答 UNKNOWN。按禁止写入请求的严格约束记为失败，因此完整任务为 11/12；答案准确率为 12/12。",
-    "全局历史检索仍可能混合多个版本，但本轮两个精准定位失败都使用正确的本轮来源，未观察到旧版本误选。相比立即改时序规则，本轮证据更支持先核验数值变换。"
+    "Full + 相同核验通过 12/12；不加核验的压缩插件与核验插件均通过 11/12。文件状态正确从 11/12 提高到 12/12，完整任务通过率在这次同轮对照中没有提高。复用任务上的单次差异不能当作一般准确率保证。",
+    "同一文本末尾目标中，不加核验组从本轮原文读到 status_code=206，却写入并回答 2.06；核验组提交 206.00，通过原文重算与实际写后检查，但六步耗尽，没有最终答案，因此仍按任务失败计分。",
+    "Full 与核验插件各有 10 次写入核验通过，均未触发拒绝。故意提交 409→4.09、204→2.04 的回归测试能验证拦截，但本轮真实成绩不能证明发生了纠错干预；规则提示、生成随机性和拒绝机制需分别评估。",
+    "核验插件在文本题先用 context_find 查不存在的 marker JSON 字段，随后多次分页恢复 log_text，耗尽了最终回答所需步骤。下一步优先明确 JSON/文本恢复入口并保留最终回答预算；保持六步上限，不用增加步骤掩盖问题。"
   ]
 }

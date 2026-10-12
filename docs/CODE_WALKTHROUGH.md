@@ -11,10 +11,13 @@
 | `history_evidence.py` | 从真实工具原文识别主体、字段和观察日期，选择历史来源 |
 | `action_contract.py` | 本轮操作依赖、执行凭据与完成状态 |
 | `provenance.py` | 配置历史版本及数值写入核验 |
+| `write_transform.py` | 本轮实际读取绑定、字段选择、Decimal 重算与写入拦截 |
+| `transform_tasks.py` | 冻结任务措辞到显式数值规则的有限适配，不读取评分标签 |
 | `memory_agent.py` | 模型请求、工具分发、循环预算、结束检查与累计 usage |
 | `cache_cost.py` | 验证缓存分项，再按固定参考价格估算费用 |
 | `action_tasks.py` / `tool_tasks.py` | 冻结合成任务与真实本地文件工具沙盒 |
-| `action_experiment.py` | 当前四组评测、调用日志与结果导出 |
+| `action_experiment.py` | 当前三组对照、六步上限、全部调用与执行日志 |
+| `scripts/export_current.py` | 导出所有任务、请求，并从实际 handler 重新核对写入值 |
 | `tool_experiment.py` / `analysis.py` | 完整任务、压缩子集和统计汇总 |
 
 ## 请求准备
@@ -29,7 +32,9 @@ JSON pointer 返回精确字段；自由文本检索围绕命中词截取片段�
 
 ## 业务执行
 
-`run_agent` 先保存模型响应 usage。模型提出业务操作后，执行合同检查前置依赖，历史核验检查写入证明，随后才调用 handler。返回结果进入完整历史，实际调用另产生本轮凭据。
+`run_agent` 先保存模型响应 usage。模型提出业务操作后，执行合同检查前置依赖，再执行已接入的写入核验，随后才调用 handler。实际读取返回由 observe 绑定到本轮来源；历史恢复与缓存回显不经过此入口。写入被拒绝时返回结构化反馈，原值、重算值和提交值进入核验日志，实际写 handler 不执行。
+
+当前 `format_decimal` 保留数值大小，`add_integer` 使用显式偏移。选择规则由宿主负责，unique_event 根据真实数组定位，text_record 使用明确的记录边界。规则提示不携带评分答案。每次 run_agent 复制新的核验状态，避免跨任务延续旧来源。
 
 模型准备输出最终答案时，宿主检查所有必需操作。缺少凭据会追加遗漏反馈，继续消耗原有步骤预算；不会给未完成任务生成成功状态。
 

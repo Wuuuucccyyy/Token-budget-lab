@@ -12,6 +12,7 @@
 | `HistoryArchive` | 按租户和会话保存不可改写的原始消息，检查工具调用链及原文完整性 |
 | `context_find` / `context_read` / `context_search` | 按事件值查完整对象与真实字段位置，或恢复精确原文及命中中心片段 |
 | `ActionContract` | 核对本轮实际执行凭据，检查指定参数与操作顺序，拦截漏操作的最终答案 |
+| `FreshWriteGuard` / `WriteTransform` | 将数值写入绑定到本轮实际读取，核验格式化、整数偏移与指定参数 |
 | `HistoricalWriteGuard` | 针对已声明的配置字段，核验历史快照、截止日期及数值运算 |
 | `run_agent` | 将插件接到模型调用和实际业务工具之间，限制恢复循环并累计全部调用成本 |
 
@@ -34,13 +35,13 @@ $env:DEEPSEEK_API_KEY = "在本机设置的密钥"
 python examples/python_agent.py --live --mode context
 ```
 
-该示例只操作临时沙盒，最多六次模型请求。使用 `--mode full` 对照同样带有执行检查的完整历史。
+该示例只操作临时沙盒，最多六次模型请求。使用 `--mode full` 对照同样带有执行与写入值检查的完整历史；`--without-write-check` 关闭数值核验，便于消融比较。
 
 ## 接入 Python agent
 
 ```python
 from token_budget_lab import ActionContract, RequiredAction, ContextPlugin
-from token_budget_lab import HistoryArchive, run_agent
+from token_budget_lab import HistoryArchive, FreshWriteGuard, WriteTransform, run_agent
 
 archive = HistoryArchive("local_results/history.sqlite3")
 plugin = ContextPlugin(archive, offload_tools=["read_log"])
@@ -54,13 +55,21 @@ contract = ActionContract([
                    result_matches={"passed": True}),
 ], before_tools={"write_report": ["read"], "run_checks": ["write"]})
 
+# 依据任务要求构造选择与变换，不填目标值。
+guard = FreshWriteGuard([WriteTransform(
+    "read_log", {"name": "scan_c"}, "write_report", "total",
+    {"kind": "unique_event", "array": "/events", "match_key": "event",
+     "match_value": "scan_c-39", "field": "status_code"},
+    fixed_arguments={"currency": "USD"},
+)])
+
 try:
     result = run_agent(
         canonical_messages, transport, plugin,
         tenant="user", session="conversation",
         max_steps=6, max_recovery_rounds=3,
         extra_tools=tool_schemas, handlers=tool_handlers,
-        action_contract=contract,
+        action_contract=contract, write_guard=guard,
     )
     canonical_messages = result["messages"]
 finally:
@@ -71,28 +80,30 @@ finally:
 
 ## 当前验证
 
-v0.9 完成十二个长历史合成情境、三组、共 172 次真实 DeepSeek 请求。三组均带相同执行检查，条件题只声明必需读取、由原文决定写入分支；六个情境为已有诊断，六个新增数组打乱、稀疏编号、长对象、重复/缺失事件和文本末尾目标。任务成功同时要求答案、文件状态与实际操作正确完成。
+v0.10 完成十二个长历史合成情境、三组、共 156 次真实 DeepSeek 请求。Full 与核验插件使用相同写入规则，不加核验的压缩插件作为消融对照；三组均保留相同执行检查与六步上限。条件题只声明必需读取、由实际原文决定写入分支。任务成功同时要求答案、文件状态与实际操作正确完成。
 
-| 指标 | Full | 原恢复方案 | 精准定位 |
+| 指标 | Full + 核验 | 压缩插件 | 压缩插件 + 核验 |
 |---|---:|---:|---:|
-| 完整任务通过 | 11/12 | 4/12 | 10/12 |
+| 完整任务通过 | 12/12 | 11/12 | 11/12 |
+| 文件状态正确 | 12/12 | 11/12 | 12/12 |
 | 指定本轮读取完成 | 12/12 | 12/12 | 12/12 |
-| 恢复调用 | 0 | 42 | 16 |
-| 输入输出总 token | 1,575,528 | 361,148 | 289,290 |
-| 固定参考价格估算 USD | 0.070851 | 0.014759 | 0.012065 |
-| 整任务 P95 秒 | 5.185 | 6.182 | 6.381 |
+| 恢复调用 | 0 | 11 | 15 |
+| 输入输出总 token | 1,582,307 | 265,852 | 282,955 |
+| 固定参考价格估算 USD | 0.071042 | 0.011540 | 0.012240 |
+| 整任务 P95 秒 | 4.781 | 4.928 | 6.125 |
 
-精准定位在新增六个边界情境全部通过，消除了本轮恢复停滞。相对原方案，总 token 减少 19.9%，P95 仍高 3.2%；相对 Full，总 token 减少 81.6%，固定价格费用估算减少 83.0%，P95 高 23.1%。剩余两个失败均正确读取字段后错误格式化数值，任务质量仍低于 Full，尚未达到近乎无损和更快目标。此前 169 次协议诊断单独计入，两轮共 341 次调用。全部任务与费用见 [当前评测](results/current/REPORT.md)。
+核验插件的所有文件状态正确，但文本题耗尽步骤，没有最终答案，完整任务仍为 11/12。相对 Full，总 token 减少 82.1%，固定参考费用减少 82.8%，P95 高 28.1%。相对不加核验的插件，总 token 增加 6.4%，P95 高 24.3%，这轮完整任务通过率没有提高，尚未达到近乎无损和更快目标。
+
+真实运行中两组核验各通过 10 次写入、拒绝 0 次。故意提交错误值的测试验证拦截能力，本轮成绩不能证明发生了纠错干预。十二个复用合成情境和一次运行不能代表一般任务；此前 341 次实验消耗保留在总账，累计 497 次。全部任务、写入重算与费用见 [当前评测](results/current/REPORT.md)。
 
 默认 `evidence_mode="structured"` 提供精准定位；`evidence_mode="lexical"` 保留原恢复行为用于对照。JSON 按实际 event 字段找位置，较大事件只返回必要原文字段与路径，不假设事件编号等于数组下标。
 
 ## 下一轮重点
 
-1. 核验写入值与原文字段的变换，避免把 409→4.09、204→2.04 写错。
-2. 完善文本检索的参数提示及按来源搜索，减少工具参数错误和错误的 JSON 查询。
-3. 按未完成的业务操作分配恢复预算，保留写入、检查和最终回答的请求机会。
-4. 扩展当前任务来源与时序规则，覆盖相似版本及历史截至日期需求。
-5. 扩充独立任务和运行次数，同时报告准确率、完整任务成本与延迟。
+1. 明确 JSON 与文本恢复入口，增加按来源搜索，减少错误查询和整段分页。
+2. 按未完成操作分配恢复预算，保留写入、检查和最终回答的请求机会。
+3. 扩展来源修改关系及历史时序规则，覆盖相似版本与截止日期需求。
+4. 冻结独立任务与多次运行，同时比较准确率、完整任务成本和延迟。
 
 实施顺序和验收条件见 [改进路线](docs/ROADMAP.md)。
 
