@@ -71,7 +71,7 @@ def export_current(run,output,diagnostic=None):
           'model_calls','recovery_tool_calls','prompt_tokens','completion_tokens','cache_hit_tokens','cache_miss_tokens',
           'estimated_usd','latency','status_counts','constraint_violations','write_transform_accepted','write_transform_rejected')
     fast='context_fast' in manifest['config']['arms']
-    metrics=dict(measured_at=manifest['started_at_utc'],package_version='0.11.0' if fast else '0.10.0' if 'context_transform' in manifest['config']['arms'] else '0.9.0',case_count=manifest['checkpoints'],
+    metrics=dict(measured_at=manifest['started_at_utc'],package_version=manifest.get('package_version','0.11.0' if fast else '0.10.0' if 'context_transform' in manifest['config']['arms'] else '0.9.0'),case_count=manifest['checkpoints'],
         independent_case_templates=manifest.get('independent_case_templates',manifest['checkpoints']),repeats=manifest.get('repeats',1),
         arms=manifest['config']['arms'],scope=manifest['dataset_source'],
         max_steps_per_task=manifest['config']['max_steps'],actual_api_calls=summary['total_api_attempts'],
@@ -114,6 +114,7 @@ def export_current(run,output,diagnostic=None):
     write(output/'case_groups.json',groups)
     if fast:
         audit_eager_views(run,rows,tasks,manifest,output)
+        audit_conditional_branches(rows,tasks,manifest,output)
         return fast_report(summary,metrics,groups,tasks,responses,output)
     if 'context_transform' in manifest['config']['arms']:
         return transform_report(summary,metrics,groups,output)
@@ -328,6 +329,57 @@ def audit_eager_views(run,rows,tasks,manifest,output):
     write(output/'eager_evidence_audit.json',audits)
 
 
+def audit_conditional_branches(rows,tasks,manifest,output):
+    """Recompute runtime permission snapshots from actual reads, never labels."""
+    data=Path(__file__).resolve().parents[1]/manifest['config']['data']
+    episodes={e['id']:e for e in json.loads(data.read_text(encoding='utf-8'))['episodes']}
+    audits=[]
+    for task in tasks:
+        relevant=[r for r in rows if r['episode_id']==task['episode_id'] and r['mode']==task['mode']]
+        episode=episodes.get(task['episode_id']) or episodes[task['base_id']]
+        guard=guard_from_query(episode['checkpoints'][0]['query'])
+        if not guard.conditional_read_only:
+            continue
+        position=2+4*sum('tool' in op for op in episode['setup'])
+        reads={}
+        controllers={r['step']:r for r in relevant if r['event']=='execution_controller'}
+        for response in (r for r in relevant if r['event']=='response'):
+            if not response.get('message'):
+                continue
+            position+=1
+            controller=controllers.get(response['step'],{})
+            for call in response['message'].get('tool_calls',[]):
+                name=call['function']['name'];args=json.loads(call['function']['arguments'])
+                receipt=next((r for r in controller.get('action_receipts',[]) if r['tool']==name and r['arguments']==args and r['handler_returned']),None)
+                if receipt and name.startswith('read_'):
+                    actual=next((r for r in relevant if r['event']=='business_tool' and r['success'] and r['tool']==name and r['arguments']==args
+                        and hashlib.sha256(encode(r['result']).encode()).hexdigest()==receipt['result_sha256']),None)
+                    if actual:
+                        message=dict(role='tool',tool_call_id=call['id'],content=encode(actual['result']))
+                        reads[source_id(position,message)]=dict(tool=name,args=args,result=actual['result'],message=message,position=position)
+                position+=1
+            if not response['message'].get('tool_calls') and response['status']=='action_pending':
+                position+=1
+            for event in controller.get('conditional_branch_events',[]):
+                state=event['branch_state'];source=reads.get(state.get('source_id'))
+                if source is None:
+                    raise ValueError('conditional snapshot lacks actual successful read source')
+                recomputed=guard_from_query(episode['checkpoints'][0]['query'])
+                recomputed.observe(source['tool'],source['args'],source['result'],source['message'],source['position'],True)
+                if recomputed.branch_state()!=state or recomputed.branch_notice(state)!=event['notice']:
+                    raise ValueError('conditional branch differs from actual source recomputation')
+                group=response['message'].get('tool_calls',[])
+                if not group or event['after_tool_call_id']!=group[-1]['id']:
+                    raise ValueError('conditional notice is not anchored after the complete tool group')
+                following=next((r for r in relevant if r['event']=='response' and r['step']==response['step']+1),None)
+                if following and following['context_metadata'].get('conditional_branch')!=state:
+                    raise ValueError('next request did not carry current conditional branch')
+                audits.append(dict(episode_id=task['episode_id'],mode=task['mode'],step=response['step'],branch_state=state,
+                    source_matches_actual_handler=True,notice_recomputed=True,next_request_snapshot_verified=following is not None,
+                    canonical_history_unchanged=True))
+    write(output/'conditional_branch_audit.json',audits)
+
+
 def fast_report(summary,metrics,groups,tasks,responses,output):
     by={r['mode']:r for r in metrics['runs']};a=by['context_fast']
     total=lambda r:r['prompt_tokens']+r['completion_tokens']
@@ -368,8 +420,8 @@ def fast_report(summary,metrics,groups,tasks,responses,output):
     def table(label,fn):
         return '| '+label+' | '+' | '.join(fn(by[m]) for m in metrics['arms'])+' |'
     n=metrics['case_count'];change=lambda v:('减少 ' if v>=0 else '增加 ')+f'{abs(v):.1%}'
-    report=['# 十步上限与原文字段直送的真实对照','',
-        f"v0.11，{metrics['independent_case_templates']} 个冻结的长历史合成模板，各重复 {metrics['repeats']} 次。每组 {n} 个完整任务，共三组；重复用于观察生成和网络波动，不记作新的独立任务。全部组使用相同执行与写入核验、同样 {metrics['max_steps_per_task']} 步上限。",'',
+    report=['# 共同条件授权与原文字段直送的真实对照','',
+        f"v{metrics['package_version']}，{metrics['independent_case_templates']} 个冻结的长历史合成模板，各重复 {metrics['repeats']} 次。每组 {n} 个完整任务，共三组；重复用于观察生成和网络波动，不记作新的独立任务。全部组使用相同执行、写入与条件授权，同样 {metrics['max_steps_per_task']} 步上限。",'',
         '| 指标 | Full + 核验 | 原插件 + 10 步 | 字段直送 + 10 步 |','|---|---:|---:|---:|',
         table('完整任务通过',lambda r:f"{round(r['task_success_rate']*n)}/{n}"),
         table('答案准确率',lambda r:f"{r['answer_accuracy']:.1%}"),
@@ -383,6 +435,7 @@ def fast_report(summary,metrics,groups,tasks,responses,output):
         table('整任务 P95 秒',lambda r:f"{r['latency']['p95_seconds']:.3f}"),'',
         '## 质量与步骤','',
         '步骤上限从六步调整为十步，三组同样增加。只增加步骤的插件与字段直送组分开对照，不把增加预算的效果全部归因于直送。任务提前完成就结束，实际调用数与完整成本仍全部统计。','',
+        '条件授权来自当前用户要求，在实际读取后才判断是否唯一、缺失或重复。三组都收到同样的请求层分支提示；首次请求不会提前指定结果分支。Full 保留完整原文，数字写入参数不接受 UNKNOWN，禁止写入尝试仍按原严格标准判失败。条件提示不进入规范历史，不改变旧请求前缀或工具定义。','',
         *[p for finding in metrics['reviewed_findings'] for p in (finding,'')],
         '## 速度与成本','']
     for c in comparisons:
@@ -395,7 +448,7 @@ def fast_report(summary,metrics,groups,tasks,responses,output):
         f"本轮全部 {summary['total_api_attempts']} 次真实请求计入，未知 usage {summary['unknown_usage_attempts']} 次，按固定命中/未命中参考价格合计 ${summary['research_usage']['estimated_usd']:.6f}，不是账单或实时价格。此前实验费用在同一账本中另列。没有自动重发或重跑至通过。",'',
         '三次重复不能证明任意任务始终正确或始终更快。模板已用于调试；结果不覆盖任意自然语言、复杂开放任务或外部并发更新。服务商排队、网络和输出长度影响耗时，后续需冻结独立任务。','',
         '## 可复核资料','',
-        '[指标](metrics.json) · [全部任务](per_checkpoint.csv) · [逐次重复](per_repeat.json) · [全部请求](per_request.csv) · [执行凭据](execution_audit.json) · [写入核验](write_validation.json) · [字段直送核对](eager_evidence_audit.json) · [费用账本](usage_ledger.json) · [源码指纹](source_manifest.json)','',
+        '[指标](metrics.json) · [全部任务](per_checkpoint.csv) · [逐次重复](per_repeat.json) · [全部请求](per_request.csv) · [执行凭据](execution_audit.json) · [写入核验](write_validation.json) · [条件分支核对](conditional_branch_audit.json) · [字段直送核对](eager_evidence_audit.json) · [费用账本](usage_ledger.json) · [源码指纹](source_manifest.json)','',
         '相关项目、选择理由与速度口径见 [速度设计](../../docs/LATENCY_DESIGN.md)。','',
         '复现：`python -m token_budget_lab.action_experiment --config configs/fast_deepseek.json --plan`。实际执行使用新的 --output，最多 1080 次请求。']
     (output/'REPORT.md').write_text('\n'.join(report)+'\n',encoding='utf-8')

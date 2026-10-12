@@ -1,6 +1,6 @@
 {
-  "measured_at": "2026-10-12T05:30:43.342133+00:00",
-  "package_version": "0.11.0",
+  "measured_at": "2026-10-12T13:39:01.471748+00:00",
+  "package_version": "0.12.0",
   "case_count": 36,
   "independent_case_templates": 12,
   "repeats": 3,
@@ -11,9 +11,9 @@
   ],
   "scope": "six reused diagnostics plus six controlled lookup boundary cases; synthetic templates, not an independent natural benchmark",
   "max_steps_per_task": 10,
-  "actual_api_calls": 450,
+  "actual_api_calls": 432,
   "unknown_usage_requests": 0,
-  "source_package_sha256": "f9bcf60fbeb69e1bf662c55a08af9a100947fbe786d90976a499c5470de0beed",
+  "source_package_sha256": "c552a1775c59478e3a5717ff9b7900ba40303c242d7f769ee730e310e6dea173",
   "data_sha256": "5b6a95d64f40bde1aa3484ecfb50ad1943121d09f56d2b98c91d95f5566029c8",
   "rates": {
     "hit": 0.003,
@@ -25,49 +25,49 @@
     {
       "mode": "full",
       "checkpoints": 36,
-      "task_success_rate": 0.9166666666666666,
+      "task_success_rate": 1,
       "answer_accuracy": 1,
       "artifact_state_accuracy": 1,
       "fresh_read_completed": 36,
-      "model_calls": 139,
+      "model_calls": 131,
       "recovery_tool_calls": 0,
-      "prompt_tokens": 4894333,
-      "completion_tokens": 5029,
-      "cache_hit_tokens": 3559168,
-      "cache_miss_tokens": 1335165,
-      "estimated_usd": 0.213969654,
+      "prompt_tokens": 4607675,
+      "completion_tokens": 4273,
+      "cache_hit_tokens": 3268352,
+      "cache_miss_tokens": 1339323,
+      "estimated_usd": 0.213267306,
       "latency": {
         "samples": 36,
-        "mean_seconds": 4.489120116674005,
-        "p50_seconds": 4.505151599965757,
-        "p95_seconds": 5.701774225075496
+        "mean_seconds": 4.62259562498366,
+        "p50_seconds": 4.974700049875537,
+        "p95_seconds": 5.494887424909393
       },
       "status_counts": {
         "ok": 36
       },
-      "constraint_violations": 3,
-      "write_transform_accepted": 31,
-      "write_transform_rejected": 3
+      "constraint_violations": 0,
+      "write_transform_accepted": 30,
+      "write_transform_rejected": 0
     },
     {
       "mode": "context_transform",
       "checkpoints": 36,
       "task_success_rate": 0.9722222222222222,
       "answer_accuracy": 0.9722222222222222,
-      "artifact_state_accuracy": 1,
+      "artifact_state_accuracy": 0.9722222222222222,
       "fresh_read_completed": 36,
-      "model_calls": 174,
-      "recovery_tool_calls": 43,
-      "prompt_tokens": 870781,
-      "completion_tokens": 8319,
-      "cache_hit_tokens": 674048,
-      "cache_miss_tokens": 196733,
-      "estimated_usd": 0.036523494,
+      "model_calls": 166,
+      "recovery_tool_calls": 35,
+      "prompt_tokens": 851811,
+      "completion_tokens": 7695,
+      "cache_hit_tokens": 652544,
+      "cache_miss_tokens": 199267,
+      "estimated_usd": 0.036464682,
       "latency": {
         "samples": 36,
-        "mean_seconds": 4.637136430537794,
-        "p50_seconds": 4.7344625500554685,
-        "p95_seconds": 6.282716225250624
+        "mean_seconds": 4.444383338868243,
+        "p50_seconds": 4.643700149928918,
+        "p95_seconds": 6.201426699946751
       },
       "status_counts": {
         "ok": 35,
@@ -75,7 +75,7 @@
       },
       "constraint_violations": 0,
       "write_transform_accepted": 30,
-      "write_transform_rejected": 0
+      "write_transform_rejected": 1
     },
     {
       "mode": "context_fast",
@@ -84,39 +84,40 @@
       "answer_accuracy": 1,
       "artifact_state_accuracy": 1,
       "fresh_read_completed": 36,
-      "model_calls": 137,
-      "recovery_tool_calls": 5,
-      "prompt_tokens": 664768,
-      "completion_tokens": 4840,
-      "cache_hit_tokens": 473984,
-      "cache_miss_tokens": 190784,
-      "estimated_usd": 0.032943551999999994,
+      "model_calls": 135,
+      "recovery_tool_calls": 1,
+      "prompt_tokens": 669658,
+      "completion_tokens": 4242,
+      "cache_hit_tokens": 475520,
+      "cache_miss_tokens": 194138,
+      "estimated_usd": 0.03309246,
       "latency": {
         "samples": 36,
-        "mean_seconds": 3.567284452766115,
-        "p50_seconds": 3.6861592000641394,
-        "p95_seconds": 4.277304124974762
+        "mean_seconds": 3.4962694611296885,
+        "p50_seconds": 3.783180500002345,
+        "p95_seconds": 4.619154600091861
       },
       "status_counts": {
         "ok": 36
       },
       "constraint_violations": 0,
       "write_transform_accepted": 30,
-      "write_transform_rejected": 0
+      "write_transform_rejected": 1
     }
   ],
   "reviewed_findings": [
-    "字段直送组完整任务通过 36/36，三次重复均为 12/12；答案、文件状态与本轮实际读取全部正确，最终答案与 Full 逐项一致。没有步骤耗尽、恢复停滞或禁止写入尝试。",
-    "只增加到十步的原插件通过 35/36，文本末尾题在三次重复中均完成最终回答；仍有一次缺失事件任务连续恢复无结果而终止。增加步骤解决了回答机会不足，但没有解决所有检索循环。",
-    "Full 答案与文件状态全部正确，完整任务通过 33/36。三次失败是在重复/缺失事件任务中尝试调用禁止的写工具，宿主核验拦截、未落盘，最后仍回答 UNKNOWN；按相同严格评分记违规，不能表述为 Full 写错文件。",
-    "字段直送组恢复调用为 5 次，只增加步骤的插件为 43 次。已声明需求的短原文在实际读取后直接进入发送视图，模型更少绕行 JSON 查询或整段分页；实际业务读取、写入和检查均保留。",
-    "本轮字段直送组有 30 次写入核验通过、拒绝 0 次，仍不能把该组成绩解释为发生了真实错误写入纠正。当前结果支持这些受控任务下的正确完成与加速，不能保证任意任务始终正确。"
+    "Full 与字段直送插件均通过 36/36，三次重复均为 12/12；答案、文件状态和指定读取全部正确。最终答案逐项一致，Full 没有再把 UNKNOWN 提交给写工具。",
+    "修复使用共同的数字参数约束与条件授权：在实际读取后才通知当前只读或唯一分支，三组规则相同，Full 原始全文保留。首次请求不提前判定数据分支；UNKNOWN 来自用户声明的拒答文本，未读取评分答案或目标状态。",
+    "缺失与重复事件的全部 18 个任务条件没有模型写入尝试。评分仍会把禁止写入尝试判失败，测试已故意忽略提示并提交 UNKNOWN 验证这一点，没有把上轮失败改判成功。",
+    "原按需恢复插件通过 35/36，一次文本末尾题恢复停滞而未完成写入和最终答案。该对照未使用字段直送，失败及全部费用仍保留。",
+    "字段直送插件在 lookup-002-r02 曾提交 2.04，实际原值为 204；数值核验在落盘前拒绝，模型改为 204.00 后完成检查和最终回答。这次真实纠正及其额外请求已计入完整成本，不是离线重放或自动代写。",
+    "字段直送插件保留完整读取、写入、检查与最终回答，恢复调用为 1 次；原按需恢复插件恢复调用为 35 次。当前仅有 12 个调试模板各重复三次，仍不能保证任意任务始终正确或更快。"
   ],
   "acceptance": {
     "all_fast_tasks_passed": true,
     "task_quality_at_least_full": true,
     "predeclared_max_p95_ratio": 1.15,
-    "observed_p95_ratio": 0.750170728641597,
+    "observed_p95_ratio": 0.8406277040640241,
     "latency_target_met": true,
     "measured_faster_than_full_p95": true,
     "general_accuracy_guarantee": false

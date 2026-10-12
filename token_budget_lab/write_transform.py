@@ -21,6 +21,16 @@ class WriteValueRejected(ValueError):
                     **self.detail, note='No write executed. Use the actual fresh source and the declared transform.')
 
 
+class BranchActionRejected(ValueError):
+    def __init__(self, state):
+        self.state = state
+        super().__init__('current user conditional branch does not authorize this action')
+
+    def result(self):
+        return dict(error='conditional_action_rejected',executed=False,written=False,
+                    branch=self.state,note='This action was not executed. Follow the current user branch and return the final answer directly when read-only.')
+
+
 def pointer_value(value, pointer):
     if not isinstance(pointer, str) or not pointer.startswith('/'):
         raise ValueError('nonempty RFC6901 pointer required')
@@ -96,10 +106,20 @@ class FreshWriteGuard:
     stable-read cache echoes do not call observe(). Rules have fixed notices;
     expected values are computed only from actual reads and rejection feedback.
     """
-    def __init__(self, rules):
+    def __init__(self, rules, *, conditional_read_only=False, refusal_answer='UNKNOWN',
+                 branch_tools=('write_config','write_report','run_checks')):
         self.rules = copy.deepcopy(list(rules))
         if not self.rules or len({r.write_tool for r in self.rules}) != len(self.rules):
             raise ValueError('one nonempty rule per guarded write tool required')
+        if type(conditional_read_only) is not bool or conditional_read_only and len(self.rules)!=1:
+            raise ValueError('one explicit source rule required for a conditional branch')
+        if not isinstance(refusal_answer,str) or not 1<=len(refusal_answer)<=64:
+            raise ValueError('bounded explicitly declared refusal answer required')
+        if not isinstance(branch_tools,(list,tuple)) or not branch_tools or len(set(branch_tools))!=len(branch_tools) or any(
+            not isinstance(n,str) or not n or n.startswith(('context_','history_')) for n in branch_tools):
+            raise ValueError('explicit registered business branch tools required')
+        self.conditional_read_only=conditional_read_only
+        self.refusal_answer,self.branch_tools=refusal_answer,tuple(branch_tools)
         self.sources, self.events = {}, []
 
     def start(self, schemas, handlers):
@@ -111,16 +131,57 @@ class FreshWriteGuard:
             write_keys=schemas[rule.write_tool]['parameters'].get('properties',{})
             if set(rule.read_arguments)-set(read_keys) or {rule.value_argument,*rule.fixed_arguments}-set(write_keys):
                 raise ValueError('transform arguments must match registered schemas')
-        return FreshWriteGuard(self.rules)
+        if self.conditional_read_only and not set(self.branch_tools)<=set(schemas)&set(handlers):
+            raise ValueError('conditional branch tools require registered handlers')
+        return FreshWriteGuard(self.rules,conditional_read_only=self.conditional_read_only,
+            refusal_answer=self.refusal_answer,branch_tools=self.branch_tools)
 
     def tools(self, tools):
         return copy.deepcopy(tools)
 
     def notice(self):
-        return ('[Write transform contract] The host checks configured writes against actual successful reads in THIS run. '
+        notice=('[Write transform contract] The host checks configured writes against actual successful reads in THIS run. '
                 'format_decimal preserves numeric magnitude (no division or cents conversion), with ROUND_HALF_EVEN; '
                 'add_integer uses the stated integer offset. Unique matches are required. Rules: '+
-                encode([asdict(r) for r in self.rules])+'. Rejected writes are not executed; correction uses the same step budget.')
+                encode([asdict(r) for r in self.rules])+'. Rejected writes are not executed; correction uses the same step budget. '
+                'UNKNOWN and other refusal text belong ONLY in the final JSON answer, NEVER in a numeric write argument.')
+        if self.conditional_read_only:
+            notice+=(' Current user condition: write/check only after an actual current read establishes a unique requested record. '
+                'If the requested record is missing or ambiguous, make NO write/check call; return final JSON '+
+                encode(dict(answer=self.refusal_answer))+'. This is a conditional instruction, not a precomputed branch.')
+        return notice
+
+    def branch_state(self):
+        """Current-run authorization from actual source cardinality, no gold."""
+        if not self.conditional_read_only:
+            return None
+        source=self.sources.get(self.rules[0].write_tool)
+        state=dict(selection_status='awaiting_read',actions_authorized=False)
+        if source is None:
+            return state
+        state.update(source_id=source['source_id'],result_sha256=source['result_sha256'],
+                     read_tool=source['tool'],read_arguments=copy.deepcopy(source['arguments']))
+        try:
+            self._select(self.rules[0],source)
+            state.update(selection_status='unique',actions_authorized=True)
+        except (ValueError,KeyError,IndexError,TypeError) as exc:
+            reason=str(exc) if type(exc) is ValueError else 'source_field_invalid'
+            if reason in {'source_match_missing','source_match_ambiguous'}:
+                state['selection_status']='missing' if reason=='source_match_missing' else 'ambiguous'
+                state['refusal_answer']=self.refusal_answer
+            else:
+                state.update(selection_status='unresolved',reason=reason)
+        return state
+
+    def branch_notice(self,state):
+        header='[Current-run conditional authorization snapshot] '+encode(state)+'. The latest snapshot supersedes earlier snapshots in THIS run only. '
+        if state['selection_status'] in {'missing','ambiguous'}:
+            return header+('The actual current read establishes the user\'s read-only branch. '
+                'Do not call '+', '.join(self.branch_tools)+'. Return final JSON '+encode(dict(answer=self.refusal_answer))+
+                ' directly. Refusal text is not a report amount. No numeric answer or file mutation is supplied by the host.')
+        if state['actions_authorized']:
+            return header+'The source selection is unique. Follow the authorized write/check sequence using the original value. No computed write value is supplied.'
+        return header+'A successful supported fresh read is still needed before branch actions. Do not substitute history or infer absence from an unsupported format.'
 
     def before_invocation(self, name, arguments):
         for rule in self.rules:
@@ -172,6 +233,10 @@ class FreshWriteGuard:
         return fields[0].group(1), dict(pointer=s['pointer'],offset=start+fields[0].start(),end_offset=start+fields[0].end())
 
     def validate(self, name, arguments):
+        if self.conditional_read_only and name in self.branch_tools:
+            state=self.branch_state()
+            if not state['actions_authorized']:
+                raise BranchActionRejected(state)
         rule=next((r for r in self.rules if r.write_tool==name),None)
         if rule is None:
             return arguments
@@ -241,4 +306,6 @@ class FreshWriteGuard:
 
     def state(self):
         return dict(rules=[asdict(r) for r in self.rules],events=copy.deepcopy(self.events),
+                    conditional_read_only=self.conditional_read_only,refusal_answer=self.refusal_answer,
+                    branch_tools=list(self.branch_tools),branch_state=self.branch_state(),
                     accepted=sum(e['accepted'] for e in self.events),rejected=sum(not e['accepted'] for e in self.events))

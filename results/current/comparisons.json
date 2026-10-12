@@ -3,52 +3,52 @@
     "variant": "context_fast",
     "baseline": "context_transform",
     "task_quality_delta": 0.02777777777777779,
-    "total_token_reduction": 0.23830280969173023,
-    "fixed_reference_cost_reduction": 0.0980175116871349,
-    "p95_seconds_ratio": 0.6808049212511005,
-    "mean_seconds_ratio": 0.7692860682885705,
+    "total_token_reduction": 0.2159449730426547,
+    "fixed_reference_cost_reduction": 0.09247912816022918,
+    "p95_seconds_ratio": 0.7448535350956456,
+    "mean_seconds_ratio": 0.7866714445068569,
     "both_successful_paired_tasks": {
       "cases": 35,
       "variant_latency": {
         "samples": 35,
-        "mean_seconds": 3.6132667914182615,
-        "p50_seconds": 3.740814600023441,
-        "p95_seconds": 4.29121860997402
+        "mean_seconds": 3.47476836859049,
+        "p50_seconds": 3.781724799890071,
+        "p95_seconds": 4.619925840088399
       },
       "baseline_latency": {
         "samples": 35,
-        "mean_seconds": 4.58243308283688,
-        "p50_seconds": 4.732865200086962,
-        "p95_seconds": 5.803842350078047
+        "mean_seconds": 4.415197979983142,
+        "p50_seconds": 4.613006799889263,
+        "p95_seconds": 6.252949399949282
       },
-      "mean_seconds_ratio": 0.7885039947340312,
-      "p95_seconds_ratio": 0.7393754604510087
+      "mean_seconds_ratio": 0.7870017118923753,
+      "p95_seconds_ratio": 0.7388394731174175
     }
   },
   {
     "variant": "context_fast",
     "baseline": "full",
-    "task_quality_delta": 0.08333333333333337,
-    "total_token_reduction": 0.863327510806509,
-    "fixed_reference_cost_reduction": 0.8460363356011222,
-    "p95_seconds_ratio": 0.750170728641597,
-    "mean_seconds_ratio": 0.7946511476750416,
+    "task_quality_delta": 0,
+    "total_token_reduction": 0.853879532032885,
+    "fixed_reference_cost_reduction": 0.8448310684807919,
+    "p95_seconds_ratio": 0.8406277040640241,
+    "mean_seconds_ratio": 0.7563433500939306,
     "both_successful_paired_tasks": {
-      "cases": 33,
+      "cases": 36,
       "variant_latency": {
-        "samples": 33,
-        "mean_seconds": 3.5847241151354727,
-        "p50_seconds": 3.740814600023441,
-        "p95_seconds": 4.319047579972539
+        "samples": 36,
+        "mean_seconds": 3.4962694611296885,
+        "p50_seconds": 3.783180500002345,
+        "p95_seconds": 4.619154600091861
       },
       "baseline_latency": {
-        "samples": 33,
-        "mean_seconds": 4.582147733345416,
-        "p50_seconds": 4.5698383001144975,
-        "p95_seconds": 5.74935502007138
+        "samples": 36,
+        "mean_seconds": 4.62259562498366,
+        "p50_seconds": 4.974700049875537,
+        "p95_seconds": 5.494887424909393
       },
-      "mean_seconds_ratio": 0.7823239938443175,
-      "p95_seconds_ratio": 0.751222974558791
+      "mean_seconds_ratio": 0.7563433500939306,
+      "p95_seconds_ratio": 0.8406277040640241
     }
   }
 ]

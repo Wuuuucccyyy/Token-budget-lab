@@ -2,7 +2,7 @@
   {
     "episode_id": "lookup-004-r02",
     "mode": "context_fast",
-    "source_id": "S107-99e3b95fa141",
+    "source_id": "S107-0f4799390b14",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -23,7 +23,7 @@
           "match_key": "event",
           "match_value": "scan_a-15"
         },
-        "source_id": "S107-99e3b95fa141",
+        "source_id": "S107-0f4799390b14",
         "source_location": "/events/15/status_code"
       }
     ]
@@ -31,7 +31,7 @@
   {
     "episode_id": "lookup-012-r02",
     "mode": "context_fast",
-    "source_id": "S107-deca3df952c2",
+    "source_id": "S107-d73bcd7d2469",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -51,7 +51,7 @@
           "marker": "TAIL_MARKER",
           "pointer": "/log_text"
         },
-        "source_id": "S107-deca3df952c2",
+        "source_id": "S107-d73bcd7d2469",
         "source_location": {
           "end_offset": 5627,
           "offset": 5612,
@@ -63,7 +63,7 @@
   {
     "episode_id": "lookup-010-r01",
     "mode": "context_fast",
-    "source_id": "S107-37a755277ef3",
+    "source_id": "S107-96f19abeffde",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -83,14 +83,14 @@
           "match_key": "event",
           "match_value": "scan_b-17"
         },
-        "source_id": "S107-37a755277ef3"
+        "source_id": "S107-96f19abeffde"
       }
     ]
   },
   {
     "episode_id": "lookup-009-r03",
     "mode": "context_fast",
-    "source_id": "S107-890fb5758653",
+    "source_id": "S107-517324549e73",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -111,7 +111,7 @@
           "match_key": "event",
           "match_value": "scan_a-37"
         },
-        "source_id": "S107-890fb5758653",
+        "source_id": "S107-517324549e73",
         "source_location": "/events/37/status_code"
       }
     ]
@@ -119,7 +119,7 @@
   {
     "episode_id": "lookup-010-r03",
     "mode": "context_fast",
-    "source_id": "S107-9d319dc5ee2a",
+    "source_id": "S107-ccbaa665780c",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -139,14 +139,14 @@
           "match_key": "event",
           "match_value": "scan_b-17"
         },
-        "source_id": "S107-9d319dc5ee2a"
+        "source_id": "S107-ccbaa665780c"
       }
     ]
   },
   {
     "episode_id": "lookup-003-r02",
     "mode": "context_fast",
-    "source_id": "S107-ef88c526c14a",
+    "source_id": "S107-84e973b866eb",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -167,7 +167,7 @@
           "match_key": "event",
           "match_value": "scan_c-37"
         },
-        "source_id": "S107-ef88c526c14a",
+        "source_id": "S107-84e973b866eb",
         "source_location": "/events/37/status_code"
       }
     ]
@@ -175,7 +175,7 @@
   {
     "episode_id": "lookup-007-r02",
     "mode": "context_fast",
-    "source_id": "S107-7ae90c670238",
+    "source_id": "S107-4e559caaa5a9",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -196,7 +196,7 @@
           "match_key": "event",
           "match_value": "scan_d-43"
         },
-        "source_id": "S107-7ae90c670238",
+        "source_id": "S107-4e559caaa5a9",
         "source_location": "/events/5/status_code"
       }
     ]
@@ -204,7 +204,7 @@
   {
     "episode_id": "lookup-005-r01",
     "mode": "context_fast",
-    "source_id": "S107-e04370c395bd",
+    "source_id": "S107-d30346741b39",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -225,7 +225,7 @@
           "match_key": "event",
           "match_value": "scan_d-43"
         },
-        "source_id": "S107-e04370c395bd",
+        "source_id": "S107-d30346741b39",
         "source_location": "/events/43/status_code"
       }
     ]
@@ -233,7 +233,7 @@
   {
     "episode_id": "lookup-002-r02",
     "mode": "context_fast",
-    "source_id": "S107-c2b5a52fb4ac",
+    "source_id": "S107-378161fa00fa",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -254,7 +254,7 @@
           "match_key": "event",
           "match_value": "scan_c-39"
         },
-        "source_id": "S107-c2b5a52fb4ac",
+        "source_id": "S107-378161fa00fa",
         "source_location": "/events/39/status_code"
       }
     ]
@@ -262,7 +262,7 @@
   {
     "episode_id": "lookup-004-r03",
     "mode": "context_fast",
-    "source_id": "S107-8ff5eeb59318",
+    "source_id": "S107-da8d22a51f38",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -283,7 +283,7 @@
           "match_key": "event",
           "match_value": "scan_a-15"
         },
-        "source_id": "S107-8ff5eeb59318",
+        "source_id": "S107-da8d22a51f38",
         "source_location": "/events/15/status_code"
       }
     ]
@@ -291,7 +291,7 @@
   {
     "episode_id": "lookup-009-r01",
     "mode": "context_fast",
-    "source_id": "S107-cd1f7eef130e",
+    "source_id": "S107-1b2de75a6060",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -312,7 +312,7 @@
           "match_key": "event",
           "match_value": "scan_a-37"
         },
-        "source_id": "S107-cd1f7eef130e",
+        "source_id": "S107-1b2de75a6060",
         "source_location": "/events/37/status_code"
       }
     ]
@@ -320,7 +320,7 @@
   {
     "episode_id": "lookup-012-r01",
     "mode": "context_fast",
-    "source_id": "S107-73162ec7ce26",
+    "source_id": "S107-f32713b99b12",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -340,7 +340,7 @@
           "marker": "TAIL_MARKER",
           "pointer": "/log_text"
         },
-        "source_id": "S107-73162ec7ce26",
+        "source_id": "S107-f32713b99b12",
         "source_location": {
           "end_offset": 5627,
           "offset": 5612,
@@ -352,7 +352,7 @@
   {
     "episode_id": "lookup-011-r02",
     "mode": "context_fast",
-    "source_id": "S107-0a876aa79ea8",
+    "source_id": "S107-9b8f06fe3ccc",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -372,14 +372,14 @@
           "match_key": "event",
           "match_value": "scan_b-404"
         },
-        "source_id": "S107-0a876aa79ea8"
+        "source_id": "S107-9b8f06fe3ccc"
       }
     ]
   },
   {
     "episode_id": "lookup-007-r01",
     "mode": "context_fast",
-    "source_id": "S107-f26ee29bd163",
+    "source_id": "S107-8c5a5d56b275",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -400,7 +400,7 @@
           "match_key": "event",
           "match_value": "scan_d-43"
         },
-        "source_id": "S107-f26ee29bd163",
+        "source_id": "S107-8c5a5d56b275",
         "source_location": "/events/5/status_code"
       }
     ]
@@ -408,7 +408,7 @@
   {
     "episode_id": "lookup-011-r01",
     "mode": "context_fast",
-    "source_id": "S107-7be563139e16",
+    "source_id": "S107-04283e140c38",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -428,14 +428,14 @@
           "match_key": "event",
           "match_value": "scan_b-404"
         },
-        "source_id": "S107-7be563139e16"
+        "source_id": "S107-04283e140c38"
       }
     ]
   },
   {
     "episode_id": "lookup-002-r03",
     "mode": "context_fast",
-    "source_id": "S107-15cf5836117c",
+    "source_id": "S107-ac2d800c4306",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -456,7 +456,7 @@
           "match_key": "event",
           "match_value": "scan_c-39"
         },
-        "source_id": "S107-15cf5836117c",
+        "source_id": "S107-ac2d800c4306",
         "source_location": "/events/39/status_code"
       }
     ]
@@ -464,7 +464,7 @@
   {
     "episode_id": "lookup-009-r02",
     "mode": "context_fast",
-    "source_id": "S107-7196d70b6553",
+    "source_id": "S107-e5d1e29a825c",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -485,7 +485,7 @@
           "match_key": "event",
           "match_value": "scan_a-37"
         },
-        "source_id": "S107-7196d70b6553",
+        "source_id": "S107-e5d1e29a825c",
         "source_location": "/events/37/status_code"
       }
     ]
@@ -493,7 +493,7 @@
   {
     "episode_id": "lookup-008-r02",
     "mode": "context_fast",
-    "source_id": "S107-bff4f34ea313",
+    "source_id": "S107-c8d25de409be",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -514,7 +514,7 @@
           "match_key": "event",
           "match_value": "scan_c-901"
         },
-        "source_id": "S107-bff4f34ea313",
+        "source_id": "S107-c8d25de409be",
         "source_location": "/events/7/status_code"
       }
     ]
@@ -522,7 +522,7 @@
   {
     "episode_id": "lookup-007-r03",
     "mode": "context_fast",
-    "source_id": "S107-fa0f75c6e658",
+    "source_id": "S107-359846241282",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -543,7 +543,7 @@
           "match_key": "event",
           "match_value": "scan_d-43"
         },
-        "source_id": "S107-fa0f75c6e658",
+        "source_id": "S107-359846241282",
         "source_location": "/events/5/status_code"
       }
     ]
@@ -551,7 +551,7 @@
   {
     "episode_id": "lookup-005-r03",
     "mode": "context_fast",
-    "source_id": "S107-e2eb6d676cc4",
+    "source_id": "S107-3f66a6a3b20e",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -572,7 +572,7 @@
           "match_key": "event",
           "match_value": "scan_d-43"
         },
-        "source_id": "S107-e2eb6d676cc4",
+        "source_id": "S107-3f66a6a3b20e",
         "source_location": "/events/43/status_code"
       }
     ]
@@ -580,7 +580,7 @@
   {
     "episode_id": "lookup-002-r01",
     "mode": "context_fast",
-    "source_id": "S107-4fa3c327cf14",
+    "source_id": "S107-6c8f8c749dc3",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -601,7 +601,7 @@
           "match_key": "event",
           "match_value": "scan_c-39"
         },
-        "source_id": "S107-4fa3c327cf14",
+        "source_id": "S107-6c8f8c749dc3",
         "source_location": "/events/39/status_code"
       }
     ]
@@ -609,7 +609,7 @@
   {
     "episode_id": "lookup-001-r02",
     "mode": "context_fast",
-    "source_id": "S107-e76135b5a7a8",
+    "source_id": "S107-8343238a8ad4",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -630,7 +630,7 @@
           "match_key": "event",
           "match_value": "scan_c-37"
         },
-        "source_id": "S107-e76135b5a7a8",
+        "source_id": "S107-8343238a8ad4",
         "source_location": "/events/37/status_code"
       }
     ]
@@ -638,7 +638,7 @@
   {
     "episode_id": "lookup-008-r01",
     "mode": "context_fast",
-    "source_id": "S107-9bb5e2cda437",
+    "source_id": "S107-e556db1a40c5",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -659,7 +659,7 @@
           "match_key": "event",
           "match_value": "scan_c-901"
         },
-        "source_id": "S107-9bb5e2cda437",
+        "source_id": "S107-e556db1a40c5",
         "source_location": "/events/7/status_code"
       }
     ]
@@ -667,7 +667,7 @@
   {
     "episode_id": "lookup-008-r03",
     "mode": "context_fast",
-    "source_id": "S107-089c5d5ff842",
+    "source_id": "S107-24a548b14da2",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -688,7 +688,7 @@
           "match_key": "event",
           "match_value": "scan_c-901"
         },
-        "source_id": "S107-089c5d5ff842",
+        "source_id": "S107-24a548b14da2",
         "source_location": "/events/7/status_code"
       }
     ]
@@ -696,7 +696,7 @@
   {
     "episode_id": "lookup-010-r02",
     "mode": "context_fast",
-    "source_id": "S107-951bab3936e9",
+    "source_id": "S107-a1d652a046f2",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -716,14 +716,14 @@
           "match_key": "event",
           "match_value": "scan_b-17"
         },
-        "source_id": "S107-951bab3936e9"
+        "source_id": "S107-a1d652a046f2"
       }
     ]
   },
   {
     "episode_id": "lookup-005-r02",
     "mode": "context_fast",
-    "source_id": "S107-7974281685bc",
+    "source_id": "S107-9ac44d29da22",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -744,7 +744,7 @@
           "match_key": "event",
           "match_value": "scan_d-43"
         },
-        "source_id": "S107-7974281685bc",
+        "source_id": "S107-9ac44d29da22",
         "source_location": "/events/43/status_code"
       }
     ]
@@ -752,7 +752,7 @@
   {
     "episode_id": "lookup-001-r03",
     "mode": "context_fast",
-    "source_id": "S107-3039b2ccdbc3",
+    "source_id": "S107-843a95c2e07d",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -773,7 +773,7 @@
           "match_key": "event",
           "match_value": "scan_c-37"
         },
-        "source_id": "S107-3039b2ccdbc3",
+        "source_id": "S107-843a95c2e07d",
         "source_location": "/events/37/status_code"
       }
     ]
@@ -781,7 +781,7 @@
   {
     "episode_id": "lookup-012-r03",
     "mode": "context_fast",
-    "source_id": "S107-66c8217bed59",
+    "source_id": "S107-07c8980555c1",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -801,7 +801,7 @@
           "marker": "TAIL_MARKER",
           "pointer": "/log_text"
         },
-        "source_id": "S107-66c8217bed59",
+        "source_id": "S107-07c8980555c1",
         "source_location": {
           "end_offset": 5627,
           "offset": 5612,
@@ -813,7 +813,7 @@
   {
     "episode_id": "lookup-003-r01",
     "mode": "context_fast",
-    "source_id": "S107-f20b4f390a84",
+    "source_id": "S107-7f100d320a08",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -834,7 +834,7 @@
           "match_key": "event",
           "match_value": "scan_c-37"
         },
-        "source_id": "S107-f20b4f390a84",
+        "source_id": "S107-7f100d320a08",
         "source_location": "/events/37/status_code"
       }
     ]
@@ -842,7 +842,7 @@
   {
     "episode_id": "lookup-011-r03",
     "mode": "context_fast",
-    "source_id": "S107-d134269ac3f8",
+    "source_id": "S107-7e85746d4575",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -862,14 +862,14 @@
           "match_key": "event",
           "match_value": "scan_b-404"
         },
-        "source_id": "S107-d134269ac3f8"
+        "source_id": "S107-7e85746d4575"
       }
     ]
   },
   {
     "episode_id": "lookup-004-r01",
     "mode": "context_fast",
-    "source_id": "S107-fab2ce9cfb6c",
+    "source_id": "S107-15e0ca0c499a",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -890,7 +890,7 @@
           "match_key": "event",
           "match_value": "scan_a-15"
         },
-        "source_id": "S107-fab2ce9cfb6c",
+        "source_id": "S107-15e0ca0c499a",
         "source_location": "/events/15/status_code"
       }
     ]
@@ -898,7 +898,7 @@
   {
     "episode_id": "lookup-001-r01",
     "mode": "context_fast",
-    "source_id": "S107-e10ffde45f0c",
+    "source_id": "S107-e3aebb9a6db9",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -919,7 +919,7 @@
           "match_key": "event",
           "match_value": "scan_c-37"
         },
-        "source_id": "S107-e10ffde45f0c",
+        "source_id": "S107-e3aebb9a6db9",
         "source_location": "/events/37/status_code"
       }
     ]
@@ -927,7 +927,7 @@
   {
     "episode_id": "lookup-003-r03",
     "mode": "context_fast",
-    "source_id": "S107-ae460e8a65fd",
+    "source_id": "S107-be75708fc7b7",
     "source_matches_actual_handler": true,
     "canonical_integrity_verified": true,
     "original_projection_recomputed": true,
@@ -948,7 +948,7 @@
           "match_key": "event",
           "match_value": "scan_c-37"
         },
-        "source_id": "S107-ae460e8a65fd",
+        "source_id": "S107-be75708fc7b7",
         "source_location": "/events/37/status_code"
       }
     ]

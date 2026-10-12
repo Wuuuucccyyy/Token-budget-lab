@@ -27,4 +27,5 @@ def guard_from_query(query):
                             dict(kind='pointer',pointer='/config/timeout_ms'),operation='add_integer',constant=1)
     else:
         raise ValueError('query outside the declared fixture adapter')
-    return FreshWriteGuard([rule])
+    conditional=('如果同名 event 不唯一或不存在' in query and 'answer 填 UNKNOWN，不修改任何文件' in query)
+    return FreshWriteGuard([rule],conditional_read_only=conditional)

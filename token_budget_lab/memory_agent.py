@@ -86,6 +86,8 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
     if any(n not in schemas or schemas[n].get('parameters', {}).get('properties') for n in snapshot_names):
         raise ValueError('snapshot_read_tools must be explicitly registered zero-argument stable reads')
     read_snapshots = {}
+    branch_overlays=[]
+    previous_branch=write_guard.branch_state() if write_guard and hasattr(write_guard,'branch_state') else None
     answer, outcome = '', 'step_limit'
     recovery_rounds, disabled_streak, context_streak = 0, 0, 0
     seen_context = set()
@@ -115,6 +117,17 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
             notices = ([write_guard.notice()] if write_guard else []) + ([action_contract.notice()] if actions else [])
             for notice in reversed(notices):
                 prepared.messages.insert(offset, dict(role='system', content=notice))
+            # Insert current-run authorization after complete tool groups. The
+            # append-only request overlays preserve old prefixes and never
+            # persist as stale system instructions in canonical history.
+            for overlay in branch_overlays:
+                anchor=next((i for i,m in enumerate(prepared.messages)
+                    if m['role']=='tool' and m.get('tool_call_id')==overlay['after_tool_call_id']),None)
+                if anchor is None:
+                    raise ValueError('conditional notice anchor missing from current task view')
+                prepared.messages.insert(anchor+1,dict(role='system',content=overlay['notice']))
+            prepared.context_metadata['conditional_branch']=copy.deepcopy(previous_branch)
+            prepared.context_metadata['conditional_notice_count']=len(branch_overlays)
             prepared.sent_units = plugin._count(prepared.messages) if plugin else len(encode(prepared.messages))
             validate_messages(prepared.messages)
         log_start = time.perf_counter()
@@ -232,7 +245,7 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
                     action_receipts.append(actions.record(function['name'], checked, error_type=type(exc).__name__))
                 if actions and value.get('error') == 'action_prerequisite_missing':
                     action_events.append(dict(tool=call['function']['name'], result=value))
-                if value.get('error') in {'provenance_rejected','write_value_rejected'}:
+                if value.get('error') in {'provenance_rejected','write_value_rejected','conditional_action_rejected'}:
                     memory_events.append(dict(tool=call['function']['name'], result=value))
                 if context_controller and call.get('function', {}).get('name', '').startswith('context_'):
                     recovery_called = True
@@ -243,10 +256,19 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
             history.append(tool_message)
         tool_seconds += time.perf_counter()-tool_start
         recovery_rounds += int(recovery_called)
+        branch_events=[]
+        if write_guard and hasattr(write_guard,'branch_state'):
+            current_branch=write_guard.branch_state()
+            if current_branch!=previous_branch:
+                previous_branch=copy.deepcopy(current_branch)
+                overlay=dict(after_tool_call_id=calls[-1]['id'],notice=write_guard.branch_notice(current_branch))
+                branch_overlays.append(overlay)
+                branch_events.append(dict(**overlay,branch_state=copy.deepcopy(current_branch)))
         record['memory_tool_events'] = memory_events
         record['next_recovery_guard_reason'] = guard_reason
         record['action_events'] = action_events
         record['action_receipts'] = action_receipts
+        record['conditional_branch_events']=branch_events
         record['action_contract_after'] = actions.state() if actions else None
         record['write_transform_events'] = (copy.deepcopy(write_guard.events[write_event_start:])
             if write_guard and hasattr(write_guard,'events') else [])
@@ -255,6 +277,7 @@ def run_agent(messages, transport, plugin, tenant, session, mode='recover', max_
                              next_recovery_guard_reason=guard_reason,
                              action_events=action_events, action_receipts=action_receipts,
                              action_contract_state=actions.state() if actions else None,
+                             conditional_branch_events=branch_events,
                              write_transform_events=record['write_transform_events']))
         disabled_streak = disabled_streak+1 if disabled_only else 0
         if memory_tools and mode == 'recover' and disabled_streak >= 2:

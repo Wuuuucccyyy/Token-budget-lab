@@ -60,6 +60,7 @@ def plan(config):
         config={**config, 'modes': config['arms'], 'backend': 'deepseek'},
         episode_ids=[e['id'] for e in episodes], checkpoints=len(episodes),
         independent_case_templates=len(bundle['episodes']),repeats=repeats,
+        package_version='0.12.0',
         expected_episode_checkpoints={e['id']: 1 for e in episodes},
         data_sha256=hashlib.sha256(path.read_bytes()).hexdigest(), code_sha256=code_hash(),
         dataset_source=bundle['source'], contract_source='host structured current-user intent; no automatic natural-language parsing; no answer/state labels',
@@ -71,6 +72,7 @@ def plan(config):
                   if config['arms']==LOCATOR_ARMS else 'full_contract and context_contract use the same execution contract; unguarded arms retained'),
         write_transform_source='host adapter from current query only; actual current-run read results; never answer/state labels',
         eager_evidence_source='same declared source selectors as write checks; raw fields only, no computed answers; new actual reads only',
+        conditional_authorization='same host conditional policy in guarded arms; current-user wording and actual successful reads only; request-only snapshots; strict forbidden-attempt scoring unchanged',
         protocol='chat', thinking='disabled', json_output=True,
         pricing_source='https://api-docs.deepseek.com/quick_start/pricing/', pricing_verified_date='2026-10-12',
         pricing_interpretation='fixed reference rates for comparable repricing, not an account invoice; no warm probes')

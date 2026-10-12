@@ -101,6 +101,18 @@ guard = FreshWriteGuard([WriteTransform(
 
 当前规则核验已配置的写工具、目标数值与 fixed_arguments，不自动覆盖其他工具或额外业务字段。任意工具的源修改关系需要宿主扩展；HistoricalWriteGuard 与 FreshWriteGuard 目前通过单一 write_guard 参数择一接入。
 
+## 条件只读分支
+
+对于用户明确要求“记录不存在或不唯一时返回 UNKNOWN，不修改文件”的任务，宿主可构造 `FreshWriteGuard(rules, conditional_read_only=True)`。当前首版要求一个显式来源规则，refusal_answer 默认为 UNKNOWN，branch_tools 默认声明 write_config、write_report 与 run_checks；生产接入应依据实际授权配置这些工具名。
+
+开始时状态为 awaiting_read，不提前判定缺失或重复。只有实际成功读取后，宿主才从原文选择结果确定 unique、missing、ambiguous 或 unresolved。缺失与重复进入只读分支；格式不支持或字段损坏是 unresolved，不能伪装成事实不存在。
+
+每次分支变化会在下次请求中追加授权快照，位置在完整工具调用组之后。快照只含来源与允许的动作，不给出计算后的数字答案；UNKNOWN 是当前用户声明的拒答文本，只能用于最终 JSON，不能传入 report.total。
+
+快照在一次 run_agent 内有效，不写进规范历史。旧请求前缀和工具 schema 保持稳定；新用户任务重新建立状态，后续实际读取产生的新快照覆盖本轮旧快照。Full 与插件均接收相同规则和反馈，Full 保留全部原文。
+
+只读分支中的写入或检查调用会返回 conditional_action_rejected，handler 不执行。模型仍提出禁止写入时，评测继续记严格约束失败，不会因为宿主拦截而计成功。
+
 实验的 `guard_from_query` 仅识别冻结任务的几种明确措辞，没有通用自然语言解析能力。生产接入优先使用上面的显式结构规则。
 
 ## 短原文字段直送

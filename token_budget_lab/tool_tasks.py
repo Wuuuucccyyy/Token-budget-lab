@@ -57,8 +57,9 @@ TOOLS = [
     tool('calculate_total','Calculate quantity times price from supplied recorded items.',
          dict(items=dict(type='array',maxItems=100,items=dict(type='object',properties=dict(
              quantity=dict(type='integer'),price=dict(type='string')),required=['quantity','price'],additionalProperties=False))),['items']),
-    tool('write_report','Write a local report, not an email. Supply total and currency, or recipient.',
-         dict(total=dict(type='string'),currency=dict(type='string',enum=['USD','CNY']),recipient=dict(type='string'))),
+    tool('write_report','Write an authorized local report. total must be a nonnegative decimal string. '
+         'UNKNOWN is final answer text, never a report amount. If the user requires no writes, return the final answer without calling this tool.',
+         dict(total=dict(type='string',pattern=r'^[0-9]+(?:\.[0-9]+)?$'),currency=dict(type='string',enum=['USD','CNY']),recipient=dict(type='string'))),
     tool('run_checks','Execute the local Python unittest file against actual config/report files.')]
 
 

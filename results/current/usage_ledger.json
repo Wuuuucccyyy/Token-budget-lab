@@ -1,19 +1,19 @@
 {
-  "journal_sha256": "f4c325b88ebcd0ff1a4f6e84496cd4d7c2d1c50922755e3d623e26e0caadfb96",
-  "total_attempts": 450,
-  "known_responses": 450,
+  "journal_sha256": "ba9620233f33e1d28c8f2cc17858e1ebf0f48fe2b66e2d04c817ac1b62c056d9",
+  "total_attempts": 432,
+  "known_responses": 432,
   "unknown_usage_attempts": 0,
   "max_steps": 10,
   "paid_call_cap": 1080,
   "automatic_retries": false,
   "includes_all_failures": true,
   "research_cost": {
-    "cache_hit_tokens": 4707200,
-    "cache_miss_tokens": 1722682,
-    "completion_tokens_with_cache_partition": 18188,
+    "cache_hit_tokens": 4396416,
+    "cache_miss_tokens": 1732728,
+    "completion_tokens_with_cache_partition": 16210,
     "cache_partition_invalid_or_missing_requests": 0,
-    "cache_hit_fraction": 0.7320818640217659,
-    "estimated_usd": 0.28343669999999993,
+    "cache_hit_fraction": 0.7172969014922802,
+    "estimated_usd": 0.28282444799999995,
     "pricing": "fixed-rate repricing of reported usage; not an invoice"
   },
   "actual_invoice": null,
@@ -41,8 +41,16 @@
       "fixed_reference_cost": 0.09482154599999999,
       "journal_sha256": "4cfbd2e9bc68ab00def70c577955b70e7274c0404350d92f04e3ce878aa2a98c",
       "primary_quality_evidence": false
+    },
+    {
+      "kind": "earlier_fast_comparison",
+      "attempts": 450,
+      "unknown_usage_attempts": 0,
+      "fixed_reference_cost": 0.28343669999999993,
+      "journal_sha256": "f4c325b88ebcd0ff1a4f6e84496cd4d7c2d1c50922755e3d623e26e0caadfb96",
+      "primary_quality_evidence": false
     }
   ],
-  "total_research_attempts": 947,
-  "total_fixed_reference_research_cost": 0.5738619779999998
+  "total_research_attempts": 1379,
+  "total_fixed_reference_research_cost": 0.8566864259999998
 }
