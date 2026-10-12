@@ -1,0 +1,180 @@
+{
+  "package_version": "0.13.1",
+  "framework": "langchain.create_agent",
+  "actual_api_calls": 265,
+  "unknown_usage_attempts": 0,
+  "independent_case_templates": 12,
+  "repeats": 3,
+  "runs": [
+    {
+      "mode": "full",
+      "checkpoints": 36,
+      "expected_checkpoints": 36,
+      "completed_length_conditions": 36,
+      "independent_base_scenarios": 12,
+      "task_success_rate": 1,
+      "episode_success_rate": 1,
+      "answer_accuracy": 1,
+      "format_compliance": 1,
+      "artifact_state_accuracy": 1,
+      "required_tool_completion": 1,
+      "constraint_violations": 0,
+      "agreement_with_full": 1,
+      "paired_quality_difference": {
+        "documents": 12,
+        "macro_mean": 0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "draws": 2000,
+        "seed": 20261013
+      },
+      "diagnostic_driver_success": null,
+      "status_counts": {
+        "ok": 36
+      },
+      "initial_history_modes": {
+        "full": 36
+      },
+      "request_history_modes": {
+        "full": 132
+      },
+      "request_history_reasons": {
+        "langchain_full_history": 132
+      },
+      "recovery_enabled_requests": 0,
+      "mean_initial_characters": 110012.58333333333,
+      "source_messages_retained": null,
+      "model_calls": 132,
+      "scripted_policy_steps": 0,
+      "business_tool_calls": 96,
+      "recovery_tool_calls": 0,
+      "prompt_tokens": 4656166,
+      "completion_tokens": 4169,
+      "unknown_usage_requests": 0,
+      "latency": {
+        "samples": 36,
+        "mean_seconds": 3.8690247666624296,
+        "p50_seconds": 4.142242250003619,
+        "p95_seconds": 4.942288799982634
+      },
+      "quality_status": "pilot_only_not_certified",
+      "total_token_reduction": 0.0,
+      "cache_hit_tokens": 3313024,
+      "cache_miss_tokens": 1343142,
+      "completion_tokens_with_cache_partition": 4169,
+      "cache_partition_invalid_or_missing_requests": 0,
+      "cache_hit_fraction": 0.7115347691641578,
+      "estimated_usd": 0.21391177199999997,
+      "pricing": "fixed-rate repricing of reported usage; not an invoice",
+      "fresh_read_completed": 36,
+      "write_transform_rejected": 0
+    },
+    {
+      "mode": "context_fast",
+      "checkpoints": 36,
+      "expected_checkpoints": 36,
+      "completed_length_conditions": 36,
+      "independent_base_scenarios": 12,
+      "task_success_rate": 1,
+      "episode_success_rate": 1,
+      "answer_accuracy": 1,
+      "format_compliance": 1,
+      "artifact_state_accuracy": 1,
+      "required_tool_completion": 1,
+      "constraint_violations": 0,
+      "agreement_with_full": 1,
+      "paired_quality_difference": {
+        "documents": 12,
+        "macro_mean": 0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "draws": 2000,
+        "seed": 20261013
+      },
+      "diagnostic_driver_success": null,
+      "status_counts": {
+        "ok": 36
+      },
+      "initial_history_modes": {
+        "compressed": 36
+      },
+      "request_history_modes": {
+        "compressed": 133
+      },
+      "request_history_reasons": {
+        "uncertain_evidence_preserved_with_offload": 121,
+        "task_stable_structured_selection": 12
+      },
+      "recovery_enabled_requests": 133,
+      "mean_initial_characters": 14890.666666666666,
+      "source_messages_retained": null,
+      "model_calls": 133,
+      "scripted_policy_steps": 0,
+      "business_tool_calls": 96,
+      "recovery_tool_calls": 1,
+      "prompt_tokens": 669352,
+      "completion_tokens": 4084,
+      "unknown_usage_requests": 0,
+      "latency": {
+        "samples": 36,
+        "mean_seconds": 3.031220230550389,
+        "p50_seconds": 3.2658951499906834,
+        "p95_seconds": 3.8192890499776695
+      },
+      "quality_status": "pilot_only_not_certified",
+      "total_token_reduction": 0.8554962250567824,
+      "cache_hit_tokens": 472576,
+      "cache_miss_tokens": 196776,
+      "completion_tokens_with_cache_partition": 4084,
+      "cache_partition_invalid_or_missing_requests": 0,
+      "cache_hit_fraction": 0.706020150832447,
+      "estimated_usd": 0.033384528,
+      "pricing": "fixed-rate repricing of reported usage; not an invoice",
+      "fresh_read_completed": 36,
+      "write_transform_rejected": 0
+    }
+  ],
+  "comparisons": {
+    "total_token_reduction": 0.8554962250567824,
+    "fixed_reference_cost_reduction": 0.8439331894272747,
+    "mean_latency_ratio": 0.7834584716719807,
+    "p95_latency_ratio": 0.7727773921246952,
+    "p95_target": 1.15,
+    "p95_target_passed": true,
+    "quality_difference": 0
+  },
+  "compressed_subset": [
+    {
+      "mode": "context_fast",
+      "episodes": 36,
+      "base_scenarios": 12,
+      "complete_episodes": 36,
+      "episode_success_rate": 1,
+      "all_checkpoints_in_compressed_episodes": 36,
+      "actually_compressed_checkpoints": 36,
+      "compressed_checkpoint_success_rate": 1,
+      "compressed_episode_checkpoint_success_rate": 1,
+      "matching_full_checkpoint_success_rate": 1,
+      "matching_full_episode_success_rate": 1,
+      "paired_quality_difference": {
+        "documents": 12,
+        "macro_mean": 0,
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "draws": 2000,
+        "seed": 20261013
+      },
+      "total_tokens": 673436,
+      "matching_full_total_tokens": 4660335,
+      "total_token_reduction": 0.8554962250567824,
+      "interpretation": "post-selection diagnostic; includes failures and all calls; not a population accuracy claim"
+    }
+  ],
+  "quality_scope": "reused synthetic templates; repetitions are not new independent tasks"
+}

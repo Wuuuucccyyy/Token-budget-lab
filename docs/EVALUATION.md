@@ -1,5 +1,7 @@
 # 当前评测协议
 
+本页记录自带 agent 的 v0.12 三组协议。LangChain 的同图开关协议、字段范围与条件完成检查在 [LANGCHAIN.md](LANGCHAIN.md) 中声明，该框架的独立结果见 [LangChain 接入评测](../results/langchain/REPORT.md)。两种运行器的质量、token 与延迟不混合统计。
+
 评测以完整任务正确性为首要指标，再比较全部模型调用的 token、缓存分项估算费用及端到端耗时。
 
 ## 当前三组与数据

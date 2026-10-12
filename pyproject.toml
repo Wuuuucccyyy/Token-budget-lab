@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "token-budget-lab"
-version = "0.12.0"
+version = "0.13.1"
 description = "Embedded context compression, evidence recovery and execution checks for Python agents"
 requires-python = ">=3.10"
 authors = [{name = "Wuuuucccyyy"}]
@@ -16,3 +16,4 @@ include = ["token_budget_lab*"]
 
 [project.optional-dependencies]
 tokenizer = ["tiktoken>=0.8,<1"]
+langchain = ["langchain>=1.4.4,<2"]

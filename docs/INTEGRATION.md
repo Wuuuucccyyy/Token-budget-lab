@@ -1,5 +1,7 @@
 # Python 宿主接入
 
+LangChain 的 `create_agent` 中间件接口见 [LANGCHAIN.md](LANGCHAIN.md)。以下接口用于自带 Python 运行器；两者共用归档、上下文筛选和已声明的数值来源规则。
+
 核心接口从 `token_budget_lab` 导入。宿主负责用户身份、完整消息、模型 transport、工具 schema 与实际 handler；插件只处理发送视图、证据恢复和明确声明的检查。
 
 ## 模型与工具

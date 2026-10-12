@@ -1,0 +1,19 @@
+[
+  {
+    "episode_id": "lookup-009-r03",
+    "mode": "context_fast",
+    "tool": "context_read",
+    "source_id": "S107-e4c68b02f4a4",
+    "pointer": "/events/37/status_code",
+    "handler_invoked": false,
+    "result": {
+      "source_id": "S107-e4c68b02f4a4",
+      "pointer": "/events/37/status_code",
+      "offset": 0,
+      "text": "503",
+      "total_characters": 3,
+      "partial": false,
+      "next_offset": null
+    }
+  }
+]

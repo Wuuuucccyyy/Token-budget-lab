@@ -1,4 +1,5 @@
 """Embedded history compression and evidence recovery for Python agents."""
+__version__ = '0.13.1'
 from .action_contract import ActionContract, RequiredAction
 from .context_plugin import ContextPlugin
 from .memory import HistoryArchive

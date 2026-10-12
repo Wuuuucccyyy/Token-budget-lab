@@ -1,0 +1,18 @@
+{
+  "data": "data/locator_tasks.json",
+  "arms": ["full", "context_fast"],
+  "repeats": 3,
+  "seed": 20261013,
+  "max_steps": 10,
+  "max_calls": 720,
+  "budget_characters": 9000,
+  "offload_threshold": 1800,
+  "offload_tools": ["read_log"],
+  "model": "deepseek-flash",
+  "max_tokens": 1024,
+  "timeout": 120,
+  "declare_write_arguments": true,
+  "conditional_completion": true,
+  "usd_per_million": {"hit": 0.003, "miss": 0.15, "output": 0.6},
+  "latency_target_p95_ratio": 1.15
+}

@@ -2,7 +2,7 @@
 
 [![tests](https://github.com/Wuuuucccyyy/Token-budget-lab/actions/workflows/test.yml/badge.svg)](https://github.com/Wuuuucccyyy/Token-budget-lab/actions/workflows/test.yml)
 
-用于 Python agent 的嵌入式上下文插件：完整保存历史，将大工具结果外置，按当前任务恢复必要证据，并检查用户指定操作是否实际执行。目标是优先保持任务正确率，再减少完整任务的 token 消耗、实际费用和耗时。
+用于 Python agent 的嵌入式上下文插件，可通过自带运行器或 LangChain 中间件接入：完整保存历史，将大工具结果外置，按当前任务恢复必要证据，并检查用户指定操作是否实际执行。目标是优先保持任务正确率，再减少完整任务的 token 消耗、实际费用和耗时。
 
 ## 当前实现
 
@@ -17,6 +17,7 @@
 | `eager_evidence` | 按已声明的需求直送实际读取的短原文字段，减少额外恢复请求 |
 | `HistoricalWriteGuard` | 针对已声明的配置字段，核验历史快照、截止日期及数值运算 |
 | `run_agent` | 将插件接到模型调用和实际业务工具之间，限制恢复循环并累计全部调用成本 |
+| `TokenBudgetMiddleware` | 在同一个 LangChain agent 中切换上下文优化，保留规范历史、实际工具凭据、写入字段权限及条件完成要求 |
 
 宿主保留完整消息，插件只改变发送给模型的视图。默认仅外置超过 1,800 字符的 `read_log` 结果；9,000 字符为软阈值。配置、订单、报告和检查结果直接保留。来源恢复不会重新执行业务工具，也不能替代用户明确要求的本轮读取。
 
@@ -80,7 +81,21 @@ finally:
 
 `transport(messages, tools)` 返回标准 assistant 消息及实际 usage；`tool_handlers` 执行宿主注册的业务操作。合同由宿主明确声明，尚未提供通用自然语言自动提取。完整接入见 [接口说明](docs/INTEGRATION.md)。
 
-## 当前验证
+## 接入 LangChain
+
+v0.13.1 提供可选的 LangChain 适配。安装后可运行默认不请求 API 的接入示例：
+
+```bash
+python -m pip install ".[langchain]" -c configs/langchain_constraints.txt
+python examples/langchain_agent.py
+python examples/langchain_agent.py --without-plugin
+```
+
+同一个 `create_agent` 图通过 `TokenBudgetContext.enabled` 开关上下文优化，业务工具和执行、数值、条件授权检查保持相同。支持同步与异步调用；第一版文本工具接口、字段权限、条件操作与会话管理见 [LangChain 接入](docs/LANGCHAIN.md)。
+
+完整 LangChain 对照使用同一个 agent、十二类任务各重复三次，两组均通过 36/36，最终答案全部一致。插件总 token 减少 85.5%，平均完整任务耗时由 3.869 秒降至 3.031 秒，P95 由 4.942 秒降至 3.819 秒。本轮共 265 次真实请求，18 项接入测试与 103 项核心测试通过。全部任务、请求、来源核对及前期诊断成本见 [LangChain 接入评测](results/langchain/REPORT.md)。这些合成模板仍不足以保证任意业务任务近乎无损。
+
+## 自带 agent 验证
 
 v0.12 使用十二个冻结的长历史合成模板，各重复三次，三组共 432 次真实 DeepSeek 请求。三组采用相同执行、写入与条件授权、同样十步上限；按需恢复与字段直送分开对照。条件题首次只声明必需读取，实际读取后才确定允许的分支。任务成功同时要求答案、文件状态、实际操作和最终回答正确完成。
 
@@ -127,4 +142,4 @@ docs/               架构、接口、代码说明与改进路线
 tests/              当前插件的回归测试
 ```
 
-目前通过 Python 宿主显式接入，尚未提供 MCP、LangChain 自动适配或 PyPI 发布。
+目前提供 Python 宿主和 LangChain 中间件接入，尚未提供 MCP、skill 封装或 PyPI 发布。

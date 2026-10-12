@@ -14,6 +14,9 @@
 | `write_transform.py` | 本轮实际读取绑定、字段选择、短原文投影、Decimal 重算与写入拦截 |
 | `transform_tasks.py` | 冻结任务措辞到显式数值规则的有限适配，不读取评分标签 |
 | `memory_agent.py` | 模型请求、工具分发、循环预算、结束检查与累计 usage |
+| `langchain_model.py` | 文本消息与工具 ID 的转换、现有 DeepSeek transport 的 BaseChatModel 包装 |
+| `langchain_adapter.py` | LangChain 请求视图、跨线程归档、实际执行凭据、字段权限与条件完成 |
+| `langchain_experiment.py` | 单个 create_agent 图的开关对照、独立沙盒与完整调用核算 |
 | `cache_cost.py` | 验证缓存分项，再按固定参考价格估算费用 |
 | `action_tasks.py` / `tool_tasks.py` | 冻结合成任务与真实本地文件工具沙盒 |
 | `action_experiment.py` | 当前三组对照、十步上限、按模板聚类的重复运行与全部日志 |
@@ -43,6 +46,10 @@ conditional_read_only 根据实际来源选择建立动作授权，branch_state 
 模型准备输出最终答案时，宿主检查所有必需操作。缺少凭据会追加遗漏反馈，继续消耗原有步骤预算；不会给未完成任务生成成功状态。
 
 ## 评测隔离
+
+LangChain 的 before_agent 根据调用上下文建立独立状态。wrap_model_call 使用完整 graph state 生成压缩视图，wrap_tool_call 在实际 handler 前后核验授权并绑定真实读取；after_model 检查适用的必需操作，after_agent 汇总调用并关闭归档工作线程。首版不从任意自然语言自动生成核验规则。
+
+字段权限限制的是明确声明的工具参数名，数值规则限制的是来源与变换，两者分别执行。条件操作只有在实际来源为 missing/ambiguous 时豁免；不把豁免记作执行完成。评分仍单独检查文件状态、最终答案和模型是否尝试了禁止写入。
 
 推理输入是用户要求、原始历史、真实业务返回以及结构化操作要求。答案、目标文件状态和评分标签只在执行结束后进入 assess。测试用脚本 transport 用于协议与文件行为验证，其结果不计作大模型准确率。
 

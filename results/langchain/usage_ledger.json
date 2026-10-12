@@ -1,0 +1,51 @@
+{
+  "package_version": "0.13.1",
+  "primary_journal_sha256": "53b027ebce3296c7b7be8d8dbe1001390fe9d305c1501bfab35c48596b56aee4",
+  "primary_attempts": 265,
+  "primary_known_usage_responses": 265,
+  "primary_completed_tasks": 72,
+  "primary_reference_cost": {
+    "cache_hit_tokens": 3785600,
+    "cache_miss_tokens": 1539918,
+    "completion_tokens_with_cache_partition": 8253,
+    "cache_partition_invalid_or_missing_requests": 0,
+    "cache_hit_fraction": 0.7108416495822566,
+    "estimated_usd": 0.24729629999999997,
+    "pricing": "fixed-rate repricing of reported usage; not an invoice"
+  },
+  "previous_native_research_attempts": 1379,
+  "previous_native_reference_cost": 0.8566864259999998,
+  "integration_diagnostics": [
+    {
+      "kind": "integration_diagnostic",
+      "package_version": "0.13.0",
+      "attempts": 213,
+      "known_usage_responses": 212,
+      "unknown_usage_attempts": 1,
+      "known_fixed_reference_subtotal_usd": 0.198181068,
+      "total_estimated_usd": null,
+      "completed_tasks": 57,
+      "primary_quality_evidence": false,
+      "journal_sha256": "027313ad813649146ec17fad4ce18928f1b6542cff1239bc44944f1933828be5"
+    },
+    {
+      "kind": "balance_failure",
+      "package_version": "0.13.1",
+      "attempts": 1,
+      "known_usage_responses": 0,
+      "unknown_usage_attempts": 1,
+      "known_fixed_reference_subtotal_usd": 0.0,
+      "total_estimated_usd": null,
+      "completed_tasks": 0,
+      "primary_quality_evidence": false,
+      "journal_sha256": "0b9ee8c8ddfea34d8fc90f21730ca634ea47ad3d0f6fd630df26268e0d2a5ab2"
+    }
+  ],
+  "total_research_attempts": 1858,
+  "total_unknown_usage_attempts": 2,
+  "known_fixed_reference_subtotal_usd": 1.3021637939999997,
+  "total_research_estimated_usd": null,
+  "actual_invoice": null,
+  "automatic_retries": false,
+  "all_attempts_retained": true
+}

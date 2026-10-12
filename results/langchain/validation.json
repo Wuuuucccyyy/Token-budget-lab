@@ -1,0 +1,27 @@
+{
+  "package_version": "0.13.1",
+  "source_score_audits": 72,
+  "actual_source_projections": 33,
+  "actual_conditional_branches": 30,
+  "numeric_writes_recomputed": 60,
+  "recovered_sources": 1,
+  "runtime_source_files": 23,
+  "runtime_frozen": true,
+  "framework_versions": {
+    "langchain": "1.4.4",
+    "langchain-core": "1.6.10",
+    "langgraph": "1.2.14"
+  },
+  "single_compiled_graph": true,
+  "shared_rules_all_arms": true,
+  "strict_forbidden_attempt_scoring_unchanged": true,
+  "core_tests": 103,
+  "langchain_tests": 18,
+  "total_tests": 121,
+  "live_primary_attempts": 265,
+  "wheel_sha256": "30e3024b476ba0fb4362785c8e9da8c852f164198aaaf6d7e14c8064df70ebb9",
+  "wheel_matches_pre_execution_sources": true,
+  "isolated_installed_optional_imports": true,
+  "local_python": "3.11",
+  "core_standard_library_install_retained": true
+}

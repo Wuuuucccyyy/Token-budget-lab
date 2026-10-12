@@ -1,0 +1,434 @@
+[
+  {
+    "episode_id": "lookup-009-r01",
+    "mode": "full",
+    "selection_status": "unique",
+    "actions_authorized": true,
+    "source_id": "S107-bc0efe287bfc",
+    "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_a"
+    },
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-009-r01",
+    "mode": "context_fast",
+    "selection_status": "unique",
+    "actions_authorized": true,
+    "source_id": "S107-7766eca0e860",
+    "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_a"
+    },
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-011-r03",
+    "mode": "full",
+    "selection_status": "missing",
+    "actions_authorized": false,
+    "source_id": "S107-be0b7572e119",
+    "result_sha256": "9e206a303390b11fac0eb52db751d659e5a1b1a42338f748801adcd186996861",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_b"
+    },
+    "refusal_answer": "UNKNOWN",
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-011-r03",
+    "mode": "context_fast",
+    "selection_status": "missing",
+    "actions_authorized": false,
+    "source_id": "S107-0c9b756eec0a",
+    "result_sha256": "9e206a303390b11fac0eb52db751d659e5a1b1a42338f748801adcd186996861",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_b"
+    },
+    "refusal_answer": "UNKNOWN",
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-011-r01",
+    "mode": "full",
+    "selection_status": "missing",
+    "actions_authorized": false,
+    "source_id": "S107-0e00b21f0447",
+    "result_sha256": "9e206a303390b11fac0eb52db751d659e5a1b1a42338f748801adcd186996861",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_b"
+    },
+    "refusal_answer": "UNKNOWN",
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-011-r01",
+    "mode": "context_fast",
+    "selection_status": "missing",
+    "actions_authorized": false,
+    "source_id": "S107-1f2835afe2b5",
+    "result_sha256": "9e206a303390b11fac0eb52db751d659e5a1b1a42338f748801adcd186996861",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_b"
+    },
+    "refusal_answer": "UNKNOWN",
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-008-r03",
+    "mode": "full",
+    "selection_status": "unique",
+    "actions_authorized": true,
+    "source_id": "S107-771ceaf76eef",
+    "result_sha256": "17fe7d699153417e061c725be78a5f1626f995268abf36208b1938d3d8b73dc1",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-008-r03",
+    "mode": "context_fast",
+    "selection_status": "unique",
+    "actions_authorized": true,
+    "source_id": "S107-c621f26d6d6d",
+    "result_sha256": "17fe7d699153417e061c725be78a5f1626f995268abf36208b1938d3d8b73dc1",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-010-r03",
+    "mode": "full",
+    "selection_status": "ambiguous",
+    "actions_authorized": false,
+    "source_id": "S107-38f3e3d27f09",
+    "result_sha256": "d219064c7a36e3118bc61ffbbef7240aeb7e0f0cea2fbafc3e6adbbf975a742f",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_b"
+    },
+    "refusal_answer": "UNKNOWN",
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-010-r03",
+    "mode": "context_fast",
+    "selection_status": "ambiguous",
+    "actions_authorized": false,
+    "source_id": "S107-32daf06e5f69",
+    "result_sha256": "d219064c7a36e3118bc61ffbbef7240aeb7e0f0cea2fbafc3e6adbbf975a742f",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_b"
+    },
+    "refusal_answer": "UNKNOWN",
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-009-r03",
+    "mode": "context_fast",
+    "selection_status": "unique",
+    "actions_authorized": true,
+    "source_id": "S107-e4c68b02f4a4",
+    "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_a"
+    },
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-009-r03",
+    "mode": "full",
+    "selection_status": "unique",
+    "actions_authorized": true,
+    "source_id": "S107-84c8be759797",
+    "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_a"
+    },
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-010-r02",
+    "mode": "full",
+    "selection_status": "ambiguous",
+    "actions_authorized": false,
+    "source_id": "S107-8afbc912a1ff",
+    "result_sha256": "d219064c7a36e3118bc61ffbbef7240aeb7e0f0cea2fbafc3e6adbbf975a742f",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_b"
+    },
+    "refusal_answer": "UNKNOWN",
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-010-r02",
+    "mode": "context_fast",
+    "selection_status": "ambiguous",
+    "actions_authorized": false,
+    "source_id": "S107-e83542ed1ab4",
+    "result_sha256": "d219064c7a36e3118bc61ffbbef7240aeb7e0f0cea2fbafc3e6adbbf975a742f",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_b"
+    },
+    "refusal_answer": "UNKNOWN",
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-010-r01",
+    "mode": "context_fast",
+    "selection_status": "ambiguous",
+    "actions_authorized": false,
+    "source_id": "S107-71190f7da2f8",
+    "result_sha256": "d219064c7a36e3118bc61ffbbef7240aeb7e0f0cea2fbafc3e6adbbf975a742f",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_b"
+    },
+    "refusal_answer": "UNKNOWN",
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-010-r01",
+    "mode": "full",
+    "selection_status": "ambiguous",
+    "actions_authorized": false,
+    "source_id": "S107-f98143486c41",
+    "result_sha256": "d219064c7a36e3118bc61ffbbef7240aeb7e0f0cea2fbafc3e6adbbf975a742f",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_b"
+    },
+    "refusal_answer": "UNKNOWN",
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-007-r02",
+    "mode": "context_fast",
+    "selection_status": "unique",
+    "actions_authorized": true,
+    "source_id": "S107-1c23df2093af",
+    "result_sha256": "072249201b3016f9b29f6560969223819c1e0a0b07292f34a4d2244b8e19b895",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-007-r02",
+    "mode": "full",
+    "selection_status": "unique",
+    "actions_authorized": true,
+    "source_id": "S107-8f6950149030",
+    "result_sha256": "072249201b3016f9b29f6560969223819c1e0a0b07292f34a4d2244b8e19b895",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-008-r01",
+    "mode": "full",
+    "selection_status": "unique",
+    "actions_authorized": true,
+    "source_id": "S107-d685bfce2e6a",
+    "result_sha256": "17fe7d699153417e061c725be78a5f1626f995268abf36208b1938d3d8b73dc1",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-008-r01",
+    "mode": "context_fast",
+    "selection_status": "unique",
+    "actions_authorized": true,
+    "source_id": "S107-904f58c617ae",
+    "result_sha256": "17fe7d699153417e061c725be78a5f1626f995268abf36208b1938d3d8b73dc1",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-011-r02",
+    "mode": "full",
+    "selection_status": "missing",
+    "actions_authorized": false,
+    "source_id": "S107-104603d697a5",
+    "result_sha256": "9e206a303390b11fac0eb52db751d659e5a1b1a42338f748801adcd186996861",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_b"
+    },
+    "refusal_answer": "UNKNOWN",
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-011-r02",
+    "mode": "context_fast",
+    "selection_status": "missing",
+    "actions_authorized": false,
+    "source_id": "S107-a539140f8f7d",
+    "result_sha256": "9e206a303390b11fac0eb52db751d659e5a1b1a42338f748801adcd186996861",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_b"
+    },
+    "refusal_answer": "UNKNOWN",
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-008-r02",
+    "mode": "context_fast",
+    "selection_status": "unique",
+    "actions_authorized": true,
+    "source_id": "S107-634881b141d9",
+    "result_sha256": "17fe7d699153417e061c725be78a5f1626f995268abf36208b1938d3d8b73dc1",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-008-r02",
+    "mode": "full",
+    "selection_status": "unique",
+    "actions_authorized": true,
+    "source_id": "S107-fb23760218b1",
+    "result_sha256": "17fe7d699153417e061c725be78a5f1626f995268abf36208b1938d3d8b73dc1",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_c"
+    },
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-007-r01",
+    "mode": "full",
+    "selection_status": "unique",
+    "actions_authorized": true,
+    "source_id": "S107-8684f7fc6cca",
+    "result_sha256": "072249201b3016f9b29f6560969223819c1e0a0b07292f34a4d2244b8e19b895",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-007-r01",
+    "mode": "context_fast",
+    "selection_status": "unique",
+    "actions_authorized": true,
+    "source_id": "S107-dac4a46dd0e9",
+    "result_sha256": "072249201b3016f9b29f6560969223819c1e0a0b07292f34a4d2244b8e19b895",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-007-r03",
+    "mode": "context_fast",
+    "selection_status": "unique",
+    "actions_authorized": true,
+    "source_id": "S107-8fa59289ab68",
+    "result_sha256": "072249201b3016f9b29f6560969223819c1e0a0b07292f34a4d2244b8e19b895",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-007-r03",
+    "mode": "full",
+    "selection_status": "unique",
+    "actions_authorized": true,
+    "source_id": "S107-e7a1003909a7",
+    "result_sha256": "072249201b3016f9b29f6560969223819c1e0a0b07292f34a4d2244b8e19b895",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_d"
+    },
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-009-r02",
+    "mode": "full",
+    "selection_status": "unique",
+    "actions_authorized": true,
+    "source_id": "S107-34970d2c521f",
+    "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_a"
+    },
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  },
+  {
+    "episode_id": "lookup-009-r02",
+    "mode": "context_fast",
+    "selection_status": "unique",
+    "actions_authorized": true,
+    "source_id": "S107-eef69265cdf9",
+    "result_sha256": "3ffe692d32091ffb8e95cbf647e6b06c3aaf479a532130f883270ad58be406d5",
+    "read_tool": "read_log",
+    "read_arguments": {
+      "name": "scan_a"
+    },
+    "actual_handler_verified": true,
+    "branch_recomputed": true
+  }
+]

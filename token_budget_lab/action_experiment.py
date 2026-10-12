@@ -19,6 +19,7 @@ from .memory_agent import DeepSeekChat, run_agent
 from .tool_experiment import summarize
 from .tool_tasks import TOOLS, ToolSandbox, assess
 from .transform_tasks import guard_from_query
+from . import __version__
 
 
 ARMS = ['full', 'full_contract', 'context', 'context_contract']
@@ -60,7 +61,7 @@ def plan(config):
         config={**config, 'modes': config['arms'], 'backend': 'deepseek'},
         episode_ids=[e['id'] for e in episodes], checkpoints=len(episodes),
         independent_case_templates=len(bundle['episodes']),repeats=repeats,
-        package_version='0.12.0',
+        package_version=__version__,
         expected_episode_checkpoints={e['id']: 1 for e in episodes},
         data_sha256=hashlib.sha256(path.read_bytes()).hexdigest(), code_sha256=code_hash(),
         dataset_source=bundle['source'], contract_source='host structured current-user intent; no automatic natural-language parsing; no answer/state labels',
