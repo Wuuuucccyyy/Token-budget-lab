@@ -27,6 +27,27 @@ finally:
 
 相同用户会话应追加规范历史，不能用插件输出的压缩视图覆盖 `messages`。单独调用 `before_model` 时，宿主还需注册 `plugin.context_tools`、分发 `invoke_context` 并追加完整调用链。
 
+## 精准证据定位
+
+v0.9 默认 `evidence_mode="structured"`。已知来源与事件标识时直接调用：
+
+```python
+evidence = plugin.invoke_context("user", "conversation", "context_find", {
+    "source_id": source_id,
+    "match_key": "event",
+    "match_value": "scan_d-43",
+    "fields": ["status_code"],
+})
+```
+
+返回 matches、match_count、ambiguous 和 has_more。每个匹配包含实际 JSON pointer、字段路径及字段值。默认最多三个匹配，仍报告总数。重复 event 不自动选择；找不到是指定完整 JSON 来源中的精确匹配结果，不能代替全局信息不存在的判断。
+
+匹配值目前为字符串。小于等于 1,000 字符的事件对象完整返回；更大的对象返回指定字段及路径，超过响应预算的字段使用 context_read 再恢复，不返回伪完整 JSON。
+
+`context_search(query)` 对明确事件/id 返回结构化匹配，对自由文本返回命中中心片段及原文偏移。当前搜索参数仍只有 query、limit，不接受 source_id；已知 JSON 来源使用 context_find。单任务工具定义固定，来源 ID 必须来自当前会话的归档入口。
+
+需要复查原恢复行为时显式设置 `evidence_mode="lexical"`，该对照不提供 context_find。
+
 ## 本轮必需操作
 
 ```python

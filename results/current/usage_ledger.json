@@ -1,20 +1,29 @@
 {
-  "journal_sha256": "5d79a02341af5e7fe9b12fd8d4b818a89aaa74019d0236bc479dc251708afd75",
-  "total_attempts": 109,
-  "known_responses": 109,
+  "journal_sha256": "da2ff5065eecfadb95b439dc8431298e4745ee661b08476750a361fc457a41cc",
+  "total_attempts": 172,
+  "known_responses": 172,
   "unknown_usage_attempts": 0,
   "max_steps": 6,
-  "paid_call_cap": 144,
-  "includes_failures": true,
+  "paid_call_cap": 216,
   "automatic_retries": false,
+  "includes_all_failures": true,
   "research_cost": {
-    "cache_hit_tokens": 1443456,
-    "cache_miss_tokens": 513619,
-    "completion_tokens_with_cache_partition": 4598,
+    "cache_hit_tokens": 1633408,
+    "cache_miss_tokens": 583909,
+    "completion_tokens_with_cache_partition": 8649,
     "cache_partition_invalid_or_missing_requests": 0,
-    "cache_hit_fraction": 0.7375578350344264,
-    "estimated_usd": 0.084132018,
+    "cache_hit_fraction": 0.7366596657131118,
+    "estimated_usd": 0.09767597399999998,
     "pricing": "fixed-rate repricing of reported usage; not an invoice"
   },
-  "actual_invoice": null
+  "actual_invoice": null,
+  "protocol_diagnostic": {
+    "api_attempts": 169,
+    "unknown_usage_attempts": 0,
+    "fixed_reference_research_cost": 0.09792775799999999,
+    "journal_sha256": "d13cc35cba0302399ddadb28bb3e0975c23fd6c2ece0d22b85afe6adb0ef7af0",
+    "reason": "conditional obligations exposed expected write branch; scene labels present in request IDs; not primary quality evidence"
+  },
+  "total_research_attempts_including_diagnostic": 341,
+  "total_fixed_reference_research_cost": 0.19560373199999997
 }

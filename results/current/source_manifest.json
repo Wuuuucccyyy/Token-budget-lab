@@ -1,0 +1,24 @@
+{
+  "code_sha256": "220d5a1955f3429fa7f0a2ba3c43f6e71701b9478268b135a49a7198d2291bd4",
+  "files": {
+    "action_contract.py": "d775d7e7750757287e377156bd60b17779f37b8eb72e9cf37f45120fc140fd25",
+    "action_experiment.py": "2b639fab486e70a87b184f841333e0a81039a37152fd9dab4f54b9245b293095",
+    "action_tasks.py": "66d0c49f409211c9b95f490e6f6b53581cca139b87f35d4a94a0bc14045d8d88",
+    "analysis.py": "214a4e7658d5997cb7a1e0c5b93b2341ad49d62b04bcb793a22d31faa90c1622",
+    "cache_cost.py": "63ca5a0f8b1d41a472127c0c3c7fa988f516ddd4febe11152509213002932fb1",
+    "context_plugin.py": "574e7be4c547004dd0a63dbf6ea9710218b33db2e2296163eee9f998c058e59e",
+    "deepseek.py": "8a8a69e605bd0880969dbb1281c9ef068279bab8d767684b17ea0acfc4465d8e",
+    "evidence_locator.py": "cd6c9e3061a673f0d3540febe00cd43d6da97258280d2571bbd0ad2ea098444d",
+    "experiment.py": "b1cf090b3165368e73e874cc028d4ee2676b1b22f304e6d213bcbffeabd0bc69",
+    "history_evidence.py": "a086fcacaf95c7cde681b08d7af7b690d00c9c2610343c73a440e604fddc92ed",
+    "locator_tasks.py": "cf01dd15e425946d1ff62f34b99b7c51bea81109b4b780a1159b25abfc90804c",
+    "memory.py": "93a8f5ea754a578b6a92cf2c5bd722617b207c8ad6cf97c7b117deda488abd58",
+    "memory_agent.py": "fb3c115a5f532dcbc2a04fda21f0e9282e65dcb02258b0d369a2fe7b36fb0027",
+    "provenance.py": "f90cae0a2a548b7856e0e1af611af42f6ac6ce142fb77aa1acc9c28ab9050f69",
+    "retrieval.py": "dcfc38e739c993e5c3e83ffb783d012eb352f3d065f98ec6c6671c3f68c28f95",
+    "tool_experiment.py": "93c05dfb7c04b50bc7f15cd82c59d16844f151c7b45c313ad03042b28a7fc3ae",
+    "tool_tasks.py": "a275e584ab122fb4ca6dea70b35c7d2526469fdca98b05e2b9a7d46cccf5437b",
+    "__init__.py": "fa7411f42c5c132784a048e81ff9f4a698e63f2b63fede2d89013392a5d573be"
+  },
+  "note": "Exact package bytes frozen before calls; frozen full copies retained in the private run directory"
+}

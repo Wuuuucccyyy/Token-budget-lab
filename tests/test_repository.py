@@ -14,5 +14,5 @@ class RepositoryTests(unittest.TestCase):
                 self.assertTrue((document.parent/target.split('#',1)[0]).exists(), f'{document}: {target}')
         results = json.loads((root/'results/current/metrics.json').read_text(encoding='utf-8'))
         self.assertEqual(sum(r['model_calls'] for r in results['runs']), results['actual_api_calls'])
-        self.assertEqual(len(results['runs']), 4)
-        self.assertTrue(all(r['checkpoints']==6 for r in results['runs']))
+        self.assertEqual([r['mode'] for r in results['runs']], results['arms'])
+        self.assertTrue(all(r['checkpoints']==results['case_count'] for r in results['runs']))

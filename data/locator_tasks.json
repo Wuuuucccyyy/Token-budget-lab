@@ -1,0 +1,4719 @@
+{
+  "schema_version": "locator-tasks-v1",
+  "seed": 20261012,
+  "source": "six reused diagnostics plus six controlled lookup boundary cases; synthetic templates, not an independent natural benchmark",
+  "episodes": [
+    {
+      "id": "lookup-001",
+      "kind": "tool_execution",
+      "split": "test",
+      "initial_config": {
+        "module": "Alpha",
+        "timeout_ms": 239,
+        "quota": 58,
+        "observed_at": "2026-10-01"
+      },
+      "initial_orders": [
+        {
+          "quantity": 1,
+          "price": "1.25"
+        },
+        {
+          "quantity": 2,
+          "price": "1.32"
+        },
+        {
+          "quantity": 3,
+          "price": "1.39"
+        },
+        {
+          "quantity": 4,
+          "price": "1.46"
+        },
+        {
+          "quantity": 1,
+          "price": "1.53"
+        },
+        {
+          "quantity": 2,
+          "price": "1.60"
+        },
+        {
+          "quantity": 3,
+          "price": "1.67"
+        },
+        {
+          "quantity": 4,
+          "price": "1.74"
+        },
+        {
+          "quantity": 1,
+          "price": "1.81"
+        },
+        {
+          "quantity": 2,
+          "price": "1.88"
+        },
+        {
+          "quantity": 3,
+          "price": "1.95"
+        },
+        {
+          "quantity": 4,
+          "price": "2.02"
+        },
+        {
+          "quantity": 1,
+          "price": "2.09"
+        },
+        {
+          "quantity": 2,
+          "price": "2.16"
+        }
+      ],
+      "setup": [
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_orders",
+          "arguments": {}
+        },
+        {
+          "change": "orders",
+          "items": [
+            {
+              "quantity": 1,
+              "price": "99.00"
+            }
+          ]
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1100,
+          "quota": 40,
+          "observed_at": "2026-09-10"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1119,
+          "quota": 41,
+          "observed_at": "2026-09-11"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1138,
+          "quota": 42,
+          "observed_at": "2026-09-12"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1157,
+          "quota": 43,
+          "observed_at": "2026-09-13"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1176,
+          "quota": 44,
+          "observed_at": "2026-09-14"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1195,
+          "quota": 45,
+          "observed_at": "2026-09-15"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1214,
+          "quota": 46,
+          "observed_at": "2026-09-16"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1233,
+          "quota": 47,
+          "observed_at": "2026-09-17"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1252,
+          "quota": 48,
+          "observed_at": "2026-09-18"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1271,
+          "quota": 49,
+          "observed_at": "2026-09-19"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_a"
+          }
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1290,
+          "quota": 50,
+          "observed_at": "2026-09-20"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1309,
+          "quota": 51,
+          "observed_at": "2026-09-21"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1328,
+          "quota": 52,
+          "observed_at": "2026-09-22"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1347,
+          "quota": 53,
+          "observed_at": "2026-09-23"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1366,
+          "quota": 54,
+          "observed_at": "2026-09-24"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1385,
+          "quota": 55,
+          "observed_at": "2026-09-25"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1404,
+          "quota": 56,
+          "observed_at": "2026-09-26"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1423,
+          "quota": 57,
+          "observed_at": "2026-09-27"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Alpha",
+          "timeout_ms": 1611,
+          "quota": 58,
+          "observed_at": "2026-10-05"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_b"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_c"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_d"
+          }
+        },
+        {
+          "tool": "read_report",
+          "arguments": {}
+        }
+      ],
+      "checkpoints": [
+        {
+          "query": "实际调用 read_log 读取 scan_c。在 events 数组查找 event=\"scan_c-37\" 的 status_code。将代码转为两位小数字符串作为 report.json 的 total，currency 用 USD，这是日志指标记录；实际运行 run_checks。最后 answer 只填两位小数。不改 config，不发送邮件。",
+          "answer": "503.00",
+          "timeout_ms": 1611,
+          "report": {
+            "total": "503.00",
+            "currency": "USD"
+          },
+          "required": [
+            "read_log",
+            "write_report",
+            "run_checks"
+          ]
+        }
+      ],
+      "base_id": "lookup-001",
+      "context_length": "long",
+      "log_events": 60,
+      "background_profile": "operational_records",
+      "diagnostic_source": "explicit fresh-read requirement",
+      "live_updates": [],
+      "request_actions": {
+        "required": [
+          {
+            "id": "fresh_read",
+            "tool": "read_log",
+            "arguments": {
+              "name": "scan_c"
+            }
+          },
+          {
+            "id": "write",
+            "tool": "write_report",
+            "after": [
+              "fresh_read"
+            ],
+            "result_matches": {
+              "written": true
+            }
+          },
+          {
+            "id": "check",
+            "tool": "run_checks",
+            "after": [
+              "write"
+            ],
+            "result_matches": {
+              "passed": true
+            }
+          }
+        ],
+        "before_tools": {
+          "write_config": [
+            "fresh_read"
+          ],
+          "write_report": [
+            "fresh_read"
+          ],
+          "run_checks": [
+            "write"
+          ]
+        }
+      },
+      "evaluation_group": "reused"
+    },
+    {
+      "id": "lookup-002",
+      "kind": "tool_execution",
+      "split": "test",
+      "initial_config": {
+        "module": "Alpha",
+        "timeout_ms": 362,
+        "quota": 44,
+        "observed_at": "2026-10-01"
+      },
+      "initial_orders": [
+        {
+          "quantity": 2,
+          "price": "1.28"
+        },
+        {
+          "quantity": 3,
+          "price": "1.35"
+        },
+        {
+          "quantity": 4,
+          "price": "1.42"
+        },
+        {
+          "quantity": 1,
+          "price": "1.49"
+        },
+        {
+          "quantity": 2,
+          "price": "1.56"
+        },
+        {
+          "quantity": 3,
+          "price": "1.63"
+        },
+        {
+          "quantity": 4,
+          "price": "1.70"
+        },
+        {
+          "quantity": 1,
+          "price": "1.77"
+        },
+        {
+          "quantity": 2,
+          "price": "1.84"
+        },
+        {
+          "quantity": 3,
+          "price": "1.91"
+        },
+        {
+          "quantity": 4,
+          "price": "1.98"
+        },
+        {
+          "quantity": 1,
+          "price": "2.05"
+        },
+        {
+          "quantity": 2,
+          "price": "2.12"
+        },
+        {
+          "quantity": 3,
+          "price": "2.19"
+        }
+      ],
+      "setup": [
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_orders",
+          "arguments": {}
+        },
+        {
+          "change": "orders",
+          "items": [
+            {
+              "quantity": 1,
+              "price": "99.00"
+            }
+          ]
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1101,
+          "quota": 40,
+          "observed_at": "2026-09-10"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1120,
+          "quota": 41,
+          "observed_at": "2026-09-11"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1139,
+          "quota": 42,
+          "observed_at": "2026-09-12"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1158,
+          "quota": 43,
+          "observed_at": "2026-09-13"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1177,
+          "quota": 44,
+          "observed_at": "2026-09-14"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1196,
+          "quota": 45,
+          "observed_at": "2026-09-15"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1215,
+          "quota": 46,
+          "observed_at": "2026-09-16"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1234,
+          "quota": 47,
+          "observed_at": "2026-09-17"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1253,
+          "quota": 48,
+          "observed_at": "2026-09-18"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1272,
+          "quota": 49,
+          "observed_at": "2026-09-19"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_a"
+          }
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1291,
+          "quota": 50,
+          "observed_at": "2026-09-20"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1310,
+          "quota": 51,
+          "observed_at": "2026-09-21"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1329,
+          "quota": 52,
+          "observed_at": "2026-09-22"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1348,
+          "quota": 53,
+          "observed_at": "2026-09-23"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1367,
+          "quota": 54,
+          "observed_at": "2026-09-24"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1386,
+          "quota": 55,
+          "observed_at": "2026-09-25"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1405,
+          "quota": 56,
+          "observed_at": "2026-09-26"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1424,
+          "quota": 57,
+          "observed_at": "2026-09-27"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Alpha",
+          "timeout_ms": 1524,
+          "quota": 44,
+          "observed_at": "2026-10-05"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_b"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_c"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_d"
+          }
+        },
+        {
+          "tool": "read_report",
+          "arguments": {}
+        }
+      ],
+      "checkpoints": [
+        {
+          "query": "实际调用 read_log 读取 scan_c。在 events 数组查找 event=\"scan_c-39\" 的 status_code。将代码转为两位小数字符串作为 report.json 的 total，currency 用 USD，这是日志指标记录；实际运行 run_checks。最后 answer 只填两位小数。不改 config，不发送邮件。",
+          "answer": "204.00",
+          "timeout_ms": 1524,
+          "report": {
+            "total": "204.00",
+            "currency": "USD"
+          },
+          "required": [
+            "read_log",
+            "write_report",
+            "run_checks"
+          ]
+        }
+      ],
+      "base_id": "lookup-002",
+      "context_length": "long",
+      "log_events": 60,
+      "background_profile": "operational_records",
+      "diagnostic_source": "explicit fresh-read requirement",
+      "live_updates": [],
+      "request_actions": {
+        "required": [
+          {
+            "id": "fresh_read",
+            "tool": "read_log",
+            "arguments": {
+              "name": "scan_c"
+            }
+          },
+          {
+            "id": "write",
+            "tool": "write_report",
+            "after": [
+              "fresh_read"
+            ],
+            "result_matches": {
+              "written": true
+            }
+          },
+          {
+            "id": "check",
+            "tool": "run_checks",
+            "after": [
+              "write"
+            ],
+            "result_matches": {
+              "passed": true
+            }
+          }
+        ],
+        "before_tools": {
+          "write_config": [
+            "fresh_read"
+          ],
+          "write_report": [
+            "fresh_read"
+          ],
+          "run_checks": [
+            "write"
+          ]
+        }
+      },
+      "evaluation_group": "reused"
+    },
+    {
+      "id": "lookup-003",
+      "kind": "tool_execution",
+      "split": "test",
+      "initial_config": {
+        "module": "Alpha",
+        "timeout_ms": 239,
+        "quota": 58,
+        "observed_at": "2026-10-01"
+      },
+      "initial_orders": [
+        {
+          "quantity": 1,
+          "price": "1.25"
+        },
+        {
+          "quantity": 2,
+          "price": "1.32"
+        },
+        {
+          "quantity": 3,
+          "price": "1.39"
+        },
+        {
+          "quantity": 4,
+          "price": "1.46"
+        },
+        {
+          "quantity": 1,
+          "price": "1.53"
+        },
+        {
+          "quantity": 2,
+          "price": "1.60"
+        },
+        {
+          "quantity": 3,
+          "price": "1.67"
+        },
+        {
+          "quantity": 4,
+          "price": "1.74"
+        },
+        {
+          "quantity": 1,
+          "price": "1.81"
+        },
+        {
+          "quantity": 2,
+          "price": "1.88"
+        },
+        {
+          "quantity": 3,
+          "price": "1.95"
+        },
+        {
+          "quantity": 4,
+          "price": "2.02"
+        },
+        {
+          "quantity": 1,
+          "price": "2.09"
+        },
+        {
+          "quantity": 2,
+          "price": "2.16"
+        }
+      ],
+      "setup": [
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_orders",
+          "arguments": {}
+        },
+        {
+          "change": "orders",
+          "items": [
+            {
+              "quantity": 1,
+              "price": "99.00"
+            }
+          ]
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1100,
+          "quota": 40,
+          "observed_at": "2026-09-10"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1119,
+          "quota": 41,
+          "observed_at": "2026-09-11"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1138,
+          "quota": 42,
+          "observed_at": "2026-09-12"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1157,
+          "quota": 43,
+          "observed_at": "2026-09-13"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1176,
+          "quota": 44,
+          "observed_at": "2026-09-14"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1195,
+          "quota": 45,
+          "observed_at": "2026-09-15"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1214,
+          "quota": 46,
+          "observed_at": "2026-09-16"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1233,
+          "quota": 47,
+          "observed_at": "2026-09-17"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1252,
+          "quota": 48,
+          "observed_at": "2026-09-18"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1271,
+          "quota": 49,
+          "observed_at": "2026-09-19"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_a"
+          }
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1290,
+          "quota": 50,
+          "observed_at": "2026-09-20"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1309,
+          "quota": 51,
+          "observed_at": "2026-09-21"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1328,
+          "quota": 52,
+          "observed_at": "2026-09-22"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1347,
+          "quota": 53,
+          "observed_at": "2026-09-23"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1366,
+          "quota": 54,
+          "observed_at": "2026-09-24"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1385,
+          "quota": 55,
+          "observed_at": "2026-09-25"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1404,
+          "quota": 56,
+          "observed_at": "2026-09-26"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1423,
+          "quota": 57,
+          "observed_at": "2026-09-27"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Alpha",
+          "timeout_ms": 1611,
+          "quota": 58,
+          "observed_at": "2026-10-05"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_b"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_c"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_d"
+          }
+        },
+        {
+          "tool": "read_report",
+          "arguments": {}
+        }
+      ],
+      "checkpoints": [
+        {
+          "query": "文件在历史读取后已由外部更新，旧结果不能替代本轮读取。实际调用 read_log 读取 scan_c。在 events 数组查找 event=\"scan_c-37\" 的 status_code。将代码转为两位小数字符串作为 report.json 的 total，currency 用 USD，这是日志指标记录；实际运行 run_checks。最后 answer 只填两位小数。不改 config，不发送邮件。",
+          "answer": "206.00",
+          "timeout_ms": 1611,
+          "report": {
+            "total": "206.00",
+            "currency": "USD"
+          },
+          "required": [
+            "read_log",
+            "write_report",
+            "run_checks"
+          ]
+        }
+      ],
+      "base_id": "lookup-003",
+      "context_length": "long",
+      "log_events": 60,
+      "background_profile": "operational_records",
+      "diagnostic_source": "controlled current-file change",
+      "live_updates": [
+        {
+          "file": "scan_c.json",
+          "event": 37,
+          "fields": {
+            "status_code": 206,
+            "observed_at": "2026-10-12T10:00:00"
+          }
+        }
+      ],
+      "request_actions": {
+        "required": [
+          {
+            "id": "fresh_read",
+            "tool": "read_log",
+            "arguments": {
+              "name": "scan_c"
+            }
+          },
+          {
+            "id": "write",
+            "tool": "write_report",
+            "after": [
+              "fresh_read"
+            ],
+            "result_matches": {
+              "written": true
+            }
+          },
+          {
+            "id": "check",
+            "tool": "run_checks",
+            "after": [
+              "write"
+            ],
+            "result_matches": {
+              "passed": true
+            }
+          }
+        ],
+        "before_tools": {
+          "write_config": [
+            "fresh_read"
+          ],
+          "write_report": [
+            "fresh_read"
+          ],
+          "run_checks": [
+            "write"
+          ]
+        }
+      },
+      "evaluation_group": "reused"
+    },
+    {
+      "id": "lookup-004",
+      "kind": "tool_execution",
+      "split": "test",
+      "initial_config": {
+        "module": "Alpha",
+        "timeout_ms": 362,
+        "quota": 44,
+        "observed_at": "2026-10-01"
+      },
+      "initial_orders": [
+        {
+          "quantity": 2,
+          "price": "1.28"
+        },
+        {
+          "quantity": 3,
+          "price": "1.35"
+        },
+        {
+          "quantity": 4,
+          "price": "1.42"
+        },
+        {
+          "quantity": 1,
+          "price": "1.49"
+        },
+        {
+          "quantity": 2,
+          "price": "1.56"
+        },
+        {
+          "quantity": 3,
+          "price": "1.63"
+        },
+        {
+          "quantity": 4,
+          "price": "1.70"
+        },
+        {
+          "quantity": 1,
+          "price": "1.77"
+        },
+        {
+          "quantity": 2,
+          "price": "1.84"
+        },
+        {
+          "quantity": 3,
+          "price": "1.91"
+        },
+        {
+          "quantity": 4,
+          "price": "1.98"
+        },
+        {
+          "quantity": 1,
+          "price": "2.05"
+        },
+        {
+          "quantity": 2,
+          "price": "2.12"
+        },
+        {
+          "quantity": 3,
+          "price": "2.19"
+        }
+      ],
+      "setup": [
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_orders",
+          "arguments": {}
+        },
+        {
+          "change": "orders",
+          "items": [
+            {
+              "quantity": 1,
+              "price": "99.00"
+            }
+          ]
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1101,
+          "quota": 40,
+          "observed_at": "2026-09-10"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1120,
+          "quota": 41,
+          "observed_at": "2026-09-11"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1139,
+          "quota": 42,
+          "observed_at": "2026-09-12"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1158,
+          "quota": 43,
+          "observed_at": "2026-09-13"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1177,
+          "quota": 44,
+          "observed_at": "2026-09-14"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1196,
+          "quota": 45,
+          "observed_at": "2026-09-15"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1215,
+          "quota": 46,
+          "observed_at": "2026-09-16"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1234,
+          "quota": 47,
+          "observed_at": "2026-09-17"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1253,
+          "quota": 48,
+          "observed_at": "2026-09-18"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1272,
+          "quota": 49,
+          "observed_at": "2026-09-19"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_a"
+          }
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1291,
+          "quota": 50,
+          "observed_at": "2026-09-20"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1310,
+          "quota": 51,
+          "observed_at": "2026-09-21"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1329,
+          "quota": 52,
+          "observed_at": "2026-09-22"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1348,
+          "quota": 53,
+          "observed_at": "2026-09-23"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1367,
+          "quota": 54,
+          "observed_at": "2026-09-24"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1386,
+          "quota": 55,
+          "observed_at": "2026-09-25"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1405,
+          "quota": 56,
+          "observed_at": "2026-09-26"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1424,
+          "quota": 57,
+          "observed_at": "2026-09-27"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Alpha",
+          "timeout_ms": 1524,
+          "quota": 44,
+          "observed_at": "2026-10-05"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_b"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_c"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_d"
+          }
+        },
+        {
+          "tool": "read_report",
+          "arguments": {}
+        }
+      ],
+      "checkpoints": [
+        {
+          "query": "文件在历史读取后已由外部更新，旧结果不能替代本轮读取。实际调用 read_log 读取 scan_a。在 events 数组查找 event=\"scan_a-15\" 的 status_code。将代码转为两位小数字符串作为 report.json 的 total，currency 用 USD，这是日志指标记录；实际运行 run_checks。最后 answer 只填两位小数。不改 config，不发送邮件。",
+          "answer": "409.00",
+          "timeout_ms": 1524,
+          "report": {
+            "total": "409.00",
+            "currency": "USD"
+          },
+          "required": [
+            "read_log",
+            "write_report",
+            "run_checks"
+          ]
+        }
+      ],
+      "base_id": "lookup-004",
+      "context_length": "long",
+      "log_events": 60,
+      "background_profile": "operational_records",
+      "diagnostic_source": "controlled current-file change",
+      "live_updates": [
+        {
+          "file": "scan_a.json",
+          "event": 15,
+          "fields": {
+            "status_code": 409,
+            "observed_at": "2026-10-12T10:00:00"
+          }
+        }
+      ],
+      "request_actions": {
+        "required": [
+          {
+            "id": "fresh_read",
+            "tool": "read_log",
+            "arguments": {
+              "name": "scan_a"
+            }
+          },
+          {
+            "id": "write",
+            "tool": "write_report",
+            "after": [
+              "fresh_read"
+            ],
+            "result_matches": {
+              "written": true
+            }
+          },
+          {
+            "id": "check",
+            "tool": "run_checks",
+            "after": [
+              "write"
+            ],
+            "result_matches": {
+              "passed": true
+            }
+          }
+        ],
+        "before_tools": {
+          "write_config": [
+            "fresh_read"
+          ],
+          "write_report": [
+            "fresh_read"
+          ],
+          "run_checks": [
+            "write"
+          ]
+        }
+      },
+      "evaluation_group": "reused"
+    },
+    {
+      "id": "lookup-005",
+      "kind": "tool_execution",
+      "split": "test",
+      "initial_config": {
+        "module": "Alpha",
+        "timeout_ms": 239,
+        "quota": 58,
+        "observed_at": "2026-10-01"
+      },
+      "initial_orders": [
+        {
+          "quantity": 1,
+          "price": "1.25"
+        },
+        {
+          "quantity": 2,
+          "price": "1.32"
+        },
+        {
+          "quantity": 3,
+          "price": "1.39"
+        },
+        {
+          "quantity": 4,
+          "price": "1.46"
+        },
+        {
+          "quantity": 1,
+          "price": "1.53"
+        },
+        {
+          "quantity": 2,
+          "price": "1.60"
+        },
+        {
+          "quantity": 3,
+          "price": "1.67"
+        },
+        {
+          "quantity": 4,
+          "price": "1.74"
+        },
+        {
+          "quantity": 1,
+          "price": "1.81"
+        },
+        {
+          "quantity": 2,
+          "price": "1.88"
+        },
+        {
+          "quantity": 3,
+          "price": "1.95"
+        },
+        {
+          "quantity": 4,
+          "price": "2.02"
+        },
+        {
+          "quantity": 1,
+          "price": "2.09"
+        },
+        {
+          "quantity": 2,
+          "price": "2.16"
+        }
+      ],
+      "setup": [
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_orders",
+          "arguments": {}
+        },
+        {
+          "change": "orders",
+          "items": [
+            {
+              "quantity": 1,
+              "price": "99.00"
+            }
+          ]
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1100,
+          "quota": 40,
+          "observed_at": "2026-09-10"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1119,
+          "quota": 41,
+          "observed_at": "2026-09-11"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1138,
+          "quota": 42,
+          "observed_at": "2026-09-12"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1157,
+          "quota": 43,
+          "observed_at": "2026-09-13"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1176,
+          "quota": 44,
+          "observed_at": "2026-09-14"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1195,
+          "quota": 45,
+          "observed_at": "2026-09-15"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1214,
+          "quota": 46,
+          "observed_at": "2026-09-16"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1233,
+          "quota": 47,
+          "observed_at": "2026-09-17"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1252,
+          "quota": 48,
+          "observed_at": "2026-09-18"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1271,
+          "quota": 49,
+          "observed_at": "2026-09-19"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_a"
+          }
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1290,
+          "quota": 50,
+          "observed_at": "2026-09-20"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1309,
+          "quota": 51,
+          "observed_at": "2026-09-21"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1328,
+          "quota": 52,
+          "observed_at": "2026-09-22"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1347,
+          "quota": 53,
+          "observed_at": "2026-09-23"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1366,
+          "quota": 54,
+          "observed_at": "2026-09-24"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1385,
+          "quota": 55,
+          "observed_at": "2026-09-25"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1404,
+          "quota": 56,
+          "observed_at": "2026-09-26"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1423,
+          "quota": 57,
+          "observed_at": "2026-09-27"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Alpha",
+          "timeout_ms": 1611,
+          "quota": 58,
+          "observed_at": "2026-10-05"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_b"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_c"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_d"
+          }
+        },
+        {
+          "tool": "read_report",
+          "arguments": {}
+        }
+      ],
+      "checkpoints": [
+        {
+          "query": "文件在历史读取后已由外部更新，旧结果不能替代本轮读取。实际调用 read_log 读取 scan_d。在 events 数组查找 event=\"scan_d-43\" 的 status_code。将代码转为两位小数字符串作为 report.json 的 total，currency 用 USD，这是日志指标记录；实际运行 run_checks。最后 answer 只填两位小数。不改 config，不发送邮件。",
+          "answer": "202.00",
+          "timeout_ms": 1611,
+          "report": {
+            "total": "202.00",
+            "currency": "USD"
+          },
+          "required": [
+            "read_log",
+            "write_report",
+            "run_checks"
+          ]
+        }
+      ],
+      "base_id": "lookup-005",
+      "context_length": "long",
+      "log_events": 60,
+      "background_profile": "operational_records",
+      "diagnostic_source": "controlled current-file change",
+      "live_updates": [
+        {
+          "file": "scan_d.json",
+          "event": 43,
+          "fields": {
+            "status_code": 202,
+            "observed_at": "2026-10-12T10:00:00"
+          }
+        }
+      ],
+      "request_actions": {
+        "required": [
+          {
+            "id": "fresh_read",
+            "tool": "read_log",
+            "arguments": {
+              "name": "scan_d"
+            }
+          },
+          {
+            "id": "write",
+            "tool": "write_report",
+            "after": [
+              "fresh_read"
+            ],
+            "result_matches": {
+              "written": true
+            }
+          },
+          {
+            "id": "check",
+            "tool": "run_checks",
+            "after": [
+              "write"
+            ],
+            "result_matches": {
+              "passed": true
+            }
+          }
+        ],
+        "before_tools": {
+          "write_config": [
+            "fresh_read"
+          ],
+          "write_report": [
+            "fresh_read"
+          ],
+          "run_checks": [
+            "write"
+          ]
+        }
+      },
+      "evaluation_group": "reused"
+    },
+    {
+      "id": "lookup-006",
+      "kind": "tool_execution",
+      "split": "test",
+      "initial_config": {
+        "module": "Alpha",
+        "timeout_ms": 362,
+        "quota": 44,
+        "observed_at": "2026-10-01"
+      },
+      "initial_orders": [
+        {
+          "quantity": 2,
+          "price": "1.28"
+        },
+        {
+          "quantity": 3,
+          "price": "1.35"
+        },
+        {
+          "quantity": 4,
+          "price": "1.42"
+        },
+        {
+          "quantity": 1,
+          "price": "1.49"
+        },
+        {
+          "quantity": 2,
+          "price": "1.56"
+        },
+        {
+          "quantity": 3,
+          "price": "1.63"
+        },
+        {
+          "quantity": 4,
+          "price": "1.70"
+        },
+        {
+          "quantity": 1,
+          "price": "1.77"
+        },
+        {
+          "quantity": 2,
+          "price": "1.84"
+        },
+        {
+          "quantity": 3,
+          "price": "1.91"
+        },
+        {
+          "quantity": 4,
+          "price": "1.98"
+        },
+        {
+          "quantity": 1,
+          "price": "2.05"
+        },
+        {
+          "quantity": 2,
+          "price": "2.12"
+        },
+        {
+          "quantity": 3,
+          "price": "2.19"
+        }
+      ],
+      "setup": [
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_orders",
+          "arguments": {}
+        },
+        {
+          "change": "orders",
+          "items": [
+            {
+              "quantity": 1,
+              "price": "99.00"
+            }
+          ]
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1101,
+          "quota": 40,
+          "observed_at": "2026-09-10"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1120,
+          "quota": 41,
+          "observed_at": "2026-09-11"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1139,
+          "quota": 42,
+          "observed_at": "2026-09-12"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1158,
+          "quota": 43,
+          "observed_at": "2026-09-13"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1177,
+          "quota": 44,
+          "observed_at": "2026-09-14"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1196,
+          "quota": 45,
+          "observed_at": "2026-09-15"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1215,
+          "quota": 46,
+          "observed_at": "2026-09-16"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1234,
+          "quota": 47,
+          "observed_at": "2026-09-17"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1253,
+          "quota": 48,
+          "observed_at": "2026-09-18"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1272,
+          "quota": 49,
+          "observed_at": "2026-09-19"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_a"
+          }
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1291,
+          "quota": 50,
+          "observed_at": "2026-09-20"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1310,
+          "quota": 51,
+          "observed_at": "2026-09-21"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1329,
+          "quota": 52,
+          "observed_at": "2026-09-22"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1348,
+          "quota": 53,
+          "observed_at": "2026-09-23"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1367,
+          "quota": 54,
+          "observed_at": "2026-09-24"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1386,
+          "quota": 55,
+          "observed_at": "2026-09-25"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1405,
+          "quota": 56,
+          "observed_at": "2026-09-26"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1424,
+          "quota": 57,
+          "observed_at": "2026-09-27"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Alpha",
+          "timeout_ms": 1524,
+          "quota": 44,
+          "observed_at": "2026-10-05"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_b"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_c"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_d"
+          }
+        },
+        {
+          "tool": "read_report",
+          "arguments": {}
+        }
+      ],
+      "checkpoints": [
+        {
+          "query": "config.json 在历史读取后已由外部更新。实际调用 read_config 读取现在的 Alpha config，把本轮读取的 timeout_ms 加 1 写入当前 config，保持 quota 不变，再实际调用 run_checks；answer 只填写入后的数值。历史快照不能替代现在的读取，不生成报告。",
+          "answer": "1838",
+          "timeout_ms": 1838,
+          "required": [
+            "read_config",
+            "write_config",
+            "run_checks"
+          ]
+        }
+      ],
+      "base_id": "lookup-006",
+      "context_length": "long",
+      "log_events": 60,
+      "background_profile": "operational_records",
+      "diagnostic_source": "controlled current-file change",
+      "live_updates": [
+        {
+          "file": "config.json",
+          "fields": {
+            "timeout_ms": 1837,
+            "observed_at": "2026-10-12"
+          }
+        }
+      ],
+      "request_actions": {
+        "required": [
+          {
+            "id": "fresh_read",
+            "tool": "read_config",
+            "arguments": {}
+          },
+          {
+            "id": "write",
+            "tool": "write_config",
+            "after": [
+              "fresh_read"
+            ],
+            "result_matches": {
+              "written": true
+            }
+          },
+          {
+            "id": "check",
+            "tool": "run_checks",
+            "after": [
+              "write"
+            ],
+            "result_matches": {
+              "passed": true
+            }
+          }
+        ],
+        "before_tools": {
+          "write_config": [
+            "fresh_read"
+          ],
+          "write_report": [
+            "fresh_read"
+          ],
+          "run_checks": [
+            "write"
+          ]
+        }
+      },
+      "evaluation_group": "reused"
+    },
+    {
+      "id": "lookup-007",
+      "kind": "tool_execution",
+      "split": "test",
+      "initial_config": {
+        "module": "Alpha",
+        "timeout_ms": 239,
+        "quota": 58,
+        "observed_at": "2026-10-01"
+      },
+      "initial_orders": [
+        {
+          "quantity": 1,
+          "price": "1.25"
+        },
+        {
+          "quantity": 2,
+          "price": "1.32"
+        },
+        {
+          "quantity": 3,
+          "price": "1.39"
+        },
+        {
+          "quantity": 4,
+          "price": "1.46"
+        },
+        {
+          "quantity": 1,
+          "price": "1.53"
+        },
+        {
+          "quantity": 2,
+          "price": "1.60"
+        },
+        {
+          "quantity": 3,
+          "price": "1.67"
+        },
+        {
+          "quantity": 4,
+          "price": "1.74"
+        },
+        {
+          "quantity": 1,
+          "price": "1.81"
+        },
+        {
+          "quantity": 2,
+          "price": "1.88"
+        },
+        {
+          "quantity": 3,
+          "price": "1.95"
+        },
+        {
+          "quantity": 4,
+          "price": "2.02"
+        },
+        {
+          "quantity": 1,
+          "price": "2.09"
+        },
+        {
+          "quantity": 2,
+          "price": "2.16"
+        }
+      ],
+      "setup": [
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_orders",
+          "arguments": {}
+        },
+        {
+          "change": "orders",
+          "items": [
+            {
+              "quantity": 1,
+              "price": "99.00"
+            }
+          ]
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1100,
+          "quota": 40,
+          "observed_at": "2026-09-10"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1119,
+          "quota": 41,
+          "observed_at": "2026-09-11"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1138,
+          "quota": 42,
+          "observed_at": "2026-09-12"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1157,
+          "quota": 43,
+          "observed_at": "2026-09-13"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1176,
+          "quota": 44,
+          "observed_at": "2026-09-14"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1195,
+          "quota": 45,
+          "observed_at": "2026-09-15"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1214,
+          "quota": 46,
+          "observed_at": "2026-09-16"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1233,
+          "quota": 47,
+          "observed_at": "2026-09-17"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1252,
+          "quota": 48,
+          "observed_at": "2026-09-18"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1271,
+          "quota": 49,
+          "observed_at": "2026-09-19"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_a"
+          }
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1290,
+          "quota": 50,
+          "observed_at": "2026-09-20"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1309,
+          "quota": 51,
+          "observed_at": "2026-09-21"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1328,
+          "quota": 52,
+          "observed_at": "2026-09-22"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1347,
+          "quota": 53,
+          "observed_at": "2026-09-23"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1366,
+          "quota": 54,
+          "observed_at": "2026-09-24"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1385,
+          "quota": 55,
+          "observed_at": "2026-09-25"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1404,
+          "quota": 56,
+          "observed_at": "2026-09-26"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1423,
+          "quota": 57,
+          "observed_at": "2026-09-27"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Alpha",
+          "timeout_ms": 1611,
+          "quota": 58,
+          "observed_at": "2026-10-05"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_b"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_c"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_d"
+          }
+        },
+        {
+          "tool": "read_report",
+          "arguments": {}
+        }
+      ],
+      "checkpoints": [
+        {
+          "query": "日志可能已更新。实际调用 read_log 读取现在的 scan_d，按 event 字段精确查找 \"scan_d-43\"。事件编号不等于数组位置。如果同名 event 不唯一或不存在，answer 填 UNKNOWN，不修改任何文件。若唯一，将该事件的 status_code 转为两位小数字符串写入 report.json 的 total，currency 为 USD，再实际运行 run_checks；answer 只填两位小数。不改 config。",
+          "answer": "202.00",
+          "timeout_ms": 1611,
+          "required": [
+            "read_log",
+            "write_report",
+            "run_checks"
+          ],
+          "report": {
+            "total": "202.00",
+            "currency": "USD"
+          }
+        }
+      ],
+      "base_id": "lookup-007",
+      "context_length": "long",
+      "log_events": 60,
+      "background_profile": "operational_records",
+      "diagnostic_source": "new controlled lookup boundary case",
+      "live_updates": [
+        {
+          "file": "scan_d.json",
+          "reorder": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            43,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59
+          ]
+        },
+        {
+          "file": "scan_d.json",
+          "event": 5,
+          "fields": {
+            "status_code": 202
+          }
+        }
+      ],
+      "request_actions": {
+        "required": [
+          {
+            "id": "fresh_read",
+            "tool": "read_log",
+            "arguments": {
+              "name": "scan_d"
+            }
+          }
+        ],
+        "before_tools": {
+          "write_config": [
+            "fresh_read"
+          ],
+          "write_report": [
+            "fresh_read"
+          ],
+          "run_checks": [
+            "fresh_read"
+          ]
+        }
+      },
+      "locator_feature": "reordered",
+      "evaluation_group": "new_boundary"
+    },
+    {
+      "id": "lookup-008",
+      "kind": "tool_execution",
+      "split": "test",
+      "initial_config": {
+        "module": "Alpha",
+        "timeout_ms": 239,
+        "quota": 58,
+        "observed_at": "2026-10-01"
+      },
+      "initial_orders": [
+        {
+          "quantity": 1,
+          "price": "1.25"
+        },
+        {
+          "quantity": 2,
+          "price": "1.32"
+        },
+        {
+          "quantity": 3,
+          "price": "1.39"
+        },
+        {
+          "quantity": 4,
+          "price": "1.46"
+        },
+        {
+          "quantity": 1,
+          "price": "1.53"
+        },
+        {
+          "quantity": 2,
+          "price": "1.60"
+        },
+        {
+          "quantity": 3,
+          "price": "1.67"
+        },
+        {
+          "quantity": 4,
+          "price": "1.74"
+        },
+        {
+          "quantity": 1,
+          "price": "1.81"
+        },
+        {
+          "quantity": 2,
+          "price": "1.88"
+        },
+        {
+          "quantity": 3,
+          "price": "1.95"
+        },
+        {
+          "quantity": 4,
+          "price": "2.02"
+        },
+        {
+          "quantity": 1,
+          "price": "2.09"
+        },
+        {
+          "quantity": 2,
+          "price": "2.16"
+        }
+      ],
+      "setup": [
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_orders",
+          "arguments": {}
+        },
+        {
+          "change": "orders",
+          "items": [
+            {
+              "quantity": 1,
+              "price": "99.00"
+            }
+          ]
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1100,
+          "quota": 40,
+          "observed_at": "2026-09-10"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1119,
+          "quota": 41,
+          "observed_at": "2026-09-11"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1138,
+          "quota": 42,
+          "observed_at": "2026-09-12"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1157,
+          "quota": 43,
+          "observed_at": "2026-09-13"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1176,
+          "quota": 44,
+          "observed_at": "2026-09-14"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1195,
+          "quota": 45,
+          "observed_at": "2026-09-15"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1214,
+          "quota": 46,
+          "observed_at": "2026-09-16"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1233,
+          "quota": 47,
+          "observed_at": "2026-09-17"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1252,
+          "quota": 48,
+          "observed_at": "2026-09-18"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1271,
+          "quota": 49,
+          "observed_at": "2026-09-19"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_a"
+          }
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1290,
+          "quota": 50,
+          "observed_at": "2026-09-20"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1309,
+          "quota": 51,
+          "observed_at": "2026-09-21"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1328,
+          "quota": 52,
+          "observed_at": "2026-09-22"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1347,
+          "quota": 53,
+          "observed_at": "2026-09-23"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1366,
+          "quota": 54,
+          "observed_at": "2026-09-24"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1385,
+          "quota": 55,
+          "observed_at": "2026-09-25"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1404,
+          "quota": 56,
+          "observed_at": "2026-09-26"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1423,
+          "quota": 57,
+          "observed_at": "2026-09-27"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Alpha",
+          "timeout_ms": 1611,
+          "quota": 58,
+          "observed_at": "2026-10-05"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_b"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_c"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_d"
+          }
+        },
+        {
+          "tool": "read_report",
+          "arguments": {}
+        }
+      ],
+      "checkpoints": [
+        {
+          "query": "日志可能已更新。实际调用 read_log 读取现在的 scan_c，按 event 字段精确查找 \"scan_c-901\"。事件编号不等于数组位置。如果同名 event 不唯一或不存在，answer 填 UNKNOWN，不修改任何文件。若唯一，将该事件的 status_code 转为两位小数字符串写入 report.json 的 total，currency 为 USD，再实际运行 run_checks；answer 只填两位小数。不改 config。",
+          "answer": "206.00",
+          "timeout_ms": 1611,
+          "required": [
+            "read_log",
+            "write_report",
+            "run_checks"
+          ],
+          "report": {
+            "total": "206.00",
+            "currency": "USD"
+          }
+        }
+      ],
+      "base_id": "lookup-008",
+      "context_length": "long",
+      "log_events": 60,
+      "background_profile": "operational_records",
+      "diagnostic_source": "new controlled lookup boundary case",
+      "live_updates": [
+        {
+          "file": "scan_c.json",
+          "event": 7,
+          "fields": {
+            "event": "scan_c-901",
+            "status_code": 206
+          }
+        }
+      ],
+      "request_actions": {
+        "required": [
+          {
+            "id": "fresh_read",
+            "tool": "read_log",
+            "arguments": {
+              "name": "scan_c"
+            }
+          }
+        ],
+        "before_tools": {
+          "write_config": [
+            "fresh_read"
+          ],
+          "write_report": [
+            "fresh_read"
+          ],
+          "run_checks": [
+            "fresh_read"
+          ]
+        }
+      },
+      "locator_feature": "sparse",
+      "evaluation_group": "new_boundary"
+    },
+    {
+      "id": "lookup-009",
+      "kind": "tool_execution",
+      "split": "test",
+      "initial_config": {
+        "module": "Alpha",
+        "timeout_ms": 239,
+        "quota": 58,
+        "observed_at": "2026-10-01"
+      },
+      "initial_orders": [
+        {
+          "quantity": 1,
+          "price": "1.25"
+        },
+        {
+          "quantity": 2,
+          "price": "1.32"
+        },
+        {
+          "quantity": 3,
+          "price": "1.39"
+        },
+        {
+          "quantity": 4,
+          "price": "1.46"
+        },
+        {
+          "quantity": 1,
+          "price": "1.53"
+        },
+        {
+          "quantity": 2,
+          "price": "1.60"
+        },
+        {
+          "quantity": 3,
+          "price": "1.67"
+        },
+        {
+          "quantity": 4,
+          "price": "1.74"
+        },
+        {
+          "quantity": 1,
+          "price": "1.81"
+        },
+        {
+          "quantity": 2,
+          "price": "1.88"
+        },
+        {
+          "quantity": 3,
+          "price": "1.95"
+        },
+        {
+          "quantity": 4,
+          "price": "2.02"
+        },
+        {
+          "quantity": 1,
+          "price": "2.09"
+        },
+        {
+          "quantity": 2,
+          "price": "2.16"
+        }
+      ],
+      "setup": [
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_orders",
+          "arguments": {}
+        },
+        {
+          "change": "orders",
+          "items": [
+            {
+              "quantity": 1,
+              "price": "99.00"
+            }
+          ]
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1100,
+          "quota": 40,
+          "observed_at": "2026-09-10"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1119,
+          "quota": 41,
+          "observed_at": "2026-09-11"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1138,
+          "quota": 42,
+          "observed_at": "2026-09-12"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1157,
+          "quota": 43,
+          "observed_at": "2026-09-13"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1176,
+          "quota": 44,
+          "observed_at": "2026-09-14"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1195,
+          "quota": 45,
+          "observed_at": "2026-09-15"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1214,
+          "quota": 46,
+          "observed_at": "2026-09-16"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1233,
+          "quota": 47,
+          "observed_at": "2026-09-17"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1252,
+          "quota": 48,
+          "observed_at": "2026-09-18"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1271,
+          "quota": 49,
+          "observed_at": "2026-09-19"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_a"
+          }
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1290,
+          "quota": 50,
+          "observed_at": "2026-09-20"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1309,
+          "quota": 51,
+          "observed_at": "2026-09-21"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1328,
+          "quota": 52,
+          "observed_at": "2026-09-22"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1347,
+          "quota": 53,
+          "observed_at": "2026-09-23"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1366,
+          "quota": 54,
+          "observed_at": "2026-09-24"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1385,
+          "quota": 55,
+          "observed_at": "2026-09-25"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1404,
+          "quota": 56,
+          "observed_at": "2026-09-26"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1423,
+          "quota": 57,
+          "observed_at": "2026-09-27"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Alpha",
+          "timeout_ms": 1611,
+          "quota": 58,
+          "observed_at": "2026-10-05"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_b"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_c"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_d"
+          }
+        },
+        {
+          "tool": "read_report",
+          "arguments": {}
+        }
+      ],
+      "checkpoints": [
+        {
+          "query": "日志可能已更新。实际调用 read_log 读取现在的 scan_a，按 event 字段精确查找 \"scan_a-37\"。事件编号不等于数组位置。如果同名 event 不唯一或不存在，answer 填 UNKNOWN，不修改任何文件。若唯一，将该事件的 status_code 转为两位小数字符串写入 report.json 的 total，currency 为 USD，再实际运行 run_checks；answer 只填两位小数。不改 config。",
+          "answer": "503.00",
+          "timeout_ms": 1611,
+          "required": [
+            "read_log",
+            "write_report",
+            "run_checks"
+          ],
+          "report": {
+            "total": "503.00",
+            "currency": "USD"
+          }
+        }
+      ],
+      "base_id": "lookup-009",
+      "context_length": "long",
+      "log_events": 60,
+      "background_profile": "operational_records",
+      "diagnostic_source": "new controlled lookup boundary case",
+      "live_updates": [
+        {
+          "file": "scan_a.json",
+          "event": 37,
+          "fields": {
+            "detail": "Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. Recorded export diagnostics and column validation. ",
+            "status_code": 503
+          }
+        }
+      ],
+      "request_actions": {
+        "required": [
+          {
+            "id": "fresh_read",
+            "tool": "read_log",
+            "arguments": {
+              "name": "scan_a"
+            }
+          }
+        ],
+        "before_tools": {
+          "write_config": [
+            "fresh_read"
+          ],
+          "write_report": [
+            "fresh_read"
+          ],
+          "run_checks": [
+            "fresh_read"
+          ]
+        }
+      },
+      "locator_feature": "long-object",
+      "evaluation_group": "new_boundary"
+    },
+    {
+      "id": "lookup-010",
+      "kind": "tool_execution",
+      "split": "test",
+      "initial_config": {
+        "module": "Alpha",
+        "timeout_ms": 239,
+        "quota": 58,
+        "observed_at": "2026-10-01"
+      },
+      "initial_orders": [
+        {
+          "quantity": 1,
+          "price": "1.25"
+        },
+        {
+          "quantity": 2,
+          "price": "1.32"
+        },
+        {
+          "quantity": 3,
+          "price": "1.39"
+        },
+        {
+          "quantity": 4,
+          "price": "1.46"
+        },
+        {
+          "quantity": 1,
+          "price": "1.53"
+        },
+        {
+          "quantity": 2,
+          "price": "1.60"
+        },
+        {
+          "quantity": 3,
+          "price": "1.67"
+        },
+        {
+          "quantity": 4,
+          "price": "1.74"
+        },
+        {
+          "quantity": 1,
+          "price": "1.81"
+        },
+        {
+          "quantity": 2,
+          "price": "1.88"
+        },
+        {
+          "quantity": 3,
+          "price": "1.95"
+        },
+        {
+          "quantity": 4,
+          "price": "2.02"
+        },
+        {
+          "quantity": 1,
+          "price": "2.09"
+        },
+        {
+          "quantity": 2,
+          "price": "2.16"
+        }
+      ],
+      "setup": [
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_orders",
+          "arguments": {}
+        },
+        {
+          "change": "orders",
+          "items": [
+            {
+              "quantity": 1,
+              "price": "99.00"
+            }
+          ]
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1100,
+          "quota": 40,
+          "observed_at": "2026-09-10"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1119,
+          "quota": 41,
+          "observed_at": "2026-09-11"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1138,
+          "quota": 42,
+          "observed_at": "2026-09-12"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1157,
+          "quota": 43,
+          "observed_at": "2026-09-13"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1176,
+          "quota": 44,
+          "observed_at": "2026-09-14"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1195,
+          "quota": 45,
+          "observed_at": "2026-09-15"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1214,
+          "quota": 46,
+          "observed_at": "2026-09-16"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1233,
+          "quota": 47,
+          "observed_at": "2026-09-17"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1252,
+          "quota": 48,
+          "observed_at": "2026-09-18"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1271,
+          "quota": 49,
+          "observed_at": "2026-09-19"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_a"
+          }
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1290,
+          "quota": 50,
+          "observed_at": "2026-09-20"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1309,
+          "quota": 51,
+          "observed_at": "2026-09-21"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1328,
+          "quota": 52,
+          "observed_at": "2026-09-22"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1347,
+          "quota": 53,
+          "observed_at": "2026-09-23"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1366,
+          "quota": 54,
+          "observed_at": "2026-09-24"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1385,
+          "quota": 55,
+          "observed_at": "2026-09-25"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1404,
+          "quota": 56,
+          "observed_at": "2026-09-26"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1423,
+          "quota": 57,
+          "observed_at": "2026-09-27"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Alpha",
+          "timeout_ms": 1611,
+          "quota": 58,
+          "observed_at": "2026-10-05"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_b"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_c"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_d"
+          }
+        },
+        {
+          "tool": "read_report",
+          "arguments": {}
+        }
+      ],
+      "checkpoints": [
+        {
+          "query": "日志可能已更新。实际调用 read_log 读取现在的 scan_b，按 event 字段精确查找 \"scan_b-17\"。事件编号不等于数组位置。如果同名 event 不唯一或不存在，answer 填 UNKNOWN，不修改任何文件。若唯一，将该事件的 status_code 转为两位小数字符串写入 report.json 的 total，currency 为 USD，再实际运行 run_checks；answer 只填两位小数。不改 config。",
+          "answer": "UNKNOWN",
+          "timeout_ms": 1611,
+          "required": [
+            "read_log"
+          ],
+          "no_writes": true
+        }
+      ],
+      "base_id": "lookup-010",
+      "context_length": "long",
+      "log_events": 60,
+      "background_profile": "operational_records",
+      "diagnostic_source": "new controlled lookup boundary case",
+      "live_updates": [
+        {
+          "file": "scan_b.json",
+          "event": 7,
+          "fields": {
+            "event": "scan_b-17",
+            "status_code": 206
+          }
+        }
+      ],
+      "request_actions": {
+        "required": [
+          {
+            "id": "fresh_read",
+            "tool": "read_log",
+            "arguments": {
+              "name": "scan_b"
+            }
+          }
+        ],
+        "before_tools": {
+          "write_config": [
+            "fresh_read"
+          ],
+          "write_report": [
+            "fresh_read"
+          ],
+          "run_checks": [
+            "fresh_read"
+          ]
+        }
+      },
+      "locator_feature": "duplicate",
+      "evaluation_group": "new_boundary"
+    },
+    {
+      "id": "lookup-011",
+      "kind": "tool_execution",
+      "split": "test",
+      "initial_config": {
+        "module": "Alpha",
+        "timeout_ms": 239,
+        "quota": 58,
+        "observed_at": "2026-10-01"
+      },
+      "initial_orders": [
+        {
+          "quantity": 1,
+          "price": "1.25"
+        },
+        {
+          "quantity": 2,
+          "price": "1.32"
+        },
+        {
+          "quantity": 3,
+          "price": "1.39"
+        },
+        {
+          "quantity": 4,
+          "price": "1.46"
+        },
+        {
+          "quantity": 1,
+          "price": "1.53"
+        },
+        {
+          "quantity": 2,
+          "price": "1.60"
+        },
+        {
+          "quantity": 3,
+          "price": "1.67"
+        },
+        {
+          "quantity": 4,
+          "price": "1.74"
+        },
+        {
+          "quantity": 1,
+          "price": "1.81"
+        },
+        {
+          "quantity": 2,
+          "price": "1.88"
+        },
+        {
+          "quantity": 3,
+          "price": "1.95"
+        },
+        {
+          "quantity": 4,
+          "price": "2.02"
+        },
+        {
+          "quantity": 1,
+          "price": "2.09"
+        },
+        {
+          "quantity": 2,
+          "price": "2.16"
+        }
+      ],
+      "setup": [
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_orders",
+          "arguments": {}
+        },
+        {
+          "change": "orders",
+          "items": [
+            {
+              "quantity": 1,
+              "price": "99.00"
+            }
+          ]
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1100,
+          "quota": 40,
+          "observed_at": "2026-09-10"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1119,
+          "quota": 41,
+          "observed_at": "2026-09-11"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1138,
+          "quota": 42,
+          "observed_at": "2026-09-12"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1157,
+          "quota": 43,
+          "observed_at": "2026-09-13"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1176,
+          "quota": 44,
+          "observed_at": "2026-09-14"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1195,
+          "quota": 45,
+          "observed_at": "2026-09-15"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1214,
+          "quota": 46,
+          "observed_at": "2026-09-16"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1233,
+          "quota": 47,
+          "observed_at": "2026-09-17"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1252,
+          "quota": 48,
+          "observed_at": "2026-09-18"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1271,
+          "quota": 49,
+          "observed_at": "2026-09-19"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_a"
+          }
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1290,
+          "quota": 50,
+          "observed_at": "2026-09-20"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1309,
+          "quota": 51,
+          "observed_at": "2026-09-21"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1328,
+          "quota": 52,
+          "observed_at": "2026-09-22"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1347,
+          "quota": 53,
+          "observed_at": "2026-09-23"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1366,
+          "quota": 54,
+          "observed_at": "2026-09-24"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1385,
+          "quota": 55,
+          "observed_at": "2026-09-25"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1404,
+          "quota": 56,
+          "observed_at": "2026-09-26"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1423,
+          "quota": 57,
+          "observed_at": "2026-09-27"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Alpha",
+          "timeout_ms": 1611,
+          "quota": 58,
+          "observed_at": "2026-10-05"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_b"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_c"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_d"
+          }
+        },
+        {
+          "tool": "read_report",
+          "arguments": {}
+        }
+      ],
+      "checkpoints": [
+        {
+          "query": "日志可能已更新。实际调用 read_log 读取现在的 scan_b，按 event 字段精确查找 \"scan_b-404\"。事件编号不等于数组位置。如果同名 event 不唯一或不存在，answer 填 UNKNOWN，不修改任何文件。若唯一，将该事件的 status_code 转为两位小数字符串写入 report.json 的 total，currency 为 USD，再实际运行 run_checks；answer 只填两位小数。不改 config。",
+          "answer": "UNKNOWN",
+          "timeout_ms": 1611,
+          "required": [
+            "read_log"
+          ],
+          "no_writes": true
+        }
+      ],
+      "base_id": "lookup-011",
+      "context_length": "long",
+      "log_events": 60,
+      "background_profile": "operational_records",
+      "diagnostic_source": "new controlled lookup boundary case",
+      "live_updates": [],
+      "request_actions": {
+        "required": [
+          {
+            "id": "fresh_read",
+            "tool": "read_log",
+            "arguments": {
+              "name": "scan_b"
+            }
+          }
+        ],
+        "before_tools": {
+          "write_config": [
+            "fresh_read"
+          ],
+          "write_report": [
+            "fresh_read"
+          ],
+          "run_checks": [
+            "fresh_read"
+          ]
+        }
+      },
+      "locator_feature": "missing",
+      "evaluation_group": "new_boundary"
+    },
+    {
+      "id": "lookup-012",
+      "kind": "tool_execution",
+      "split": "test",
+      "initial_config": {
+        "module": "Alpha",
+        "timeout_ms": 239,
+        "quota": 58,
+        "observed_at": "2026-10-01"
+      },
+      "initial_orders": [
+        {
+          "quantity": 1,
+          "price": "1.25"
+        },
+        {
+          "quantity": 2,
+          "price": "1.32"
+        },
+        {
+          "quantity": 3,
+          "price": "1.39"
+        },
+        {
+          "quantity": 4,
+          "price": "1.46"
+        },
+        {
+          "quantity": 1,
+          "price": "1.53"
+        },
+        {
+          "quantity": 2,
+          "price": "1.60"
+        },
+        {
+          "quantity": 3,
+          "price": "1.67"
+        },
+        {
+          "quantity": 4,
+          "price": "1.74"
+        },
+        {
+          "quantity": 1,
+          "price": "1.81"
+        },
+        {
+          "quantity": 2,
+          "price": "1.88"
+        },
+        {
+          "quantity": 3,
+          "price": "1.95"
+        },
+        {
+          "quantity": 4,
+          "price": "2.02"
+        },
+        {
+          "quantity": 1,
+          "price": "2.09"
+        },
+        {
+          "quantity": 2,
+          "price": "2.16"
+        }
+      ],
+      "setup": [
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_orders",
+          "arguments": {}
+        },
+        {
+          "change": "orders",
+          "items": [
+            {
+              "quantity": 1,
+              "price": "99.00"
+            }
+          ]
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1100,
+          "quota": 40,
+          "observed_at": "2026-09-10"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1119,
+          "quota": 41,
+          "observed_at": "2026-09-11"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1138,
+          "quota": 42,
+          "observed_at": "2026-09-12"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1157,
+          "quota": 43,
+          "observed_at": "2026-09-13"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1176,
+          "quota": 44,
+          "observed_at": "2026-09-14"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1195,
+          "quota": 45,
+          "observed_at": "2026-09-15"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1214,
+          "quota": 46,
+          "observed_at": "2026-09-16"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1233,
+          "quota": 47,
+          "observed_at": "2026-09-17"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1252,
+          "quota": 48,
+          "observed_at": "2026-09-18"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1271,
+          "quota": 49,
+          "observed_at": "2026-09-19"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_a"
+          }
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1290,
+          "quota": 50,
+          "observed_at": "2026-09-20"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1309,
+          "quota": 51,
+          "observed_at": "2026-09-21"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1328,
+          "quota": 52,
+          "observed_at": "2026-09-22"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1347,
+          "quota": 53,
+          "observed_at": "2026-09-23"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1366,
+          "quota": 54,
+          "observed_at": "2026-09-24"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Beta",
+          "timeout_ms": 1385,
+          "quota": 55,
+          "observed_at": "2026-09-25"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Gamma",
+          "timeout_ms": 1404,
+          "quota": 56,
+          "observed_at": "2026-09-26"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Delta",
+          "timeout_ms": 1423,
+          "quota": 57,
+          "observed_at": "2026-09-27"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "change": "config",
+          "module": "Alpha",
+          "timeout_ms": 1611,
+          "quota": 58,
+          "observed_at": "2026-10-05"
+        },
+        {
+          "tool": "read_config",
+          "arguments": {}
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_b"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_c"
+          }
+        },
+        {
+          "tool": "read_log",
+          "arguments": {
+            "name": "scan_d"
+          }
+        },
+        {
+          "tool": "read_report",
+          "arguments": {}
+        }
+      ],
+      "checkpoints": [
+        {
+          "query": "实际调用 read_log 读取现在的 scan_c。在 log_text 原文中找到 TAIL_MARKER 同一记录的 status_code，不要使用旧日志事件。将代码转为两位小数字符串写入 report.json 的 total，currency 为 USD，再实际运行 run_checks；answer 只填两位小数。不改 config。",
+          "answer": "206.00",
+          "timeout_ms": 1611,
+          "required": [
+            "read_log",
+            "write_report",
+            "run_checks"
+          ],
+          "report": {
+            "total": "206.00",
+            "currency": "USD"
+          }
+        }
+      ],
+      "base_id": "lookup-012",
+      "context_length": "long",
+      "log_events": 60,
+      "background_profile": "operational_records",
+      "diagnostic_source": "new controlled lookup boundary case",
+      "live_updates": [
+        {
+          "file": "scan_c.json",
+          "replace": {
+            "log_text": "Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. Routine worker validation records. TAIL_MARKER status_code=206; end of requested record. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. Unrelated worker maintenance. "
+          }
+        }
+      ],
+      "request_actions": {
+        "required": [
+          {
+            "id": "fresh_read",
+            "tool": "read_log",
+            "arguments": {
+              "name": "scan_c"
+            }
+          },
+          {
+            "id": "write",
+            "tool": "write_report",
+            "after": [
+              "fresh_read"
+            ],
+            "result_matches": {
+              "written": true
+            }
+          },
+          {
+            "id": "check",
+            "tool": "run_checks",
+            "after": [
+              "write"
+            ],
+            "result_matches": {
+              "passed": true
+            }
+          }
+        ],
+        "before_tools": {
+          "write_config": [
+            "fresh_read"
+          ],
+          "write_report": [
+            "fresh_read"
+          ],
+          "run_checks": [
+            "write"
+          ]
+        }
+      },
+      "locator_feature": "text-tail",
+      "evaluation_group": "new_boundary"
+    }
+  ]
+}

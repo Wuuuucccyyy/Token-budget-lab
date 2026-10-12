@@ -21,24 +21,28 @@ from .tool_tasks import TOOLS, ToolSandbox, assess
 
 
 ARMS = ['full', 'full_contract', 'context', 'context_contract']
+LOCATOR_ARMS = ['full','context_lexical','context_structured']
 
 
 def plan(config):
-    if config['arms'] != ARMS or config['max_steps'] != 6 or config['max_calls'] < 1:
-        raise ValueError('four arms, original six-step cap and paid-call cap required')
+    if config['arms'] not in (ARMS,LOCATOR_ARMS) or config['max_steps'] != 6 or config['max_calls'] < 1:
+        raise ValueError('explicit supported arms, original six-step cap and paid-call cap required')
+    if config['arms']==LOCATOR_ARMS and not config.get('execution_contract_all_arms'):
+        raise ValueError('same execution contract required for all locator arms')
     path = ROOT / config['data']
     bundle = json.loads(path.read_text(encoding='utf-8'))
     for e in bundle['episodes']:
         execution_contract(e['request_actions'])
     return bundle['episodes'], dict(
-        config={**config, 'modes': ARMS, 'backend': 'deepseek'},
+        config={**config, 'modes': config['arms'], 'backend': 'deepseek'},
         episode_ids=[e['id'] for e in bundle['episodes']], checkpoints=len(bundle['episodes']),
         expected_episode_checkpoints={e['id']: 1 for e in bundle['episodes']},
         data_sha256=hashlib.sha256(path.read_bytes()).hexdigest(), code_sha256=code_hash(),
         dataset_source=bundle['source'], contract_source='host structured current-user intent; no automatic natural-language parsing; no answer/state labels',
-        quality='six controlled long-history cases; no general near-lossless confirmation',
+        quality=f'{len(bundle["episodes"])} controlled long-history cases; no general near-lossless confirmation',
         cache_control='independent 128-hex system prefix per task/arm; natural within-task cache; cannot clear provider cache',
-        baseline='full_contract and context_contract use the same execution contract; unguarded arms retained',
+        baseline=('all arms use same execution contract; lexical reproduces original recovery; structured adds exact locations'
+                  if config['arms']==LOCATOR_ARMS else 'full_contract and context_contract use the same execution contract; unguarded arms retained'),
         protocol='chat', thinking='disabled', json_output=True,
         pricing_source='https://api-docs.deepseek.com/quick_start/pricing/', pricing_verified_date='2026-10-12',
         pricing_interpretation='fixed reference rates for comparable repricing, not an account invoice; no warm probes')
@@ -61,8 +65,10 @@ def execute(config, output, transport=None):
     rng.shuffle(episodes)
     client = transport or DeepSeekChat(config['model'], config['max_tokens'], config.get('timeout', 120), json_output=True)
     archive = HistoryArchive(output / 'history.sqlite3')
-    plugin = ContextPlugin(archive, budget=config['budget_characters'], recent_turns=1,
-                           offload_tools=config['offload_tools'], offload_threshold=config['offload_threshold'])
+    plugins = {arm:ContextPlugin(archive, budget=config['budget_characters'], recent_turns=1,
+        offload_tools=config['offload_tools'], offload_threshold=config['offload_threshold'],
+        evidence_mode='lexical' if arm=='context_lexical' else 'structured')
+        for arm in config['arms'] if arm.startswith('context')}
     try:
         with (output / 'requests.jsonl').open('x', encoding='utf-8') as log:
             def append(row):
@@ -71,7 +77,7 @@ def execute(config, output, transport=None):
                 os.fsync(log.fileno())
                 records.append(row)
             for episode in episodes:
-                arms = ARMS.copy()
+                arms = config['arms'].copy()
                 rng.shuffle(arms)
                 for arm in arms:
                     active = [False]
@@ -87,7 +93,7 @@ def execute(config, output, transport=None):
                         hashlib.sha512(encode([manifest['run_id'], episode['id'], arm]).encode()).hexdigest()+'\n'+history[0]['content'])
                     checkpoint = episode['checkpoints'][0]
                     history.append(dict(role='user', content=checkpoint['query']))
-                    policy = execution_contract(episode['request_actions']) if arm.endswith('_contract') else None
+                    policy = execution_contract(episode['request_actions']) if config.get('execution_contract_all_arms') or arm.endswith('_contract') else None
                     trace_start, hashes = len(sandbox.trace), sandbox.file_hashes()
                     initial, previous = [], []
                     active[0] = True
@@ -111,7 +117,7 @@ def execute(config, output, transport=None):
                         append(dict(event='response', **meta, **row))
                     def tools(row):
                         append(dict(event='execution_controller', **meta, **row))
-                    result = run_agent(history, client, plugin if arm.startswith('context') else None,
+                    result = run_agent(history, client, plugins.get(arm),
                         'actions', episode['id']+':'+arm, mode='recover' if arm.startswith('context') else 'full',
                         memory_tools=arm.startswith('context'), max_steps=config['max_steps'], max_recovery_rounds=3,
                         extra_tools=TOOLS, handlers=sandbox.handlers(), snapshot_read_tools=config['snapshot_read_tools'],
@@ -122,8 +128,16 @@ def execute(config, output, transport=None):
                                 for a in sandbox.trace[trace_start:])
                     score['required_tools_completed'] = score['required_tools_completed'] and fresh
                     score['task_success'] = score['task_success'] and fresh
+                    actual=sandbox.trace[trace_start:]
+                    writes=[i for i,a in enumerate(actual) if a['success'] and a['tool'] in {'write_config','write_report'}]
+                    checks=[i for i,a in enumerate(actual) if a['success'] and a['tool']=='run_checks' and a['result'].get('passed')]
+                    ordered=not ('run_checks' in checkpoint['required'] and writes) or bool(checks and checks[-1]>writes[-1])
+                    score['operation_order_correct']=ordered
+                    score['task_success']=score['task_success'] and ordered
                     append(dict(event='task_result', **meta, status=result['status'], **score,
                         fresh_read_completed=fresh, diagnostic_source=episode['diagnostic_source'],
+                        evaluation_group=episode.get('evaluation_group','reused'),
+                        locator_feature=episode.get('locator_feature'),
                         execution_contract=result['action_contract'],
                         initial_history_mode=initial[0].mode, initial_history_reason=initial[0].reason,
                         initial_sent_units=initial[0].sent_units, initial_baseline_units=initial[0].baseline_units,

@@ -1,0 +1,18 @@
+[
+  {
+    "variant": "context_structured",
+    "baseline": "context_lexical",
+    "task_quality_delta": 0.5,
+    "total_token_reduction": 0.19897105895643896,
+    "fixed_reference_cost_reduction": 0.18252682544102683,
+    "p95_seconds_ratio": 1.0321925408148047
+  },
+  {
+    "variant": "context_structured",
+    "baseline": "full",
+    "task_quality_delta": -0.08333333333333326,
+    "total_token_reduction": 0.8163853641445915,
+    "fixed_reference_cost_reduction": 0.8297090397350937,
+    "p95_seconds_ratio": 1.2305402548429325
+  }
+]

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "token-budget-lab"
-version = "0.8.0"
+version = "0.9.0"
 description = "Embedded context compression, evidence recovery and execution checks for Python agents"
 requires-python = ">=3.10"
 authors = [{name = "Wuuuucccyyy"}]

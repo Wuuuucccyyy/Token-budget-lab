@@ -1,111 +1,107 @@
 {
-  "measured_at": "2026-10-12",
-  "measurement_commit": "ea96cdac9f33ed3a0e92b33e8537a9dcd4eba6a6",
-  "scope": "six synthetic long-history cases, four arms, one run; measured before repository-only refactor",
+  "measured_at": "2026-10-12T02:41:58.382611+00:00",
+  "package_version": "0.9.0",
+  "case_count": 12,
+  "arms": [
+    "full",
+    "context_lexical",
+    "context_structured"
+  ],
+  "scope": "six reused diagnostics plus six controlled lookup boundary cases; synthetic templates, not an independent natural benchmark",
   "max_steps_per_task": 6,
-  "actual_api_calls": 109,
+  "actual_api_calls": 172,
   "unknown_usage_requests": 0,
+  "source_package_sha256": "220d5a1955f3429fa7f0a2ba3c43f6e71701b9478268b135a49a7198d2291bd4",
+  "data_sha256": "5b6a95d64f40bde1aa3484ecfb50ad1943121d09f56d2b98c91d95f5566029c8",
   "rates": {
     "hit": 0.003,
     "miss": 0.15,
     "output": 0.6
   },
-  "price_interpretation": "fixed reference-rate repricing, not an account invoice or current-price promise",
+  "price_interpretation": "fixed reference rates for comparable repricing, not an account invoice; no warm probes",
   "runs": [
     {
       "mode": "full",
-      "checkpoints": 6,
-      "task_success_rate": 1,
+      "checkpoints": 12,
+      "task_success_rate": 0.9166666666666666,
       "answer_accuracy": 1,
       "artifact_state_accuracy": 1,
-      "fresh_read_completed": 6,
-      "model_calls": 23,
-      "prompt_tokens": 808684,
-      "completion_tokens": 791,
-      "cache_hit_tokens": 586624,
-      "cache_miss_tokens": 222060,
-      "estimated_usd": 0.035543472,
+      "fresh_read_completed": 12,
+      "model_calls": 45,
+      "recovery_tool_calls": 0,
+      "prompt_tokens": 1573794,
+      "completion_tokens": 1734,
+      "cache_hit_tokens": 1131008,
+      "cache_miss_tokens": 442786,
+      "estimated_usd": 0.070851324,
       "latency": {
-        "samples": 6,
-        "mean_seconds": 5.035687999979321,
-        "p50_seconds": 4.8935804500069935,
-        "p95_seconds": 5.691468199969677
+        "samples": 12,
+        "mean_seconds": 4.531160500033972,
+        "p50_seconds": 4.796197100047721,
+        "p95_seconds": 5.185476765048224
       },
       "status_counts": {
-        "ok": 6
-      }
-    },
-    {
-      "mode": "full_contract",
-      "checkpoints": 6,
-      "task_success_rate": 1,
-      "answer_accuracy": 1,
-      "artifact_state_accuracy": 1,
-      "fresh_read_completed": 6,
-      "model_calls": 24,
-      "prompt_tokens": 851380,
-      "completion_tokens": 781,
-      "cache_hit_tokens": 627840,
-      "cache_miss_tokens": 223540,
-      "estimated_usd": 0.03588312,
-      "latency": {
-        "samples": 6,
-        "mean_seconds": 5.25656200000473,
-        "p50_seconds": 5.281516350005404,
-        "p95_seconds": 5.5998518749765935
+        "ok": 12
       },
-      "status_counts": {
-        "ok": 6
-      }
+      "constraint_violations": 1
     },
     {
-      "mode": "context",
-      "checkpoints": 6,
-      "task_success_rate": 0.5,
-      "answer_accuracy": 0.6666666666666666,
-      "artifact_state_accuracy": 0.8333333333333334,
-      "fresh_read_completed": 5,
-      "model_calls": 32,
-      "prompt_tokens": 154717,
-      "completion_tokens": 1645,
-      "cache_hit_tokens": 120064,
-      "cache_miss_tokens": 34653,
-      "estimated_usd": 0.0065451419999999995,
+      "mode": "context_lexical",
+      "checkpoints": 12,
+      "task_success_rate": 0.3333333333333333,
+      "answer_accuracy": 0.3333333333333333,
+      "artifact_state_accuracy": 0.6666666666666666,
+      "fresh_read_completed": 12,
+      "model_calls": 68,
+      "recovery_tool_calls": 42,
+      "prompt_tokens": 357161,
+      "completion_tokens": 3987,
+      "cache_hit_tokens": 280320,
+      "cache_miss_tokens": 76841,
+      "estimated_usd": 0.014759310000000001,
       "latency": {
-        "samples": 6,
-        "mean_seconds": 5.9764203499944415,
-        "p50_seconds": 6.208884749998106,
-        "p95_seconds": 7.134986399993068
-      },
-      "status_counts": {
-        "ok": 4,
-        "step_limit": 1,
-        "context_stalled": 1
-      }
-    },
-    {
-      "mode": "context_contract",
-      "checkpoints": 6,
-      "task_success_rate": 0.8333333333333334,
-      "answer_accuracy": 0.8333333333333334,
-      "artifact_state_accuracy": 0.8333333333333334,
-      "fresh_read_completed": 6,
-      "model_calls": 30,
-      "prompt_tokens": 142294,
-      "completion_tokens": 1381,
-      "cache_hit_tokens": 108928,
-      "cache_miss_tokens": 33366,
-      "estimated_usd": 0.006160283999999999,
-      "latency": {
-        "samples": 6,
-        "mean_seconds": 5.564251433306102,
-        "p50_seconds": 5.3815918500040425,
-        "p95_seconds": 7.214853424935427
+        "samples": 12,
+        "mean_seconds": 5.283129925014994,
+        "p50_seconds": 5.476305249991128,
+        "p95_seconds": 6.181925995035272
       },
       "status_counts": {
         "ok": 5,
-        "context_stalled": 1
-      }
+        "context_stalled": 5,
+        "step_limit": 2
+      },
+      "constraint_violations": 0
+    },
+    {
+      "mode": "context_structured",
+      "checkpoints": 12,
+      "task_success_rate": 0.8333333333333334,
+      "answer_accuracy": 0.8333333333333334,
+      "artifact_state_accuracy": 0.8333333333333334,
+      "fresh_read_completed": 12,
+      "model_calls": 59,
+      "recovery_tool_calls": 16,
+      "prompt_tokens": 286362,
+      "completion_tokens": 2928,
+      "cache_hit_tokens": 222080,
+      "cache_miss_tokens": 64282,
+      "estimated_usd": 0.012065339999999999,
+      "latency": {
+        "samples": 12,
+        "mean_seconds": 4.635975716667114,
+        "p50_seconds": 4.61987650001538,
+        "p95_seconds": 6.380937899944547
+      },
+      "status_counts": {
+        "ok": 12
+      },
+      "constraint_violations": 0
     }
+  ],
+  "reviewed_findings": [
+    "精准定位的两个失败均正确读取和定位了本轮来源：lookup-004 的 status_code=409 被写成 4.09，lookup-002 的 status_code=204 被写成 2.04。要求是保持数值大小并格式化为 409.00 和 204.00。检查通过但不能核验数值来源及变换，下一步应优先绑定原文字段并核验写入变换。",
+    "精准定位在新增六个边界情境全部通过，包括文本末尾目标；本轮没有恢复停滞或步骤耗尽。恢复调用明显减少，但 P95 比原方案略高，时延目标仍未达到，需要继续定位请求数及尾部耗时。",
+    "Full 的最终答案与文件状态均正确，其中一题重复事件先尝试 write_report(total=UNKNOWN)，handler 校验失败且未落盘，随后回答 UNKNOWN。按禁止写入请求的严格约束记为失败，因此完整任务为 11/12；答案准确率为 12/12。",
+    "全局历史检索仍可能混合多个版本，但本轮两个精准定位失败都使用正确的本轮来源，未观察到旧版本误选。相比立即改时序规则，本轮证据更支持先核验数值变换。"
   ]
 }
